@@ -30,10 +30,17 @@ import com.dji.sdk.sample.internal.view.DemoListView;
 import com.dji.sdk.sample.internal.view.PresentableView;
 import com.squareup.otto.Subscribe;
 
+
+
 import java.util.Stack;
 
 import dji.sdk.base.BaseProduct;
 import dji.sdk.sdkmanager.DJISDKManager;
+
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Channel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
         setupActionBar();
         contentFrameLayout = (FrameLayout) findViewById(R.id.framelayout_content);
         initParams();
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("172.20.10.3");
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
+
+        channel.queueDeclare("Test-Queue", false, false, false, null);
+        String message = "ASDHAKJSHDAJKSHDKAJHSD message";
+        channel.basicPublish("", "Test-Queue", null, message.toByteArray());
     }
 
     @Override
