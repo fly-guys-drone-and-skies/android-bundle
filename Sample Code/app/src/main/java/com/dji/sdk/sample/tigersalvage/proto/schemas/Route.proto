@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "schemas/Command.proto";
+
+message Route {
+  repeated Command actions = 1;
+}
