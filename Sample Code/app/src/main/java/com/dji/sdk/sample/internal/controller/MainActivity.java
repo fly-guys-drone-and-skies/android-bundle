@@ -31,8 +31,9 @@ import com.dji.sdk.sample.internal.view.PresentableView;
 import com.squareup.otto.Subscribe;
 
 
-
+import java.io.IOException;
 import java.util.Stack;
+import java.util.concurrent.TimeoutException;
 
 import dji.sdk.base.BaseProduct;
 import dji.sdk.sdkmanager.DJISDKManager;
@@ -68,12 +69,32 @@ public class MainActivity extends AppCompatActivity {
         initParams();
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("172.20.10.3");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+        Connection connection = null;
+        try {
+            connection = factory.newConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        Channel channel = null;
+        try {
+            channel = connection.createChannel();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        channel.queueDeclare("Test-Queue", false, false, false, null);
+        try {
+            channel.queueDeclare("Test-Queue", false, false, false, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String message = "ASDHAKJSHDAJKSHDKAJHSD message";
-        channel.basicPublish("", "Test-Queue", null, message.toByteArray());
+        try {
+            channel.basicPublish("", "Test-Queue", null, message.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
