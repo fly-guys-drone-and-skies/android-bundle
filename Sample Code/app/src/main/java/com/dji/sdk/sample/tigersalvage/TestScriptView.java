@@ -24,6 +24,7 @@ import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.dji.sdk.sample.internal.utils.VideoFeedView;
 import com.dji.sdk.sample.internal.view.PresentableView;
 import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.Command;
+import com.dji.sdk.sample.tigersalvage.Rabbit;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -74,6 +75,7 @@ public class TestScriptView extends LinearLayout implements PresentableView {
         this.ctx = context;
         //Malicious cast!
         this.mainActivity = (Activity) context;
+        new Rabbit().execute();
         initUI(context);
     }
 
