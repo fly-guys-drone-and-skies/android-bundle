@@ -28,7 +28,8 @@ import com.dji.sdk.sample.internal.model.ViewWrapper;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.dji.sdk.sample.internal.view.DemoListView;
 import com.dji.sdk.sample.internal.view.PresentableView;
-import com.dji.sdk.sample.tigersalvage.RabbitThread;
+import com.dji.sdk.sample.tigersalvage.RabbitListener;
+
 import com.squareup.otto.Subscribe;
 
 
@@ -38,11 +39,6 @@ import java.util.concurrent.TimeoutException;
 
 import dji.sdk.base.BaseProduct;
 import dji.sdk.sdkmanager.DJISDKManager;
-
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.AMQP.BasicProperties;
-import com.rabbitmq.client.Channel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private MenuItem searchViewItem;
     private MenuItem hintItem;
 
-    private RabbitThread rabbitThread;
+    private RabbitListener rabbitListener;
 
     //region Life-cycle
     @Override
@@ -69,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupActionBar();
         contentFrameLayout = (FrameLayout) findViewById(R.id.framelayout_content);
-        rabbitThread = new RabbitThread();
-        rabbitThread.start();
+        rabbitListener = new RabbitListener();
+        rabbitListener.start();
 
         initParams();
     }
