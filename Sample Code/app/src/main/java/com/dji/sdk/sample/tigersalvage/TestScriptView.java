@@ -71,23 +71,24 @@ public class TestScriptView extends LinearLayout implements PresentableView {
 
     public TestScriptView(Context context) {
         super(context);
-        this.ctx = context;
-        //Malicious cast!
-        this.mainActivity = (Activity) context;
-        initUI(context);
+        initTestScriptView(context);
     }
 
     public TestScriptView(Context context, @Nullable AttributeSet attrs) {
         super(context);
-        this.ctx = context;
-        this.mainActivity = (Activity) context;
-        initUI(context);
+        initTestScriptView(context);
     }
 
     public TestScriptView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context);
+        initTestScriptView(context);
+    }
+
+    private void initTestScriptView(Context context) {
         this.ctx = context;
+        //Malicious cast!
         this.mainActivity = (Activity) context;
+
         initUI(context);
     }
 
