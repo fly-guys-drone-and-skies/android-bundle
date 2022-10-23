@@ -67,34 +67,6 @@ public class MainActivity extends AppCompatActivity {
         setupActionBar();
         contentFrameLayout = (FrameLayout) findViewById(R.id.framelayout_content);
         initParams();
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("172.20.10.3");
-        Connection connection = null;
-        try {
-            connection = factory.newConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-            e.printStackTrace();
-        }
-        Channel channel = null;
-        try {
-            channel = connection.createChannel();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            channel.queueDeclare("Test-Queue", false, false, false, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String message = "ASDHAKJSHDAJKSHDKAJHSD message";
-        try {
-            channel.basicPublish("", "Test-Queue", null, message.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
