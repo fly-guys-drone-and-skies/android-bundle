@@ -28,6 +28,7 @@ import com.dji.sdk.sample.internal.model.ViewWrapper;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.dji.sdk.sample.internal.view.DemoListView;
 import com.dji.sdk.sample.internal.view.PresentableView;
+import com.dji.sdk.sample.tigersalvage.RabbitThread;
 import com.squareup.otto.Subscribe;
 
 
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private MenuItem searchViewItem;
     private MenuItem hintItem;
 
+    private RabbitThread rabbitThread;
+
     //region Life-cycle
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupActionBar();
         contentFrameLayout = (FrameLayout) findViewById(R.id.framelayout_content);
+        rabbitThread = new RabbitThread();
+        rabbitThread.start();
+
         initParams();
     }
 

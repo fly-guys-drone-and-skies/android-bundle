@@ -17,7 +17,7 @@ public class Rabbit extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("129.21.86.168");
+        factory.setHost("98.11.194.141");
         String message = "test message";
 
         try {

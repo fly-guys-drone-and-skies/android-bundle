@@ -185,9 +185,6 @@ public class MainContent extends RelativeLayout {
         mBtnBluetooth.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Rabbit().execute("message");
-                // RabbitThread rabbitThread = new RabbitThread();
-                // rabbitThread.start();
                 if (GeneralUtils.isFastDoubleClick()) {
                     return;
                 }
