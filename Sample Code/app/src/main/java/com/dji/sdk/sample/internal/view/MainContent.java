@@ -34,6 +34,8 @@ import com.dji.sdk.sample.internal.utils.DialogUtils;
 import com.dji.sdk.sample.internal.utils.GeneralUtils;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.squareup.otto.Subscribe;
+import com.dji.sdk.sample.tigersalvage.RabbitThread;
+import com.dji.sdk.sample.tigersalvage.Rabbit;
 
 import dji.sdk.sdkmanager.LDMModule;
 import dji.sdk.sdkmanager.LDMModuleType;
@@ -183,6 +185,9 @@ public class MainContent extends RelativeLayout {
         mBtnBluetooth.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                new Rabbit().execute("message");
+                // RabbitThread rabbitThread = new RabbitThread();
+                // rabbitThread.start();
                 if (GeneralUtils.isFastDoubleClick()) {
                     return;
                 }
