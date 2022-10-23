@@ -6,8 +6,13 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
 public class RabbitListener extends Thread {
-    private final static String QUEUE_NAME = "Test-Queue";
-    private final static String rabbitServerIP = "98.11.194.141";
+    private final String rabbitServerIP;
+    private final String queueName;
+
+    public RabbitListener(String rabbitServerIP, String queueName) {
+        this.rabbitServerIP = rabbitServerIP;
+        this.queueName = queueName;
+    }
 
     public void run() {
         try {
@@ -23,11 +28,11 @@ public class RabbitListener extends Thread {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+        channel.queueDeclare(queueName, false, false, false, null);
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
             System.out.println(" [x] Received '" + message + "'");
         };
-        channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> { });
+        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
     }
 }
