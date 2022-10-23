@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         setupActionBar();
         contentFrameLayout = (FrameLayout) findViewById(R.id.framelayout_content);
 
-
+        initRabbit();
         initParams();
     }
 
