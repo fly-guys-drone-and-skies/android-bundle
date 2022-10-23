@@ -65,7 +65,7 @@
         android:nextFocusUp="@id/edittext_bridge_ip"
         android:nextFocusLeft="@id/edittext_bridge_ip"
         android:maxLength="15"
-        android:hint="WSBridge IP"
+        android:hint="RabbitMQ IP"
         android:textAllCaps="false"
         android:maxLines="1"
         android:digits="0123456789.\n"
