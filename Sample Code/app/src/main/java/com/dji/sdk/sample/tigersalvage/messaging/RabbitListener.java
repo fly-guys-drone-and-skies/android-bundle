@@ -1,4 +1,4 @@
-package com.dji.sdk.sample.tigersalvage;
+package com.dji.sdk.sample.tigersalvage.messaging;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
