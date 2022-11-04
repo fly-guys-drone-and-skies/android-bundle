@@ -4,6 +4,8 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
+import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.Route;
+import com.dji.sdk.sample.tigersalvage.messaging.RouteParser;
 
 public class RabbitListener extends Thread {
     private final String rabbitServerIP;
@@ -27,12 +29,17 @@ public class RabbitListener extends Thread {
         factory.setHost(rabbitServerIP);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
-
         channel.queueDeclare(queueName, false, false, false, null);
+
+        consumeMessages(channel);
+    }
+
+    private void consumeMessages(Channel channel) {
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-            String message = new String(delivery.getBody(), "UTF-8");
+            RouteParser.parseRoute(delivery.getBody());
             System.out.println(" [x] Received '" + message + "'");
         };
+
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
     }
 }
