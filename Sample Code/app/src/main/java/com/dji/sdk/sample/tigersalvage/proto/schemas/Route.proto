@@ -1,7 +1,14 @@
 syntax = "proto3";
 
-import "schemas/Command.proto";
+option java_multiple_files = true;
+
+message RoutePoint {
+  double lat = 1;
+  double long = 2;
+  double alt = 3;
+  float speed = 4;
+}
 
 message Route {
-  repeated Command actions = 1;
+  repeated RoutePoint route = 1;
 }
