@@ -1,9 +1,12 @@
-package handlers;
+package com.dji.sdk.sample.tigersalvage;
 
-import com.greeting.Greet;
+import com.dji.sdk.sample.tigersalvage.Sender;
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import sender.Sender;
 
+import com.tiger.RoutePoint;
+import com.tiger.RouteArray;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.InflaterOutputStream;
 import dji.common.error.DJIError;
@@ -55,7 +58,7 @@ You can create and execute a waypoint mission using the waypoint mission operato
 You can read more about [Mission Operators](./API_Reference/Components/WaypointMission/DJIWaypointMission_DJIWaypointMissionOperator.html) and [Mission Control](./API_Reference/Components/MissionControl/DJIMissionControl.html) in their class documentation. You can also take a look at the sample app to learn how to use the new missions interfaces.
      */
 
-public class MissionHandler {
+public class missionHandler {
     //private
     public List<WaypointV2> waypointList = new ArrayList<>();
 
@@ -66,24 +69,24 @@ public class MissionHandler {
     private WaypointV2MissionTypes.MissionFinishedAction mFinishedAction = WaypointV2MissionTypes.MissionFinishedAction.NO_ACTION;
     private WaypointMissionHeadingMode mHeadingMode = WaypointMissionHeadingMode.AUTO;
     private WaypointV2MissionTypes.MissionGotoWaypointMode firstMode = WaypointV2MissionTypes.MissionGotoWaypointMode.SAFELY;
-    private WaypointV2ActionDialog mActionDialog;
+    //private WaypointV2ActionDialog mActionDialog;
     private List<WaypointV2Action> v2Actions;
     private boolean canUploadAction;
     private boolean canStartMission;
     private float mSpeed = 10.0f;
 
 
-    public MissionHandler() {
-        //create mission control
+    public missionHandler() {
+        //create mission control here and set to global
 
     }
 
     public void BuildWaypointArray(RouteArray route){
         List<WaypointV2> waypointList = new ArrayList<>();
 
-        for (Route r : route.getWaypointsList()){
+        for (RoutePoint r : route.getWaypointsList()){
             //lat long alt speed
-            //TODO add settings like auto heading and soft turns
+            //TODO verify
             WaypointV2 curr = new WaypointV2.Builder()
             .setAltitude(r.getAlt())
             .setCoordinate(new LocationCoordinate2D(r.getLat(), r.getLong()))
@@ -97,8 +100,8 @@ public class MissionHandler {
         }
     }
 
-    public void RouteProcessor(RouteArray route) {
-        this.waypointList = BuildWaypointArray(route);
+    public void routeProcessor(RouteArray route) {
+        BuildWaypointArray(route);
 
         if (waypointMissionBuilder == null) {
             waypointMissionBuilder = new WaypointMission.Builder()
@@ -143,14 +146,14 @@ public class MissionHandler {
     }
 
 
-    public void Send() {
+    /*public void Send() {
         try {
             Sender.send(compress(greeting.toByteArray()), "bae-exchange", "mission", "greeting");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
+    }*/
 
     //TODO add to interface or add to sender class
     public static byte[] compress(byte[] message) throws IOException {
@@ -160,7 +163,6 @@ public class MissionHandler {
         inflaterStream.finish();
 
         return byteStream.toByteArray();
+        
     }
-
-
 }

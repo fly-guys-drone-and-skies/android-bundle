@@ -28,9 +28,9 @@ import com.dji.sdk.sample.internal.model.ViewWrapper;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.dji.sdk.sample.internal.view.DemoListView;
 import com.dji.sdk.sample.internal.view.PresentableView;
-import com.dji.sdk.sample.tigersalvage.RabbitListener;
-import com.dji.sdk.sample.tigersalvage.RabbitPublisher;
 
+
+import com.dji.sdk.sample.tigersalvage.appController;
 import com.squareup.otto.Subscribe;
 
 
@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private MenuItem searchViewItem;
     private MenuItem hintItem;
 
-    private RabbitListener rabbitListener;
-    private RabbitPublisher rabbitPublisher;
-
     //region Life-cycle
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRabbit() {
-        String rabbitQueueName = "Test-Queue";
-        String rabbitServerIP = "98.11.194.141";
-
-        rabbitListener = new RabbitListener(rabbitServerIP, rabbitQueueName);
-        rabbitListener.start();
-        rabbitPublisher = new RabbitPublisher(rabbitServerIP, rabbitQueueName);
-        rabbitPublisher.start();
+        new appController();
     }
 
     @Override
