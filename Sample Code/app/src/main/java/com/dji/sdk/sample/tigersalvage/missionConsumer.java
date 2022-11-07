@@ -1,25 +1,29 @@
 package com.dji.sdk.sample.tigersalvage;
 
+import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
-import org.apache.commons.io.output.ByteArrayOutputStream;
+import com.rabbitmq.client.Delivery;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 import java.util.zip.InflaterOutputStream;
 
+import com.tiger.RoutePoint;
+import com.tiger.RouteArray;
+
+
 public class missionConsumer extends Thread{
     
     Channel channel;
-    String ex;
-    MissionHandler handler;
-    public missionConsumer(Connection connection, String exch) {
-        Channel channel = connection.createChannel();
-        this.queueName = queueName;
+    String queue;
+    missionHandler handler;
+    public missionConsumer(Connection connection) throws IOException {
+        this.channel = connection.createChannel();
+        this.queue = "app";
         handler = new missionHandler();
-
     }
 
     public void run() {
@@ -32,7 +36,7 @@ public class missionConsumer extends Thread{
 
     private void consume() throws IOException, TimeoutException {
         
-        channel.basicConsume(ex, true, (consumerTag, message) -> {
+        channel.basicConsume("app", true, (consumerTag, message) -> {
 
             String type = message.getProperties().getType();
             //TODO
@@ -57,9 +61,9 @@ public class missionConsumer extends Thread{
                     break;
             }
 
-
-         });
+         }, consumerTag -> {});
     }
+
     public byte[] inflate(byte[] message) throws IOException {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         InflaterOutputStream inflaterStream = new InflaterOutputStream(byteStream);
@@ -68,6 +72,4 @@ public class missionConsumer extends Thread{
     
         return byteStream.toByteArray();
     }
-
-
 }
