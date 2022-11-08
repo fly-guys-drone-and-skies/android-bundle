@@ -1,7 +1,6 @@
 package com.dji.sdk.sample.tigersalvage;
 
 import com.dji.sdk.sample.tigersalvage.Sender;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import com.tiger.RoutePoint;
 import com.tiger.RouteArray;
@@ -78,7 +77,10 @@ public class missionHandler {
 
     public missionHandler() {
         //create mission control here and set to global
-
+        operator = DJISDKManager.
+            getInstance().
+            getMissionControl().
+            getWaypointMissionV2Operator();
     }
 
     public void BuildWaypointArray(RouteArray route){
