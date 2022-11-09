@@ -5,3 +5,5 @@ tmp/
 
 *.class
 build
+
+Sample\ Code/app/src/main/java/com/dji/sdk/sample/tigersalvage/proto/schemas/generated/
