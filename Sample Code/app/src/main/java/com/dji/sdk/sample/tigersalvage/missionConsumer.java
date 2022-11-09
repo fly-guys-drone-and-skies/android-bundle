@@ -11,9 +11,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 import java.util.zip.InflaterOutputStream;
 
-import com.tiger.RoutePoint;
-import com.tiger.RouteArray;
-
+import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RoutePoint;
+import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RouteArray;
 
 public class missionConsumer extends Thread{
     

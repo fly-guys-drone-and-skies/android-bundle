@@ -16,7 +16,7 @@ import com.dji.sdk.sample.internal.controller.MainActivity;
 import com.dji.sdk.sample.internal.model.GroupHeader;
 import com.dji.sdk.sample.internal.model.GroupItem;
 import com.dji.sdk.sample.internal.model.ListItem;
-import com.dji.sdk.sample.tigersalvage.TestScriptView;
+import com.dji.sdk.sample.tigersalvage.AppView;
 import com.squareup.otto.Subscribe;
 
 /**
@@ -50,7 +50,7 @@ public class DemoListView extends FrameLayout {
         ListItem.ListBuilder builder = new ListItem.ListBuilder();
         builder.addGroup(R.string.test_script,
                 false,
-                new GroupItem(R.string.test_script, TestScriptView.class));
+                new GroupItem(R.string.test_script, AppView.class));
 
         // Set-up ExpandableListView
         expandableListView = (ExpandableListView) view.findViewById(R.id.expandable_list);

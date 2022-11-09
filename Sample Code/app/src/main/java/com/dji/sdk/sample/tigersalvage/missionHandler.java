@@ -1,9 +1,10 @@
 package com.dji.sdk.sample.tigersalvage;
 
+import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.Route;
 import com.dji.sdk.sample.tigersalvage.Sender;
 
-import com.tiger.RoutePoint;
-import com.tiger.RouteArray;
+import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RoutePoint;
+import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RouteArray;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
