@@ -13,12 +13,16 @@ import com.dji.sdk.sample.tigersalvage.Sender;
 public class appController {
 
     public appController(){
-        initMessaging();
+        try {
+            initMessaging();
+        } catch(IOException | TimeoutException e) {
+            System.out.println(e.getMessage());
+        }
         initSDK();
     }
 
     private void initSDK() {
-
+        return; // Should be used to initisialize SDK by itself.
     }
 
     void initMessaging() throws IOException, TimeoutException {
