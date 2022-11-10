@@ -17,7 +17,6 @@ import dji.common.mission.waypoint.WaypointMission;
 import dji.common.mission.waypoint.Waypoint;
 import dji.common.mission.waypoint.WaypointMissionHeadingMode;
 import dji.common.mission.waypointv2.Action.WaypointV2Action;
-import dji.common.mission.waypointv2.WaypointV2;
 import dji.common.mission.waypointv2.WaypointV2Mission;
 import dji.common.mission.waypointv2.WaypointV2MissionDownloadEvent;
 import dji.common.mission.waypointv2.WaypointV2MissionExecutionEvent;
@@ -31,7 +30,7 @@ import dji.sdk.base.BaseProduct;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.flightcontroller.RTK;
 import dji.sdk.mission.MissionControl;
-import dji.sdk.mission.waypoint.WaypointV2MissionOperator;
+import dji.sdk.mission.waypoint.WaypointMissionOperator;
 import dji.sdk.mission.waypoint.WaypointV2MissionOperatorListener;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
@@ -61,13 +60,10 @@ You can read more about [Mission Operators](./API_Reference/Components/WaypointM
      */
 
 public class missionHandler {
-    //private
-    public List<WaypointV2> waypointList = new ArrayList<>();
-
     public static WaypointMission.Builder waypointMissionBuilder;
 
     private FlightController mFlightController;
-    private WaypointV2MissionOperator operator;
+    private WaypointMissionOperator operator;
     private WaypointV2MissionTypes.MissionFinishedAction mFinishedAction = WaypointV2MissionTypes.MissionFinishedAction.NO_ACTION;
     private WaypointMissionHeadingMode mHeadingMode = WaypointMissionHeadingMode.AUTO;
     private WaypointV2MissionTypes.MissionGotoWaypointMode firstMode = WaypointV2MissionTypes.MissionGotoWaypointMode.SAFELY;
@@ -83,36 +79,36 @@ public class missionHandler {
         operator = DJISDKManager.
             getInstance().
             getMissionControl().
-            getWaypointMissionV2Operator();
+            getWaypointMissionOperator();
     }
 
-    public ArrayList<Waypoint> BuildWaypointArray(RouteArray route){
+    public List<Waypoint> BuildWaypointArray(RouteArray route){
         List<Waypoint> waypointList = new ArrayList<>();
 
         for (RoutePoint routePoint : route.getWaypointsList()){
             Waypoint waypoint = new Waypoint(routePoint.getLat(), routePoint.getLong(), routePoint.getAlt());
-            waypoint.speed = routePoint.getSpeed;
+            waypoint.speed = routePoint.getSpeed();
 
-            this.waypointList.add(curr);
+            waypointList.add(waypoint);
         }
 
         return waypointList;
     }
 
     public void routeProcessor(RouteArray route) {
-        BuildWaypointArray(route);
+        List<Waypoint> waypointList = BuildWaypointArray(route);;
 
         if (waypointMissionBuilder == null) {
-            waypointMissionBuilder = new WaypointMission.Builder()
-                .headingMode(mHeadingMode)
-                .waypointList(waypointList)
-                .build();
-            
-                //might need to make new waypoint mission and build into that var 
-        } //else new flight is being uploaded - handle it 
+            waypointMissionBuilder = new WaypointMission.Builder();
+            //might need to make new waypoint mission and build into that var
+        } //else new flight is being uploaded - handle it
+
+        WaypointMission waypointMission = waypointMissionBuilder.headingMode(mHeadingMode).
+            waypointList(waypointList).
+            build();
 
         //run check params but dont know where that is - might be redundant 
-        operator.loadMission(waypointMissionBuilder);
+        operator.loadMission(waypointMission);
         
         //at this state, mission operator is verifying mission
         //once operator.getCurrentState().equals(WaypointV2MissionState.READY_TO_UPLOAD)

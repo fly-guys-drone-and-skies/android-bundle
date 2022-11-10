@@ -7,7 +7,7 @@ option java_multiple_files = true;
 message RoutePoint {
   double lat = 1;
   double long = 2;
-  double alt = 3;
+  float alt = 3;
   float speed = 4;
 }
 
