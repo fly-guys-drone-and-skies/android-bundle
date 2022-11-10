@@ -13,6 +13,7 @@ import dji.common.error.DJIError;
 import dji.common.error.DJIWaypointV2Error;
 import dji.common.flightcontroller.FlightControllerState;
 import dji.common.flightcontroller.RTKState;
+import dji.common.mission.waypoint.WaypointMission;
 import dji.common.mission.waypoint.WaypointMissionHeadingMode;
 import dji.common.mission.waypointv2.Action.WaypointV2Action;
 import dji.common.mission.waypointv2.WaypointV2;
@@ -62,7 +63,7 @@ public class missionHandler {
     //private
     public List<WaypointV2> waypointList = new ArrayList<>();
 
-    public static WaypointV2Mission.Builder waypointMissionBuilder;
+    public static WaypointMission.Builder waypointMissionBuilder;
 
     private FlightController mFlightController;
     private WaypointV2MissionOperator operator;
