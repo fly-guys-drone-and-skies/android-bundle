@@ -14,6 +14,7 @@ import dji.common.error.DJIWaypointV2Error;
 import dji.common.flightcontroller.FlightControllerState;
 import dji.common.flightcontroller.RTKState;
 import dji.common.mission.waypoint.WaypointMission;
+import dji.common.mission.waypoint.Waypoint;
 import dji.common.mission.waypoint.WaypointMissionHeadingMode;
 import dji.common.mission.waypointv2.Action.WaypointV2Action;
 import dji.common.mission.waypointv2.WaypointV2;
@@ -85,23 +86,17 @@ public class missionHandler {
             getWaypointMissionV2Operator();
     }
 
-    public void BuildWaypointArray(RouteArray route){
-        List<WaypointV2> waypointList = new ArrayList<>();
+    public ArrayList<Waypoint> BuildWaypointArray(RouteArray route){
+        List<Waypoint> waypointList = new ArrayList<>();
 
-        for (RoutePoint r : route.getWaypointsList()){
-            //lat long alt speed
-            //TODO verify
-            WaypointV2 curr = new WaypointV2.Builder()
-            .setAltitude(r.getAlt())
-            .setCoordinate(new LocationCoordinate2D(r.getLat(), r.getLong()))
-            //.setFlightPathMode(WaypointV2MissionTypes.WaypointV2FlightPathMode.GOTO_POINT_STRAIGHT_LINE_AND_STOP)
-            //.setHeadingMode(WaypointV2MissionTypes.WaypointV2HeadingMode.AUTO)
-            //
-            .setAutoFlightSpeed(r.getSpeed())
-            .build();
+        for (RoutePoint routePoint : route.getWaypointsList()){
+            Waypoint waypoint = new Waypoint(routePoint.getLat(), routePoint.getLong(), routePoint.getAlt());
+            waypoint.speed = routePoint.getSpeed;
 
             this.waypointList.add(curr);
         }
+
+        return waypointList;
     }
 
     public void routeProcessor(RouteArray route) {
@@ -110,8 +105,6 @@ public class missionHandler {
         if (waypointMissionBuilder == null) {
             waypointMissionBuilder = new WaypointMission.Builder()
                 .headingMode(mHeadingMode)
-                .autoFlightSpeed(mSpeed)
-                .maxFlightSpeed(mSpeed)
                 .waypointList(waypointList)
                 .build();
             
