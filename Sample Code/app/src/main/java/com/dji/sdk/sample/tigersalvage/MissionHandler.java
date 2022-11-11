@@ -1,5 +1,6 @@
 package com.dji.sdk.sample.tigersalvage;
 
+import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.Route;
 import com.dji.sdk.sample.tigersalvage.Sender;
 
@@ -25,7 +26,7 @@ import dji.common.mission.waypointv2.WaypointV2MissionTypes;
 import dji.common.mission.waypointv2.WaypointV2MissionUploadEvent;
 import dji.common.model.LocationCoordinate2D;
 import dji.common.useraccount.UserAccountState;
-import dji.common.util.CommonCallbacks;
+import dji.common.util.CommonCallbacks.CompletionCallback;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.flightcontroller.RTK;
@@ -59,7 +60,7 @@ You can create and execute a waypoint mission using the waypoint mission operato
 You can read more about [Mission Operators](./API_Reference/Components/WaypointMission/DJIWaypointMission_DJIWaypointMissionOperator.html) and [Mission Control](./API_Reference/Components/MissionControl/DJIMissionControl.html) in their class documentation. You can also take a look at the sample app to learn how to use the new missions interfaces.
      */
 
-public class missionHandler {
+public class MissionHandler {
     public static WaypointMission.Builder waypointMissionBuilder;
 
     private FlightController mFlightController;
@@ -73,13 +74,18 @@ public class missionHandler {
     private boolean canStartMission;
     private float mSpeed = 10.0f;
 
+    private CompletionCallback completionCallback;
 
-    public missionHandler() {
+
+    public MissionHandler() {
         //create mission control here and set to global
-        operator = DJISDKManager.
-            getInstance().
-            getMissionControl().
-            getWaypointMissionOperator();
+        operator = MissionControl.getInstance().getWaypointMissionOperator();
+        completionCallback = (DJIError err) -> {
+            if (err != null) {
+                ToastUtils.setResultToToast(err.toString());
+                System.out.println(err);
+            }
+        };
     }
 
     public List<Waypoint> BuildWaypointArray(RouteArray route){
@@ -96,19 +102,20 @@ public class missionHandler {
     }
 
     public void routeProcessor(RouteArray route) {
-        List<Waypoint> waypointList = BuildWaypointArray(route);
-
         if (waypointMissionBuilder == null) {
             waypointMissionBuilder = new WaypointMission.Builder();
             //might need to make new waypoint mission and build into that var
         } //else new flight is being uploaded - handle it
 
-        WaypointMission waypointMission = waypointMissionBuilder.headingMode(mHeadingMode).
-            waypointList(waypointList).
-            build();
+        ;
 
         //run check params but dont know where that is - might be redundant 
-        System.out.println(operator.loadMission(waypointMission));
+        operator.loadMission(
+            waypointMissionBuilder.headingMode(mHeadingMode).
+            waypointList(BuildWaypointArray(route)).
+            build()
+        );
+        ToastUtils.setResultToToast(operator.getCurrentState().toString());
 
         //at this state, mission operator is verifying mission
         //once operator.getCurrentState().equals(WaypointV2MissionState.READY_TO_UPLOAD)
@@ -122,18 +129,30 @@ public class missionHandler {
 
 
     public void startFlight(){
-        System.out.println(operator.getLoadedMission());
-        System.out.println(operator.getCurrentState());
-        //operator.startMission()
+        operator.uploadMission(
+            (DJIError uploadError) -> {
+                if (uploadError != null) {
+                    ToastUtils.setResultToToast(uploadError.toString());
+                    System.out.println(uploadError);
+                }
+                else {
+                    ToastUtils.setResultToToast(operator.getCurrentState().toString());
+                    operator.startMission(completionCallback);
+                }
+            }
+        );
+        ToastUtils.setResultToToast(operator.getCurrentState().toString());
     }
 
     public void endFlight(){
-        //operator.stopMission()
+        operator.stopMission(completionCallback);
+        ToastUtils.setResultToToast(operator.getCurrentState().toString());
     }
 
     public void pauseFlight(){
         //if executing, 
-        //operator.interruptMission()
+        operator.pauseMission(completionCallback);
+        ToastUtils.setResultToToast(operator.getCurrentState().toString());
     }
 
     public void resumeFlight(){
