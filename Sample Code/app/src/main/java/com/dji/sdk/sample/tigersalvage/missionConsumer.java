@@ -18,11 +18,11 @@ public class missionConsumer extends Thread{
     
     Channel channel;
     String queue;
-    missionHandler handler;
+    MissionHandler handler;
     public missionConsumer(Connection connection) throws IOException {
         this.channel = connection.createChannel();
         this.queue = "app";
-        handler = new missionHandler();
+        handler = new MissionHandler();
     }
 
     public void run() {
