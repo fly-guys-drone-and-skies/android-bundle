@@ -26,7 +26,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dji.sdk.sample.R;
-import com.dji.sdk.sample.demo.bluetooth.BluetoothView;
 import com.dji.sdk.sample.internal.controller.DJISampleApplication;
 import com.dji.sdk.sample.internal.controller.MainActivity;
 import com.dji.sdk.sample.internal.model.ViewWrapper;
@@ -58,7 +57,6 @@ import dji.sdk.base.BaseComponent;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.products.Aircraft;
 import dji.sdk.realname.AppActivationManager;
-import dji.sdk.sdkmanager.BluetoothProductConnector;
 import dji.sdk.sdkmanager.DJISDKInitEvent;
 import dji.sdk.sdkmanager.DJISDKManager;
 import dji.sdk.useraccount.UserAccountManager;
@@ -80,8 +78,6 @@ public class MainContent extends RelativeLayout {
             Manifest.permission.ACCESS_FINE_LOCATION, // Maps
             Manifest.permission.CHANGE_WIFI_STATE, // Changing between WIFI and USB connection
             Manifest.permission.WRITE_EXTERNAL_STORAGE, // Log files
-            Manifest.permission.BLUETOOTH, // Bluetooth connected products
-            Manifest.permission.BLUETOOTH_ADMIN, // Bluetooth connected products
             Manifest.permission.READ_EXTERNAL_STORAGE, // Log files
             Manifest.permission.READ_PHONE_STATE, // Device UUID accessed upon registration
             Manifest.permission.RECORD_AUDIO // Speaker accessory
@@ -99,29 +95,26 @@ public class MainContent extends RelativeLayout {
         }
     };
     private ProgressBar progressBar;
-    private static BluetoothProductConnector connector = null;
     private TextView mTextConnectionStatus;
     private TextView mTextProduct;
     private TextView mTextModelAvailable;
     private Button mBtnRegisterApp;
     private Button getmBtnRegisterAppForLDM;
     private Button mBtnOpen;
-    private Button mBtnBluetooth;
+    private Button mBtnStart;
     private ViewWrapper componentList =
             new ViewWrapper(new DemoListView(getContext()), R.string.activity_component_list);
-    private ViewWrapper bluetoothView;
     private EditText mBridgeModeEditText;
     private CheckBox mCheckboxFirmware;
     private Handler mHandler;
     private Handler mHandlerUI;
-    private HandlerThread mHandlerThread = new HandlerThread("Bluetooth");
+    private HandlerThread mHandlerThread = new HandlerThread("Start");
 
     private BaseProduct mProduct;
     private DJIKey firmwareKey;
     private KeyListener firmwareVersionUpdater;
     private boolean hasStartedFirmVersionListener = false;
     private AtomicBoolean hasAppActivationListenerStarted = new AtomicBoolean(false);
-    private static final int MSG_UPDATE_BLUETOOTH_CONNECTOR = 0;
     private static final int MSG_INFORM_ACTIVATION = 1;
     private static final int ACTIVATION_DALAY_TIME = 3000;
     private AppActivationState.AppActivationStateListener appActivationStateListener;
@@ -153,10 +146,10 @@ public class MainContent extends RelativeLayout {
         getmBtnRegisterAppForLDM = (Button) findViewById(R.id.btn_registerAppForLDM);
         mBtnOpen = (Button) findViewById(R.id.btn_open);
         mBridgeModeEditText = (EditText) findViewById(R.id.edittext_bridge_ip);
-        mBtnBluetooth = (Button) findViewById(R.id.btn_bluetooth);
+        mBtnStart = (Button) findViewById(R.id.btn_start);
         mCheckboxFirmware = (CheckBox) findViewById(R.id.checkbox_firmware);
 
-        //mBtnBluetooth.setEnabled(false);
+        //mBtnStart.setEnabled(false);
 
 
         mBtnRegisterApp.setOnClickListener(new OnClickListener() {
@@ -182,7 +175,7 @@ public class MainContent extends RelativeLayout {
                 DJISampleApplication.getEventBus().post(componentList);
             }
         });
-        mBtnBluetooth.setOnClickListener(new OnClickListener() {
+        mBtnStart.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (GeneralUtils.isFastDoubleClick()) {
@@ -249,42 +242,6 @@ public class MainContent extends RelativeLayout {
     @Override
     protected void onAttachedToWindow() {
         Log.d(TAG, "Comes into the onAttachedToWindow");
-        if (!isInEditMode()) {
-            refreshSDKRelativeUI();
-            mHandlerThread.start();
-            final long currentTime = System.currentTimeMillis();
-            mHandler = new Handler(mHandlerThread.getLooper()) {
-                @Override
-                public void handleMessage(Message msg) {
-                    switch (msg.what) {
-                        case MSG_UPDATE_BLUETOOTH_CONNECTOR:
-                            //connected = DJISampleApplication.getBluetoothConnectStatus();
-                            connector = DJISampleApplication.getBluetoothProductConnector();
-
-                            if (connector != null) {
-                                mBtnBluetooth.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mBtnBluetooth.setEnabled(true);
-                                    }
-                                });
-                                return;
-                            } else if ((System.currentTimeMillis() - currentTime) >= 5000) {
-                                DialogUtils.showDialog(getContext(),
-                                                       "Fetch Connector failed, reboot if you want to connect the Bluetooth");
-                                return;
-                            } else if (connector == null) {
-                                sendDelayMsg(0, MSG_UPDATE_BLUETOOTH_CONNECTOR);
-                            }
-                            break;
-                        case MSG_INFORM_ACTIVATION:
-                            loginToActivationIfNeeded();
-                            break;
-                    }
-                }
-            };
-            mHandlerUI = new Handler(Looper.getMainLooper());
-        }
         super.onAttachedToWindow();
     }
 
