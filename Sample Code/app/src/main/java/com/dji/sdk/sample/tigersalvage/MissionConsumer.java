@@ -1,6 +1,5 @@
 package com.dji.sdk.sample.tigersalvage;
 
-import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -39,17 +38,13 @@ public class MissionConsumer extends Thread{
         channel.basicConsume("mission-app", true, (consumerTag, message) -> {
 
             String type = message.getProperties().getType();
-            ToastUtils.setResultToToast(type);
             //TODO
             //String id = message.getProps.get Something
             //If id == app id, continue. Else drop 
 
             switch (type) {
                 case "dune":
-                    RouteArray ra = RouteArray.newBuilder().mergeFrom(inflate(message.getBody())).build();
-                    // ToastUtils.setResultToToast(ra.toString());
-                    // ToastUtils.setResultToToast("hello");
-                    handler.routeProcessor(ra);
+                    handler.routeProcessor(RouteArray.newBuilder().mergeFrom(inflate(message.getBody())).build());
                     break; 
                 case "start":
                     handler.startFlight();

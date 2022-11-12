@@ -23,14 +23,10 @@ public class Messenger extends Thread {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("98.11.194.141");
         Connection connection = factory.newConnection();
-        // System.out.println(connection);
-        // System.out.println("hi\n\n\n");
         ToastUtils.setResultToToast(connection.toString());
-        // ToastUtils.setResultToToast("hi");
-
 
         Sender.setChannel(connection);
-        //mission
+
         new MissionConsumer(connection).start();
     }
 }
