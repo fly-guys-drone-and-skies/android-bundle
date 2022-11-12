@@ -16,6 +16,8 @@ import dji.common.flightcontroller.FlightControllerState;
 import dji.common.flightcontroller.RTKState;
 import dji.common.mission.waypoint.WaypointMission;
 import dji.common.mission.waypoint.Waypoint;
+import dji.common.mission.waypoint.WaypointMissionFlightPathMode;
+import dji.common.mission.waypoint.WaypointMissionFinishedAction;
 import dji.common.mission.waypoint.WaypointMissionHeadingMode;
 import dji.common.mission.waypointv2.Action.WaypointV2Action;
 import dji.common.mission.waypointv2.WaypointV2Mission;
@@ -91,17 +93,28 @@ public class MissionHandler {
     public List<Waypoint> BuildWaypointArray(RouteArray route){
         List<Waypoint> waypointList = new ArrayList<>();
 
+        // System.out.println(route.getWaypointsList().toString());
         for (RoutePoint routePoint : route.getWaypointsList()){
-            Waypoint waypoint = new Waypoint(routePoint.getLat(), routePoint.getLong(), routePoint.getAlt());
-            waypoint.speed = routePoint.getSpeed();
+            // System.out.println(routePoint.toString());
+            Waypoint waypoint = new Waypoint(routePoint.getLat(), routePoint.getLong(), 10f);
+            // waypoint.speed = routePoint.getSpeed();
+            waypoint.speed = 10f;
+            System.out.println(waypoint.coordinate);
+            System.out.println(waypoint.altitude);
+            System.out.println(waypoint.speed);
+            // System.out.println("speed\n");
+            // System.out.println(routePoint.getSpeed());
 
             waypointList.add(waypoint);
         }
 
+        System.out.println("filn");
+        System.out.println(waypointList.toString());
         return waypointList;
     }
 
     public void routeProcessor(RouteArray route) {
+        System.out.println("rp\n\n\n");
         if (waypointMissionBuilder == null) {
             waypointMissionBuilder = new WaypointMission.Builder();
             //might need to make new waypoint mission and build into that var
@@ -110,11 +123,40 @@ public class MissionHandler {
         ;
 
         //run check params but dont know where that is - might be redundant 
-        operator.loadMission(
-            waypointMissionBuilder.headingMode(mHeadingMode).
-            waypointList(BuildWaypointArray(route)).
-            build()
-        );
+        List<Waypoint> wplst = BuildWaypointArray(route);
+        waypointMissionBuilder.headingMode(mHeadingMode).
+            autoFlightSpeed(10f).
+            maxFlightSpeed(15f).
+            finishedAction(WaypointMissionFinishedAction.GO_HOME).
+            setExitMissionOnRCSignalLostEnabled(true).
+            flightPathMode(WaypointMissionFlightPathMode.CURVED);
+        for (Waypoint wp : wplst) {
+            waypointMissionBuilder.addWaypoint(wp);
+        }
+
+        System.out.println(waypointMissionBuilder.calculateTotalDistance());
+        waypointMissionBuilder.waypointCount(wplst.size());
+        WaypointMission wpm = waypointMissionBuilder.build();
+        System.out.println("mission\n");
+        System.out.println(wpm.toString());
+        DJIError loadError = wpm.checkParameters();
+        System.out.println("check\n");
+        if (loadError != null) {
+            System.out.println("fail\n");
+            System.out.println(loadError.getDescription());
+        }
+        else {
+            System.out.println("load\n");
+        }
+        DJIError error = operator.loadMission(wpm);
+        if (error != null) {
+            System.out.println(error.getDescription());
+        }
+        else {
+        System.out.println(operator.getLoadedMission().toString());
+        }
+
+        System.out.println(operator.getLoadedMission().toString());
         ToastUtils.setResultToToast(operator.getCurrentState().toString());
 
         //at this state, mission operator is verifying mission
@@ -129,6 +171,8 @@ public class MissionHandler {
 
 
     public void startFlight(){
+        ToastUtils.setResultToToast(operator.getCurrentState().toString());
+        ToastUtils.setResultToToast(operator.getLoadedMission().toString());
         operator.uploadMission(
             (DJIError uploadError) -> {
                 if (uploadError != null) {

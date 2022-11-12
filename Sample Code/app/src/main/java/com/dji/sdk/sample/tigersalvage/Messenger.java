@@ -1,5 +1,6 @@
 package com.dji.sdk.sample.tigersalvage;
 
+import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
@@ -20,7 +21,13 @@ public class Messenger extends Thread {
 
     private void initMessaging() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("98.11.194.141");
         Connection connection = factory.newConnection();
+        // System.out.println(connection);
+        // System.out.println("hi\n\n\n");
+        ToastUtils.setResultToToast(connection.toString());
+        // ToastUtils.setResultToToast("hi");
+
 
         Sender.setChannel(connection);
         //mission
