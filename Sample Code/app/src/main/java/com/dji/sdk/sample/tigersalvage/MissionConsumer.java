@@ -14,7 +14,7 @@ import java.util.zip.InflaterOutputStream;
 import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RoutePoint;
 import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RouteArray;
 
-public class missionConsumer extends Thread{
+public class MissionConsumer extends Thread{
     
     Channel channel;
     String queue;

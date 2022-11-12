@@ -4,6 +4,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 import com.dji.sdk.sample.tigersalvage.Sender;
+import com.dji.sdk.sample.tigersalvage.MissionConsumer;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -23,6 +24,6 @@ public class Messenger extends Thread {
 
         Sender.setChannel(connection);
         //mission
-        new missionConsumer(connection);
+        new MissionConsumer(connection).start();
     }
 }
