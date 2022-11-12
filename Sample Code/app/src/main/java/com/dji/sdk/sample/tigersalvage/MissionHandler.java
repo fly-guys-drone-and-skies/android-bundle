@@ -122,14 +122,6 @@ public class MissionHandler {
         ;
 
         //run check params but dont know where that is - might be redundant 
-        waypointMissionBuilder.headingMode(mHeadingMode).
-            autoFlightSpeed(10f).
-            maxFlightSpeed(15f).
-            finishedAction(WaypointMissionFinishedAction.GO_HOME).
-            setExitMissionOnRCSignalLostEnabled(true).
-            flightPathMode(WaypointMissionFlightPathMode.CURVED).
-            waypointList(BuildWaypointArray(route));
-
         DJIError loadError = operator.loadMission(
             waypointMissionBuilder.
             headingMode(mHeadingMode).
@@ -138,16 +130,18 @@ public class MissionHandler {
             finishedAction(WaypointMissionFinishedAction.GO_HOME).
             setExitMissionOnRCSignalLostEnabled(true).
             flightPathMode(WaypointMissionFlightPathMode.CURVED).
+            waypointCount(route.getWaypointsList().size()).
             waypointList(BuildWaypointArray(route)).
             build()
         );
 
         if (loadError != null) {
             System.out.println(loadError.getDescription());
+            ToastUtils.setResultToToast(loadError.getDescription());
         }
         else {
             System.out.println(operator.getLoadedMission().toString());
-            ToastUtils.setResultToToast(operator.getLoadedMission().toString());
+            ToastUtils.setResultToToast(operator.getLoadedMission().getWaypointList().toString());
         }
 
         ToastUtils.setResultToToast(operator.getCurrentState().toString());
@@ -167,8 +161,8 @@ public class MissionHandler {
         operator.uploadMission(
             (DJIError uploadError) -> {
                 if (uploadError != null) {
-                    ToastUtils.setResultToToast(uploadError.toString());
-                    System.out.println(uploadError);
+                    ToastUtils.setResultToToast(uploadError.getDescription());
+                    System.out.println(uploadError.getDescription());
                 }
                 else {
                     ToastUtils.setResultToToast(operator.getCurrentState().toString());
