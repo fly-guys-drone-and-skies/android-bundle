@@ -22,7 +22,7 @@ public class MissionConsumer extends Thread{
     public MissionConsumer(Connection connection) throws IOException {
         this.channel = connection.createChannel();
         this.queue = "app";
-        handler = new MissionHandler();
+        handler = MissionHandler.getInstance();
     }
 
     public void run() {

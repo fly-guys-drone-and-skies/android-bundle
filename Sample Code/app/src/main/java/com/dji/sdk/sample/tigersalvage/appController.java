@@ -10,7 +10,7 @@ import com.dji.sdk.sample.tigersalvage.Messenger;
 public class appController {
 
     public appController(){
-        //new Messenger().start();
+        new Messenger().start();
         initSDK();
     }
 

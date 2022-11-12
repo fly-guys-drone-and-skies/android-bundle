@@ -1,5 +1,5 @@
 package com.dji.sdk.sample.internal.view;
-import com.dji.sdk.sample.tigersalvage.Messenger;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -162,7 +162,8 @@ public class MainContent extends RelativeLayout {
         getmBtnRegisterAppForLDM.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Messenger().start();
+                isregisterForLDM = true;
+                checkAndRequestPermissions();
             }
         });
         mBtnOpen.setOnClickListener(new OnClickListener() {
@@ -180,7 +181,7 @@ public class MainContent extends RelativeLayout {
                 if (GeneralUtils.isFastDoubleClick()) {
                     return;
                 }
-                MissionHandler missionHandler = new MissionHandler();
+                MissionHandler missionHandler = MissionHandler.getInstance();
                 missionHandler.startFlight();
             }
         });

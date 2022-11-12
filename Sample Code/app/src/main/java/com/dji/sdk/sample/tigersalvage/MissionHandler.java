@@ -63,6 +63,8 @@ You can read more about [Mission Operators](./API_Reference/Components/WaypointM
      */
 
 public class MissionHandler {
+    private static MissionHandler missionHandler;
+
     public static WaypointMission.Builder waypointMissionBuilder;
 
     private FlightController mFlightController;
@@ -79,7 +81,15 @@ public class MissionHandler {
     private CompletionCallback completionCallback;
 
 
-    public MissionHandler() {
+    public static MissionHandler getInstance() {
+        if (missionHandler == null) {
+            missionHandler = new MissionHandler();
+        }
+
+        return missionHandler;
+    }
+
+    private MissionHandler() {
         //create mission control here and set to global
         operator = MissionControl.getInstance().getWaypointMissionOperator();
         completionCallback = (DJIError err) -> {
