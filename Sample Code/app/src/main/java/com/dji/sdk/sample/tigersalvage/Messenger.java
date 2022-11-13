@@ -10,6 +10,7 @@ import com.dji.sdk.sample.tigersalvage.MissionConsumer;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+//TODO rename to something more meaningful
 public class Messenger extends Thread {
     public void run() {
         try {
@@ -21,7 +22,7 @@ public class Messenger extends Thread {
 
     private void initMessaging() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("98.11.194.141");
+        factory.setHost("192.168.1.71");
         Connection connection = factory.newConnection();
         ToastUtils.setResultToToast(connection.toString());
 

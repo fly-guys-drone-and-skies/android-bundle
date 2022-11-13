@@ -1,5 +1,7 @@
 package com.dji.sdk.sample.tigersalvage;
 
+import static android.os.SystemClock.sleep;
+
 import com.dji.sdk.sample.internal.controller.DJISampleApplication;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.Route;
@@ -122,30 +124,54 @@ public class MissionHandler {
 
         ;
 
+        WaypointMission mission = waypointMissionBuilder.
+                headingMode(mHeadingMode).
+                autoFlightSpeed(10f).
+                maxFlightSpeed(15f).
+                finishedAction(WaypointMissionFinishedAction.GO_HOME).
+                setExitMissionOnRCSignalLostEnabled(true).
+                flightPathMode(WaypointMissionFlightPathMode.CURVED).
+                waypointCount(route.getWaypointsList().size()).
+                waypointList(BuildWaypointArray(route)).
+                build();
+
+        DJIError mEr = mission.checkParameters();
+
+        if (mEr != null) {
+            System.out.println(mEr.getDescription());
+            ToastUtils.setResultToToast("mission Check Params error");
+            ToastUtils.setResultToToast(mEr.getDescription());
+            System.out.println("L");
+            return;
+        }
+        else{
+            ToastUtils.setResultToToast("mission Check Params success");
+        }
+
+
         //run check params but dont know where that is - might be redundant 
-        DJIError loadError = operator.loadMission(
-            waypointMissionBuilder.
-            headingMode(mHeadingMode).
-            autoFlightSpeed(10f).
-            maxFlightSpeed(15f).
-            finishedAction(WaypointMissionFinishedAction.GO_HOME).
-            setExitMissionOnRCSignalLostEnabled(true).
-            flightPathMode(WaypointMissionFlightPathMode.CURVED).
-            waypointCount(route.getWaypointsList().size()).
-            waypointList(BuildWaypointArray(route)).
-            build()
-        );
+        DJIError loadError = operator.loadMission(mission);
 
         if (loadError != null) {
             System.out.println(loadError.getDescription());
+            ToastUtils.setResultToToast("LOAD ERROR");
             ToastUtils.setResultToToast(loadError.getDescription());
         }
         else {
             System.out.println(operator.getLoadedMission().toString());
+            ToastUtils.setResultToToast("LOAD SUCCESS");
             ToastUtils.setResultToToast(operator.getLoadedMission().getWaypointList().toString());
         }
 
-        ToastUtils.setResultToToast(operator.getCurrentState().toString());
+        int z = 0; // for testing to see if state will resolve over time
+        while (z < 2) {
+            ToastUtils.setResultToToast("Operator state");
+            ToastUtils.setResultToToast(operator.getCurrentState().toString());
+            sleep(4000);
+            z++;
+        }
+        ToastUtils.setResultToToast("GOGOGO");
+
 
         //at this state, mission operator is verifying mission
         //once operator.getCurrentState().equals(WaypointV2MissionState.READY_TO_UPLOAD)
@@ -168,10 +194,14 @@ public class MissionHandler {
         operator.uploadMission(
             (DJIError uploadError) -> {
                 if (uploadError != null) {
+                    ToastUtils.setResultToToast("Upload mission error");
+
                     ToastUtils.setResultToToast(uploadError.getDescription());
                     System.out.println(uploadError.getDescription());
                 }
                 else {
+                    ToastUtils.setResultToToast("Upload mission success, going to start mission ");
+
                     ToastUtils.setResultToToast(operator.getCurrentState().toString());
                     operator.startMission(completionCallback);
                 }
