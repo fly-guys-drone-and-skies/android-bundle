@@ -71,7 +71,7 @@ public class MissionHandler {
     public static WaypointMission.Builder waypointMissionBuilder;
 
     private FlightController mFlightController;
-    private WaypointMissionOperator operator;
+    private static WaypointMissionOperator operator;
     private WaypointV2MissionTypes.MissionFinishedAction mFinishedAction = WaypointV2MissionTypes.MissionFinishedAction.NO_ACTION;
     private WaypointMissionHeadingMode mHeadingMode = WaypointMissionHeadingMode.AUTO;
     private WaypointV2MissionTypes.MissionGotoWaypointMode firstMode = WaypointV2MissionTypes.MissionGotoWaypointMode.SAFELY;
@@ -187,6 +187,11 @@ public class MissionHandler {
         mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
         mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
     }
+
+    public static String getStatus(){
+        return operator.getCurrentState().toString();
+    }
+
 
     public void startFlight(){
         setupFlight();

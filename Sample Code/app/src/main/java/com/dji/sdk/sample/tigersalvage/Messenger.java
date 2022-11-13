@@ -25,9 +25,7 @@ public class Messenger extends Thread {
         factory.setHost("192.168.1.71");
         Connection connection = factory.newConnection();
         ToastUtils.setResultToToast(connection.toString());
-
         Sender.setChannel(connection);
-
         new MissionConsumer(connection).start();
     }
 }
