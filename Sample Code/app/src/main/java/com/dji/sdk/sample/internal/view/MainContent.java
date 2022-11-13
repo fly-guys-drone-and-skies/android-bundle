@@ -181,7 +181,7 @@ public class MainContent extends RelativeLayout {
                 if (GeneralUtils.isFastDoubleClick()) {
                     return;
                 }
-                MissionHandler missionHandler = new MissionHandler();
+                MissionHandler missionHandler = MissionHandler.getInstance();
                 missionHandler.startFlight();
             }
         });

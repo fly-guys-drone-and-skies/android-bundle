@@ -19,10 +19,10 @@ public class MissionConsumer extends Thread{
     Channel channel;
     String queue;
     MissionHandler handler;
-    public missionConsumer(Connection connection) throws IOException {
+    public MissionConsumer(Connection connection) throws IOException {
         this.channel = connection.createChannel();
         this.queue = "app";
-        handler = new MissionHandler();
+        handler = MissionHandler.getInstance();
     }
 
     public void run() {
@@ -35,7 +35,7 @@ public class MissionConsumer extends Thread{
 
     private void consume() throws IOException, TimeoutException {
         
-        channel.basicConsume("app", true, (consumerTag, message) -> {
+        channel.basicConsume("mission-app", true, (consumerTag, message) -> {
 
             String type = message.getProperties().getType();
             //TODO
@@ -43,9 +43,9 @@ public class MissionConsumer extends Thread{
             //If id == app id, continue. Else drop 
 
             switch (type) {
-                case "route":
+                case "dune":
                     handler.routeProcessor(RouteArray.newBuilder().mergeFrom(inflate(message.getBody())).build());
-                    break;
+                    break; 
                 case "start":
                     handler.startFlight();
                     break;

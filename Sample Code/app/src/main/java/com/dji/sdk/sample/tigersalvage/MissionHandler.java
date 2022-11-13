@@ -1,5 +1,6 @@
 package com.dji.sdk.sample.tigersalvage;
 
+import com.dji.sdk.sample.internal.controller.DJISampleApplication;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.Route;
 import com.dji.sdk.sample.tigersalvage.Sender;
@@ -16,6 +17,8 @@ import dji.common.flightcontroller.FlightControllerState;
 import dji.common.flightcontroller.RTKState;
 import dji.common.mission.waypoint.WaypointMission;
 import dji.common.mission.waypoint.Waypoint;
+import dji.common.mission.waypoint.WaypointMissionFlightPathMode;
+import dji.common.mission.waypoint.WaypointMissionFinishedAction;
 import dji.common.mission.waypoint.WaypointMissionHeadingMode;
 import dji.common.mission.waypointv2.Action.WaypointV2Action;
 import dji.common.mission.waypointv2.WaypointV2Mission;
@@ -61,6 +64,8 @@ You can read more about [Mission Operators](./API_Reference/Components/WaypointM
      */
 
 public class MissionHandler {
+    private static MissionHandler missionHandler;
+
     public static WaypointMission.Builder waypointMissionBuilder;
 
     private FlightController mFlightController;
@@ -77,7 +82,15 @@ public class MissionHandler {
     private CompletionCallback completionCallback;
 
 
-    public MissionHandler() {
+    public static MissionHandler getInstance() {
+        if (missionHandler == null) {
+            missionHandler = new MissionHandler();
+        }
+
+        return missionHandler;
+    }
+
+    private MissionHandler() {
         //create mission control here and set to global
         operator = MissionControl.getInstance().getWaypointMissionOperator();
         completionCallback = (DJIError err) -> {
@@ -110,11 +123,28 @@ public class MissionHandler {
         ;
 
         //run check params but dont know where that is - might be redundant 
-        operator.loadMission(
-            waypointMissionBuilder.headingMode(mHeadingMode).
+        DJIError loadError = operator.loadMission(
+            waypointMissionBuilder.
+            headingMode(mHeadingMode).
+            autoFlightSpeed(10f).
+            maxFlightSpeed(15f).
+            finishedAction(WaypointMissionFinishedAction.GO_HOME).
+            setExitMissionOnRCSignalLostEnabled(true).
+            flightPathMode(WaypointMissionFlightPathMode.CURVED).
+            waypointCount(route.getWaypointsList().size()).
             waypointList(BuildWaypointArray(route)).
             build()
         );
+
+        if (loadError != null) {
+            System.out.println(loadError.getDescription());
+            ToastUtils.setResultToToast(loadError.getDescription());
+        }
+        else {
+            System.out.println(operator.getLoadedMission().toString());
+            ToastUtils.setResultToToast(operator.getLoadedMission().getWaypointList().toString());
+        }
+
         ToastUtils.setResultToToast(operator.getCurrentState().toString());
 
         //at this state, mission operator is verifying mission
@@ -127,13 +157,19 @@ public class MissionHandler {
     }
 
 
+    private void setupFlight() {
+        mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
+        mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
+    }
 
     public void startFlight(){
+        setupFlight();
+
         operator.uploadMission(
             (DJIError uploadError) -> {
                 if (uploadError != null) {
-                    ToastUtils.setResultToToast(uploadError.toString());
-                    System.out.println(uploadError);
+                    ToastUtils.setResultToToast(uploadError.getDescription());
+                    System.out.println(uploadError.getDescription());
                 }
                 else {
                     ToastUtils.setResultToToast(operator.getCurrentState().toString());
@@ -141,6 +177,7 @@ public class MissionHandler {
                 }
             }
         );
+
         ToastUtils.setResultToToast(operator.getCurrentState().toString());
     }
 
