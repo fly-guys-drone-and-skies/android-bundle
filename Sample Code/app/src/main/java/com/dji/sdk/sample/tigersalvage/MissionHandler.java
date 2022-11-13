@@ -1,5 +1,6 @@
 package com.dji.sdk.sample.tigersalvage;
 
+import com.dji.sdk.sample.internal.controller.DJISampleApplication;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.Route;
 import com.dji.sdk.sample.tigersalvage.Sender;
@@ -156,8 +157,14 @@ public class MissionHandler {
     }
 
 
+    private void setupFlight() {
+        mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
+        mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
+    }
 
     public void startFlight(){
+        setupFlight();
+
         operator.uploadMission(
             (DJIError uploadError) -> {
                 if (uploadError != null) {
