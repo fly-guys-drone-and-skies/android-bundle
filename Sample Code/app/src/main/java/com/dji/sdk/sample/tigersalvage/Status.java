@@ -18,7 +18,7 @@ public class Status extends Thread {
         while (true){
             String message = MissionHandler.getStatus();
 
-            Sender.send(message.getBytes(StandardCharsets.UTF_8), "app-ui", "test", "mine");
+            Sender.send(message.getBytes(StandardCharsets.UTF_8), "ui-exchange", "ui", "csda");
             sleep(1000);
         }
 
