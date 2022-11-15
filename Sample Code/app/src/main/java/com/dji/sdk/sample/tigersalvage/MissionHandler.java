@@ -2,6 +2,8 @@ package com.dji.sdk.sample.tigersalvage;
 
 import static android.os.SystemClock.sleep;
 
+import android.location.Location;
+
 import com.dji.sdk.sample.internal.controller.DJISampleApplication;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.Route;
@@ -16,6 +18,7 @@ import java.util.zip.InflaterOutputStream;
 import dji.common.error.DJIError;
 import dji.common.error.DJIWaypointV2Error;
 import dji.common.flightcontroller.FlightControllerState;
+import dji.common.flightcontroller.LocationCoordinate3D;
 import dji.common.flightcontroller.RTKState;
 import dji.common.mission.waypoint.WaypointMission;
 import dji.common.mission.waypoint.Waypoint;
@@ -122,8 +125,7 @@ public class MissionHandler {
             //might need to make new waypoint mission and build into that var
         } //else new flight is being uploaded - handle it
 
-        ;
-
+        List<Waypoint> tmp = BuildWaypointArray(route);
         WaypointMission mission = waypointMissionBuilder.
                 headingMode(mHeadingMode).
                 autoFlightSpeed(10f).
@@ -132,9 +134,13 @@ public class MissionHandler {
                 setExitMissionOnRCSignalLostEnabled(true).
                 flightPathMode(WaypointMissionFlightPathMode.CURVED).
                 waypointCount(route.getWaypointsList().size()).
-                waypointList(BuildWaypointArray(route)).
+                waypointList(tmp).
                 build();
-
+        mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
+        FlightControllerState flightControllerState = mFlightController.getState();
+        LocationCoordinate3D home3D = flightControllerState.getAircraftLocation();
+        LocationCoordinate2D home = new LocationCoordinate2D(home3D.getLatitude(), home3D.getLongitude());
+        mFlightController.setHomeLocation(home, completionCallback);
         DJIError mEr = mission.checkParameters();
 
         if (mEr != null) {
@@ -185,7 +191,10 @@ public class MissionHandler {
 
     private void setupFlight() {
         mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
-        mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
+        //mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
+//        mFlightController.setHomeLocation(
+//                new LocationCoordinate2D()
+//        );
     }
 
     public static String getStatus(){
