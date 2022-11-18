@@ -169,13 +169,11 @@ public class MissionHandler {
             ToastUtils.setResultToToast(operator.getLoadedMission().getWaypointList().toString());
         }
 
-        int z = 0; // for testing to see if state will resolve over time
-        while (z < 2) {
-            ToastUtils.setResultToToast("Operator state");
-            ToastUtils.setResultToToast(operator.getCurrentState().toString());
-            sleep(4000);
-            z++;
-        }
+
+        ToastUtils.setResultToToast("Operator state");
+        ToastUtils.setResultToToast(operator.getCurrentState().toString());
+
+
         ToastUtils.setResultToToast("GOGOGO");
 
 
