@@ -150,7 +150,8 @@ public class MainContent extends RelativeLayout {
         mCheckboxFirmware = (CheckBox) findViewById(R.id.checkbox_firmware);
 
         //mBtnStart.setEnabled(false);
-
+        isregisterForLDM = false;
+        checkAndRequestPermissions();
 
         mBtnRegisterApp.setOnClickListener(new OnClickListener() {
             @Override
@@ -166,6 +167,8 @@ public class MainContent extends RelativeLayout {
                 checkAndRequestPermissions();
             }
         });
+
+
         mBtnOpen.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -409,6 +412,9 @@ public class MainContent extends RelativeLayout {
                                                      });
         }
     }
+    public void callPermsCheck(){
+        checkAndRequestPermissions();
+    }
 
     //region Registration n' Permissions Helpers
 
@@ -416,7 +422,7 @@ public class MainContent extends RelativeLayout {
      * Checks if there is any missing permissions, and
      * requests runtime permission if needed.
      */
-    private void checkAndRequestPermissions() {
+    public void checkAndRequestPermissions() {
         // Check for permissions
         List<String> missingPermission = new ArrayList<>();
         for (String eachPermission : REQUIRED_PERMISSION_LIST) {

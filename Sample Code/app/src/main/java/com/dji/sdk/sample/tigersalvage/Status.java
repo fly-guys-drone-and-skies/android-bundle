@@ -14,12 +14,18 @@ public class Status extends Thread {
     }
 
     public void sendStatus() throws InterruptedException {
-        sleep(10000);
+        Thread.sleep(10000);
+        String message = "";
         while (true){
-            String message = MissionHandler.getStatus();
+            if (MissionHandler.getInstance() != null)  {
+                 message = MissionHandler.getStatus();
+            }
+            else {
+                message = "No mission started";
+            }
 
             Sender.send(message.getBytes(StandardCharsets.UTF_8), "ui-exchange", "ui", "csda");
-            sleep(1000);
+            Thread.sleep(1000);
         }
 
     }
