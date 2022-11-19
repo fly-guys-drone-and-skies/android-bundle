@@ -150,8 +150,8 @@ public class MainContent extends RelativeLayout {
         mCheckboxFirmware = (CheckBox) findViewById(R.id.checkbox_firmware);
 
         //mBtnStart.setEnabled(false);
-        isregisterForLDM = false;
-        checkAndRequestPermissions();
+        //isregisterForLDM = false;
+        //checkAndRequestPermissions();
 
         mBtnRegisterApp.setOnClickListener(new OnClickListener() {
             @Override

@@ -126,6 +126,7 @@ public class MissionHandler {
         } //else new flight is being uploaded - handle it
 
         List<Waypoint> tmp = BuildWaypointArray(route);
+        ToastUtils.setResultToToast("waypoint count " + route.getWaypointsList().size());
         WaypointMission mission = waypointMissionBuilder.
                 headingMode(mHeadingMode).
                 autoFlightSpeed(10f).
@@ -144,10 +145,8 @@ public class MissionHandler {
         DJIError mEr = mission.checkParameters();
 
         if (mEr != null) {
-            System.out.println(mEr.getDescription());
             ToastUtils.setResultToToast("mission Check Params error");
             ToastUtils.setResultToToast(mEr.getDescription());
-            System.out.println("L");
             return;
         }
         else{
@@ -159,12 +158,10 @@ public class MissionHandler {
         DJIError loadError = operator.loadMission(mission);
 
         if (loadError != null) {
-            System.out.println(loadError.getDescription());
             ToastUtils.setResultToToast("LOAD ERROR");
             ToastUtils.setResultToToast(loadError.getDescription());
         }
         else {
-            System.out.println(operator.getLoadedMission().toString());
             ToastUtils.setResultToToast("LOAD SUCCESS");
             ToastUtils.setResultToToast(operator.getLoadedMission().getWaypointList().toString());
         }
@@ -183,7 +180,7 @@ public class MissionHandler {
         // once operator.getCurrentState().equals(WaypointV2MissionState.READY_TO_EXECUTE)
         // start mission by operator.startMission `startMission`
         
-        //todo need to add listeners for status
+
     }
 
 

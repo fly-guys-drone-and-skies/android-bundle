@@ -22,7 +22,7 @@ public class Messenger extends Thread {
 
     private void initMessaging() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.1.71");
+        factory.setHost("172.20.10.3");
         Connection connection = factory.newConnection();
         ToastUtils.setResultToToast(connection.toString());
         Sender.setChannel(connection);

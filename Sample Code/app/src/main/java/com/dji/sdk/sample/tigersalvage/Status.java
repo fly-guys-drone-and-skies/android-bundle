@@ -21,7 +21,7 @@ public class Status extends Thread {
                  message = MissionHandler.getStatus();
             }
             else {
-                message = "No mission started";
+                message = "No mission uploaded";
             }
 
             Sender.send(message.getBytes(StandardCharsets.UTF_8), "ui-exchange", "ui", "csda");

@@ -46,7 +46,7 @@ public class MissionConsumer extends Thread{
 
             switch (type) {
                 case "dune":
-                    byte[] body = inflate(message.getBody()); //TODO this is where new route is getting stuck
+                    byte[] body = inflate(message.getBody());
                     ToastUtils.setResultToToast("body");
                     RouteArray arr = RouteArray.newBuilder().mergeFrom(body).build();
                     ToastUtils.setResultToToast("Built");
