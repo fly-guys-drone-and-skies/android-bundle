@@ -509,7 +509,6 @@ public class MainContent extends RelativeLayout {
                                 }
                             }
                         });
-
                 }
             });
         }

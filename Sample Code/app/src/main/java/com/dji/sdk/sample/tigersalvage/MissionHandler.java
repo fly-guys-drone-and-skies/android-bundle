@@ -196,8 +196,6 @@ public class MissionHandler {
 
 
     public void startFlight(){
-        setupFlight();
-
         operator.uploadMission(
             (DJIError uploadError) -> {
                 if (uploadError != null) {
