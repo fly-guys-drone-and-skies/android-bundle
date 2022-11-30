@@ -101,14 +101,14 @@
         android:textSize="15dp"/>
 
     <Button
-        android:id="@+id/btn_registerAppForLDM"
+        android:id="@+id/btn_takeoff"
         android:layout_width="150dp"
         android:layout_height="55dp"
         android:layout_below="@+id/btn_registerApp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:background="@drawable/round_btn"
-        android:text="Register APP for LDM"
+        android:text="Takeoff"
         android:textAllCaps="false"
         android:textColor="@color/common_text_color"
         android:textSize="15dp"/>
@@ -117,7 +117,7 @@
         android:id="@+id/btn_open"
         android:layout_width="150dp"
         android:layout_height="55dp"
-        android:layout_below="@+id/btn_registerAppForLDM"
+        android:layout_below="@+id/btn_takeoff"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:background="@drawable/round_btn"

@@ -34,8 +34,6 @@ import com.dji.sdk.sample.internal.utils.GeneralUtils;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
 import com.squareup.otto.Subscribe;
 
-import dji.sdk.sdkmanager.LDMModule;
-import dji.sdk.sdkmanager.LDMModuleType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -99,7 +97,7 @@ public class MainContent extends RelativeLayout {
     private TextView mTextProduct;
     private TextView mTextModelAvailable;
     private Button mBtnRegisterApp;
-    private Button getmBtnRegisterAppForLDM;
+    private Button getmBtnTakeoff;
     private Button mBtnOpen;
     private Button mBtnStart;
     private ViewWrapper componentList =
@@ -118,7 +116,6 @@ public class MainContent extends RelativeLayout {
     private static final int MSG_INFORM_ACTIVATION = 1;
     private static final int ACTIVATION_DALAY_TIME = 3000;
     private AppActivationState.AppActivationStateListener appActivationStateListener;
-    private boolean isregisterForLDM = false;
     private Context mContext;
     public MainContent(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -143,28 +140,27 @@ public class MainContent extends RelativeLayout {
         mTextModelAvailable = (TextView) findViewById(R.id.text_model_available);
         mTextProduct = (TextView) findViewById(R.id.text_product_info);
         mBtnRegisterApp = (Button) findViewById(R.id.btn_registerApp);
-        getmBtnRegisterAppForLDM = (Button) findViewById(R.id.btn_registerAppForLDM);
+        getmBtnTakeoff = (Button) findViewById(R.id.btn_takeoff);
         mBtnOpen = (Button) findViewById(R.id.btn_open);
         mBridgeModeEditText = (EditText) findViewById(R.id.edittext_bridge_ip);
         mBtnStart = (Button) findViewById(R.id.btn_start);
         mCheckboxFirmware = (CheckBox) findViewById(R.id.checkbox_firmware);
+        MissionHandler missionHandler;
 
         //mBtnStart.setEnabled(false);
-        //isregisterForLDM = false;
         //checkAndRequestPermissions();
 
         mBtnRegisterApp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                isregisterForLDM = false;
                 checkAndRequestPermissions();
+                missionHandler = MissionHandler.getInstance();
             }
         });
-        getmBtnRegisterAppForLDM.setOnClickListener(new OnClickListener() {
+        getmBtnTakeoff.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                isregisterForLDM = true;
-                checkAndRequestPermissions();
+                missionHandler.setupFlight();
             }
         });
 
@@ -178,13 +174,13 @@ public class MainContent extends RelativeLayout {
                 DJISampleApplication.getEventBus().post(componentList);
             }
         });
+
         mBtnStart.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (GeneralUtils.isFastDoubleClick()) {
                     return;
                 }
-                MissionHandler missionHandler = MissionHandler.getInstance();
                 missionHandler.startFlight();
             }
         });
@@ -447,84 +443,6 @@ public class MainContent extends RelativeLayout {
                 @Override
                 public void run() {
                     ToastUtils.setResultToToast(mContext.getString(R.string.sdk_registration_doing_message));
-                    //if we hope the Firmware Upgrade module could access the network under LDM mode, we need call the setModuleNetworkServiceEnabled()
-                    //method before the registerAppForLDM() method
-                    if (mCheckboxFirmware.isChecked()) {
-                        DJISDKManager.getInstance().getLDMManager().setModuleNetworkServiceEnabled(new LDMModule.Builder().moduleType(
-                            LDMModuleType.FIRMWARE_UPGRADE).enabled(true).build());
-                    } else {
-                        DJISDKManager.getInstance().getLDMManager().setModuleNetworkServiceEnabled(new LDMModule.Builder().moduleType(
-                            LDMModuleType.FIRMWARE_UPGRADE).enabled(false).build());
-                    }
-                    if(isregisterForLDM) {
-                        DJISDKManager.getInstance().registerAppForLDM(mContext.getApplicationContext(), new DJISDKManager.SDKManagerCallback() {
-                            @Override
-                            public void onRegister(DJIError djiError) {
-                                if (djiError == DJISDKError.REGISTRATION_SUCCESS) {
-                                    DJILog.e("App registration for LDM", DJISDKError.REGISTRATION_SUCCESS.getDescription());
-                                    DJISDKManager.getInstance().startConnectionToProduct();
-                                    ToastUtils.setResultToToast(mContext.getString(R.string.sdk_registration_success_message));
-                                    showDBVersion();
-                                } else {
-                                    ToastUtils.setResultToToast(mContext.getString(R.string.sdk_registration_message) + djiError.getDescription());
-                                }
-                                Log.v(TAG, djiError.getDescription());
-                                hideProcess();
-                            }
-                            @Override
-                            public void onProductDisconnect() {
-                                Log.d(TAG, "onProductDisconnect");
-                                notifyStatusChange();
-                            }
-                            @Override
-                            public void onProductConnect(BaseProduct baseProduct) {
-                                Log.d(TAG, String.format("onProductConnect newProduct:%s", baseProduct));
-                                notifyStatusChange();
-                            }
-
-                            @Override
-                            public void onProductChanged(BaseProduct baseProduct) {
-                                notifyStatusChange();
-                            }
-
-                            @Override
-                            public void onComponentChange(BaseProduct.ComponentKey componentKey,
-                                                          BaseComponent oldComponent,
-                                                          BaseComponent newComponent) {
-                                if (newComponent != null) {
-                                    newComponent.setComponentListener(mDJIComponentListener);
-                                }
-                                Log.d(TAG,
-                                        String.format("onComponentChange key:%s, oldComponent:%s, newComponent:%s",
-                                                componentKey,
-                                                oldComponent,
-                                                newComponent));
-
-                                notifyStatusChange();
-                            }
-
-                            @Override
-                            public void onInitProcess(DJISDKInitEvent djisdkInitEvent, int i) {
-
-                            }
-
-                            @Override
-                            public void onDatabaseDownloadProgress(long current, long total) {
-                                int process = (int) (100 * current / total);
-                                if (process == lastProcess) {
-                                    return;
-                                }
-                                lastProcess = process;
-                                showProgress(process);
-                                if (process % 25 == 0){
-                                    ToastUtils.setResultToToast("DB load process : " + process);
-                                }else if (process == 0){
-                                    ToastUtils.setResultToToast("DB load begin");
-                                }
-                            }
-                        });
-
-                    } else {
                         DJISDKManager.getInstance().registerApp(mContext.getApplicationContext(), new DJISDKManager.SDKManagerCallback() {
                             @Override
                             public void onRegister(DJIError djiError) {
@@ -592,7 +510,6 @@ public class MainContent extends RelativeLayout {
                             }
                         });
 
-                    }
                 }
             });
         }

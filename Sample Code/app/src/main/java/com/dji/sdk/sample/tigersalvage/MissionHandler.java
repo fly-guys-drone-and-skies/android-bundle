@@ -187,6 +187,7 @@ public class MissionHandler {
     private void setupFlight() {
         mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
         mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
+        mFlightController.startTakeoff(completionCallback);
     }
 
     public static String getStatus(){
@@ -196,7 +197,6 @@ public class MissionHandler {
 
     public void startFlight(){
         setupFlight();
-        mFlightController.startTakeoff(completionCallback);
 
         operator.uploadMission(
             (DJIError uploadError) -> {
