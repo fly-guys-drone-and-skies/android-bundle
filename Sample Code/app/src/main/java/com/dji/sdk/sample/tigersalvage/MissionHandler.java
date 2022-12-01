@@ -162,12 +162,6 @@ public class MissionHandler {
         }
         waypointMissionList = new WaypointMissionList(missionList);
 
-        mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
-        FlightControllerState flightControllerState = mFlightController.getState();
-        LocationCoordinate3D home3D = flightControllerState.getAircraftLocation();
-        LocationCoordinate2D home = new LocationCoordinate2D(home3D.getLatitude(), home3D.getLongitude());
-        mFlightController.setHomeLocation(home, completionCallback);
-
         loadNextMission();
 
         ToastUtils.setResultToToast("Operator state");
