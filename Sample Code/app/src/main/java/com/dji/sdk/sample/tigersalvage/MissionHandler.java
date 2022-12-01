@@ -119,14 +119,26 @@ public class MissionHandler {
         return waypointList;
     }
 
+    private ArrayList<List<Waypoint>> BuildWaypointListArray(RouteArray route) {
+        List<RoutePoint> waypointList = new ArrayList<>(route.getWaypointsList());
+        ArrayList<List<Waypoint>> waypointListArray = new ArrayList<>();
+
+        // 99 is maximum number of waypoints in mission.
+        for (int i = 0; i < waypointList.size(); i += 99) {
+            waypointListArray.add(waypointList.subList(i, i + 98));
+        }
+
+        return waypointListArray;
+    }
+
     public void routeProcessor(RouteArray route) {
         if (waypointMissionBuilder == null) {
             waypointMissionBuilder = new WaypointMission.Builder();
             //might need to make new waypoint mission and build into that var
         } //else new flight is being uploaded - handle it
 
-        List<Waypoint> tmp = BuildWaypointArray(route);
-        ToastUtils.setResultToToast("waypoint count " + route.getWaypointsList().size());
+        ArrayList<List<Waypoint>> waypointListArray = BuildWaypointListArray(route);
+        // ToastUtils.setResultToToast("waypoint count " + route.getWaypointsList().size());
         WaypointMission mission = waypointMissionBuilder.
                 headingMode(mHeadingMode).
                 autoFlightSpeed(10f).
