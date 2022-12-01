@@ -138,17 +138,20 @@ public class MissionHandler {
         } //else new flight is being uploaded - handle it
 
         ArrayList<List<Waypoint>> waypointListArray = BuildWaypointListArray(route);
+        ArrayList<WaypointMission> missionList = new ArrayList<>();
         // ToastUtils.setResultToToast("waypoint count " + route.getWaypointsList().size());
-        WaypointMission mission = waypointMissionBuilder.
-                headingMode(mHeadingMode).
-                autoFlightSpeed(10f).
-                maxFlightSpeed(15f).
-                finishedAction(WaypointMissionFinishedAction.GO_HOME).
-                setExitMissionOnRCSignalLostEnabled(true).
-                flightPathMode(WaypointMissionFlightPathMode.CURVED).
-                waypointCount(route.getWaypointsList().size()).
-                waypointList(tmp).
-                build();
+        for (List<Waypoint> waypointList : waypointListArray) {
+            missionList.add(waypointMissionBuilder.
+                    headingMode(mHeadingMode).
+                    autoFlightSpeed(10f).
+                    maxFlightSpeed(15f).
+                    finishedAction(WaypointMissionFinishedAction.GO_HOME).
+                    setExitMissionOnRCSignalLostEnabled(true).
+                    flightPathMode(WaypointMissionFlightPathMode.CURVED).
+                    waypointCount(route.getWaypointsList().size()).
+                    waypointList(tmp).
+                    build());
+        }
         mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
         FlightControllerState flightControllerState = mFlightController.getState();
         LocationCoordinate3D home3D = flightControllerState.getAircraftLocation();
@@ -196,7 +199,7 @@ public class MissionHandler {
     }
 
 
-    private void setupFlight() {
+    public void setupFlight() {
         mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
         mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
         mFlightController.startTakeoff(completionCallback);
@@ -208,6 +211,7 @@ public class MissionHandler {
 
 
     public void startFlight(){
+
         operator.uploadMission(
             (DJIError uploadError) -> {
                 if (uploadError != null) {
