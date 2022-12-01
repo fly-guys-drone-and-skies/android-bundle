@@ -145,7 +145,7 @@ public class MainContent extends RelativeLayout {
         mBridgeModeEditText = (EditText) findViewById(R.id.edittext_bridge_ip);
         mBtnStart = (Button) findViewById(R.id.btn_start);
         mCheckboxFirmware = (CheckBox) findViewById(R.id.checkbox_firmware);
-        MissionHandler missionHandler;
+        MissionHandler missionHandler = MissionHandler.getInstance();;
 
         //mBtnStart.setEnabled(false);
         //checkAndRequestPermissions();
@@ -154,7 +154,6 @@ public class MainContent extends RelativeLayout {
             @Override
             public void onClick(View v) {
                 checkAndRequestPermissions();
-                missionHandler = MissionHandler.getInstance();
             }
         });
         getmBtnTakeoff.setOnClickListener(new OnClickListener() {
