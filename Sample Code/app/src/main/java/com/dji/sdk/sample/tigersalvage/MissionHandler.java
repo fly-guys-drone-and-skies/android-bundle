@@ -127,8 +127,13 @@ public class MissionHandler {
         ArrayList<List<Waypoint>> waypointListArray = new ArrayList<>();
 
         // 99 is maximum number of waypoints in mission.
-        for (int i = 0; i < waypointList.size(); i += ((waypointList.size() + i + 1) - 99 > 0) ? 99 : waypointList.size() - 99) { // there has to be a better way...
-            waypointListArray.add(waypointList.subList(i, i + 99));
+        for (int i = 0; i < waypointList.size(); i += 99) { // there has to be a better way...
+            if (waypointList.size() > i) {
+                waypointListArray.add(waypointList.subList(i, waypointList.size() - 1));
+            }
+            else {
+                waypointListArray.add(waypointList.subList(i, i + 99));
+            }
         }
 
         return waypointListArray;
