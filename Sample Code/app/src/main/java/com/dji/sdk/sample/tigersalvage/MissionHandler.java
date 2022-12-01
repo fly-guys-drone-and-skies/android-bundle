@@ -137,8 +137,9 @@ public class MissionHandler {
             //might need to make new waypoint mission and build into that var
         } //else new flight is being uploaded - handle it
 
-        ArrayList<List<Waypoint>> waypointListArray = BuildWaypointListArray(route);
-        // ToastUtils.setResultToToast("waypoint count " + route.getWaypointsList().size());
+        List<Waypoint> tmp = BuildWaypointArray(route);
+        tmp = tmp.subList(0, 98);
+        ToastUtils.setResultToToast("waypoint count " + tmp.size());
         WaypointMission mission = waypointMissionBuilder.
                 headingMode(mHeadingMode).
                 autoFlightSpeed(10f).
@@ -146,7 +147,7 @@ public class MissionHandler {
                 finishedAction(WaypointMissionFinishedAction.GO_HOME).
                 setExitMissionOnRCSignalLostEnabled(true).
                 flightPathMode(WaypointMissionFlightPathMode.CURVED).
-                waypointCount(route.getWaypointsList().size()).
+                waypointCount(tmp.size()).
                 waypointList(tmp).
                 build();
         mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
