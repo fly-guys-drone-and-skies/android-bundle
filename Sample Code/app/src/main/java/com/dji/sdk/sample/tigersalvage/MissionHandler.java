@@ -6,13 +6,13 @@ import android.location.Location;
 
 import com.dji.sdk.sample.internal.controller.DJISampleApplication;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
-import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.Route;
+import com.dji.sdk.sample.tigersalvage.proto.generated.Route;
 import com.dji.sdk.sample.tigersalvage.Sender;
 import com.dji.sdk.sample.tigersalvage.WaypointMissionList;
 import com.dji.sdk.sample.tigersalvage.OperatorListener;
 
-import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RoutePoint;
-import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RouteArray;
+import com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint;
+import com.dji.sdk.sample.tigersalvage.proto.generated.RouteArray;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
