@@ -11,7 +11,7 @@ public class WaypointMissionList {
 
 
     public WaypointMissionList(ArrayList<WaypointMission> missionList) {
-        missionList = this.missionList;
+        this.missionList = missionList;
         currentMissionIndex = 0;
         isComplete = false;
     }

@@ -123,19 +123,18 @@ public class MissionHandler {
     }
 
     private ArrayList<List<Waypoint>> buildWaypointListArray(RouteArray route) {
-        List<Waypoint> waypointList = new ArrayList<>(buildWaypointArray(route));
+        List<Waypoint> waypointList = buildWaypointArray(route);
         ArrayList<List<Waypoint>> waypointListArray = new ArrayList<>();
 
         // 99 is maximum number of waypoints in mission.
         for (int i = 0; i < waypointList.size(); i += 99) { // there has to be a better way...
-            if (waypointList.size() > i) {
-                waypointListArray.add(waypointList.subList(i, waypointList.size() - 1));
+            if ((waypointList.size() - i) < 99) {
+                waypointListArray.add(new ArrayList(waypointList.subList(i, waypointList.size() - 1)));
             }
             else {
-                waypointListArray.add(waypointList.subList(i, i + 99));
+                waypointListArray.add(new ArrayList(waypointList.subList(i, i + 99)));
             }
         }
-
         return waypointListArray;
     }
 
@@ -148,17 +147,19 @@ public class MissionHandler {
         ArrayList<List<Waypoint>> waypointListArray = buildWaypointListArray(route);
         // ToastUtils.setResultToToast("waypoint count " + route.getWaypointsList().size());
         ArrayList<WaypointMission> missionList = new ArrayList<>();
+
         for (List<Waypoint> waypointList : waypointListArray) {
-            missionList.add(waypointMissionBuilder.
+            WaypointMission mission = waypointMissionBuilder.
                     headingMode(mHeadingMode).
                     autoFlightSpeed(10f).
                     maxFlightSpeed(15f).
-                    finishedAction(WaypointMissionFinishedAction.GO_HOME).
+                    finishedAction(WaypointMissionFinishedAction.NO_ACTION).
                     setExitMissionOnRCSignalLostEnabled(true).
                     flightPathMode(WaypointMissionFlightPathMode.CURVED).
-                    waypointCount(route.getWaypointsList().size()).
+                    waypointCount(waypointList.size()).
                     waypointList(waypointList).
-                    build());
+                    build();
+            missionList.add(mission);
         }
         waypointMissionList = new WaypointMissionList(missionList);
 
@@ -181,7 +182,9 @@ public class MissionHandler {
     }
 
     private void loadNextMission() {
-        DJIError loadError = operator.loadMission(waypointMissionList.nextMission());
+        WaypointMission mission = waypointMissionList.nextMission();
+        ToastUtils.setResultToToast(mission.toString());
+        DJIError loadError = operator.loadMission(mission);
 
         if (loadError != null) {
             ToastUtils.setResultToToast("LOAD ERROR");
