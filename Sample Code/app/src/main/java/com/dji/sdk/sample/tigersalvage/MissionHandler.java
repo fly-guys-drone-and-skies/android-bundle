@@ -113,7 +113,7 @@ public class MissionHandler {
         List<Waypoint> waypointList = new ArrayList<>();
 
         for (RoutePoint routePoint : route.getWaypointsList()){
-            Waypoint waypoint = new Waypoint(routePoint.getLat(), routePoint.getLong(), routePoint.getAlt());
+            Waypoint waypoint = new Waypoint(routePoint.getLocation().getLat(), routePoint.getLocation().getLong(), routePoint.getLocation().getAlt());
             waypoint.speed = routePoint.getSpeed();
 
             waypointList.add(waypoint);
