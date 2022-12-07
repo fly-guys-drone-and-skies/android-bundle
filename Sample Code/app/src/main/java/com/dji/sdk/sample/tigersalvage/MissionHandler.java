@@ -75,7 +75,6 @@ public class MissionHandler {
 
     public static WaypointMission.Builder waypointMissionBuilder;
 
-    private FlightController mFlightController;
     private static WaypointMissionOperator operator;
     private WaypointV2MissionTypes.MissionFinishedAction mFinishedAction = WaypointV2MissionTypes.MissionFinishedAction.NO_ACTION;
     private WaypointMissionHeadingMode mHeadingMode = WaypointMissionHeadingMode.AUTO;
@@ -198,7 +197,7 @@ public class MissionHandler {
 
 
     public void setupFlight() {
-        mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
+        FlightController mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
         mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
         mFlightController.startTakeoff(completionCallback);
     }
@@ -217,7 +216,6 @@ public class MissionHandler {
                     ToastUtils.setResultToToast("Upload mission error");
 
                     ToastUtils.setResultToToast(uploadError.getDescription());
-                    System.out.println(uploadError.getDescription());
                 }
                 else {
                     ToastUtils.setResultToToast("Upload mission success, going to start mission ");
