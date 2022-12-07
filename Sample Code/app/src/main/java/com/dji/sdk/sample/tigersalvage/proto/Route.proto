@@ -4,11 +4,15 @@ package tutorial;
 option java_package = "com.dji.sdk.sample.tigersalvage.proto.generated";
 option java_multiple_files = true;
 
-message RoutePoint {
+message Location {
   double lat = 1;
   double long = 2;
   float alt = 3;
-  float speed = 4;
+}
+
+message RoutePoint {
+  Location location = 1;
+  float speed = 2;
 }
 
 message RouteArray {

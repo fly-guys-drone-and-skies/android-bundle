@@ -48,22 +48,20 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 9: {
+          case 10: {
+            com.dji.sdk.sample.tigersalvage.proto.generated.Location.Builder subBuilder = null;
+            if (location_ != null) {
+              subBuilder = location_.toBuilder();
+            }
+            location_ = input.readMessage(com.dji.sdk.sample.tigersalvage.proto.generated.Location.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(location_);
+              location_ = subBuilder.buildPartial();
+            }
 
-            lat_ = input.readDouble();
             break;
           }
-          case 17: {
-
-            long_ = input.readDouble();
-            break;
-          }
-          case 29: {
-
-            alt_ = input.readFloat();
-            break;
-          }
-          case 37: {
+          case 21: {
 
             speed_ = input.readFloat();
             break;
@@ -100,43 +98,36 @@ private static final long serialVersionUID = 0L;
             com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint.class, com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint.Builder.class);
   }
 
-  public static final int LAT_FIELD_NUMBER = 1;
-  private double lat_;
+  public static final int LOCATION_FIELD_NUMBER = 1;
+  private com.dji.sdk.sample.tigersalvage.proto.generated.Location location_;
   /**
-   * <code>double lat = 1;</code>
-   * @return The lat.
+   * <code>.tutorial.Location location = 1;</code>
+   * @return Whether the location field is set.
    */
   @java.lang.Override
-  public double getLat() {
-    return lat_;
+  public boolean hasLocation() {
+    return location_ != null;
   }
-
-  public static final int LONG_FIELD_NUMBER = 2;
-  private double long_;
   /**
-   * <code>double long = 2;</code>
-   * @return The long.
+   * <code>.tutorial.Location location = 1;</code>
+   * @return The location.
    */
   @java.lang.Override
-  public double getLong() {
-    return long_;
+  public com.dji.sdk.sample.tigersalvage.proto.generated.Location getLocation() {
+    return location_ == null ? com.dji.sdk.sample.tigersalvage.proto.generated.Location.getDefaultInstance() : location_;
   }
-
-  public static final int ALT_FIELD_NUMBER = 3;
-  private float alt_;
   /**
-   * <code>float alt = 3;</code>
-   * @return The alt.
+   * <code>.tutorial.Location location = 1;</code>
    */
   @java.lang.Override
-  public float getAlt() {
-    return alt_;
+  public com.dji.sdk.sample.tigersalvage.proto.generated.LocationOrBuilder getLocationOrBuilder() {
+    return getLocation();
   }
 
-  public static final int SPEED_FIELD_NUMBER = 4;
+  public static final int SPEED_FIELD_NUMBER = 2;
   private float speed_;
   /**
-   * <code>float speed = 4;</code>
+   * <code>float speed = 2;</code>
    * @return The speed.
    */
   @java.lang.Override
@@ -158,17 +149,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (java.lang.Double.doubleToRawLongBits(lat_) != 0) {
-      output.writeDouble(1, lat_);
-    }
-    if (java.lang.Double.doubleToRawLongBits(long_) != 0) {
-      output.writeDouble(2, long_);
-    }
-    if (java.lang.Float.floatToRawIntBits(alt_) != 0) {
-      output.writeFloat(3, alt_);
+    if (location_ != null) {
+      output.writeMessage(1, getLocation());
     }
     if (java.lang.Float.floatToRawIntBits(speed_) != 0) {
-      output.writeFloat(4, speed_);
+      output.writeFloat(2, speed_);
     }
     unknownFields.writeTo(output);
   }
@@ -179,21 +164,13 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (java.lang.Double.doubleToRawLongBits(lat_) != 0) {
+    if (location_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeDoubleSize(1, lat_);
-    }
-    if (java.lang.Double.doubleToRawLongBits(long_) != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeDoubleSize(2, long_);
-    }
-    if (java.lang.Float.floatToRawIntBits(alt_) != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(3, alt_);
+        .computeMessageSize(1, getLocation());
     }
     if (java.lang.Float.floatToRawIntBits(speed_) != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(4, speed_);
+        .computeFloatSize(2, speed_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -210,15 +187,11 @@ private static final long serialVersionUID = 0L;
     }
     com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint other = (com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint) obj;
 
-    if (java.lang.Double.doubleToLongBits(getLat())
-        != java.lang.Double.doubleToLongBits(
-            other.getLat())) return false;
-    if (java.lang.Double.doubleToLongBits(getLong())
-        != java.lang.Double.doubleToLongBits(
-            other.getLong())) return false;
-    if (java.lang.Float.floatToIntBits(getAlt())
-        != java.lang.Float.floatToIntBits(
-            other.getAlt())) return false;
+    if (hasLocation() != other.hasLocation()) return false;
+    if (hasLocation()) {
+      if (!getLocation()
+          .equals(other.getLocation())) return false;
+    }
     if (java.lang.Float.floatToIntBits(getSpeed())
         != java.lang.Float.floatToIntBits(
             other.getSpeed())) return false;
@@ -233,15 +206,10 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + LAT_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        java.lang.Double.doubleToLongBits(getLat()));
-    hash = (37 * hash) + LONG_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        java.lang.Double.doubleToLongBits(getLong()));
-    hash = (37 * hash) + ALT_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getAlt());
+    if (hasLocation()) {
+      hash = (37 * hash) + LOCATION_FIELD_NUMBER;
+      hash = (53 * hash) + getLocation().hashCode();
+    }
     hash = (37 * hash) + SPEED_FIELD_NUMBER;
     hash = (53 * hash) + java.lang.Float.floatToIntBits(
         getSpeed());
@@ -378,12 +346,12 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      lat_ = 0D;
-
-      long_ = 0D;
-
-      alt_ = 0F;
-
+      if (locationBuilder_ == null) {
+        location_ = null;
+      } else {
+        location_ = null;
+        locationBuilder_ = null;
+      }
       speed_ = 0F;
 
       return this;
@@ -412,9 +380,11 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint buildPartial() {
       com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint result = new com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint(this);
-      result.lat_ = lat_;
-      result.long_ = long_;
-      result.alt_ = alt_;
+      if (locationBuilder_ == null) {
+        result.location_ = location_;
+      } else {
+        result.location_ = locationBuilder_.build();
+      }
       result.speed_ = speed_;
       onBuilt();
       return result;
@@ -464,14 +434,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint other) {
       if (other == com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint.getDefaultInstance()) return this;
-      if (other.getLat() != 0D) {
-        setLat(other.getLat());
-      }
-      if (other.getLong() != 0D) {
-        setLong(other.getLong());
-      }
-      if (other.getAlt() != 0F) {
-        setAlt(other.getAlt());
+      if (other.hasLocation()) {
+        mergeLocation(other.getLocation());
       }
       if (other.getSpeed() != 0F) {
         setSpeed(other.getSpeed());
@@ -505,102 +469,128 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private double lat_ ;
+    private com.dji.sdk.sample.tigersalvage.proto.generated.Location location_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.dji.sdk.sample.tigersalvage.proto.generated.Location, com.dji.sdk.sample.tigersalvage.proto.generated.Location.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.LocationOrBuilder> locationBuilder_;
     /**
-     * <code>double lat = 1;</code>
-     * @return The lat.
+     * <code>.tutorial.Location location = 1;</code>
+     * @return Whether the location field is set.
      */
-    @java.lang.Override
-    public double getLat() {
-      return lat_;
+    public boolean hasLocation() {
+      return locationBuilder_ != null || location_ != null;
     }
     /**
-     * <code>double lat = 1;</code>
-     * @param value The lat to set.
-     * @return This builder for chaining.
+     * <code>.tutorial.Location location = 1;</code>
+     * @return The location.
      */
-    public Builder setLat(double value) {
-      
-      lat_ = value;
-      onChanged();
-      return this;
+    public com.dji.sdk.sample.tigersalvage.proto.generated.Location getLocation() {
+      if (locationBuilder_ == null) {
+        return location_ == null ? com.dji.sdk.sample.tigersalvage.proto.generated.Location.getDefaultInstance() : location_;
+      } else {
+        return locationBuilder_.getMessage();
+      }
     }
     /**
-     * <code>double lat = 1;</code>
-     * @return This builder for chaining.
+     * <code>.tutorial.Location location = 1;</code>
      */
-    public Builder clearLat() {
-      
-      lat_ = 0D;
-      onChanged();
-      return this;
-    }
+    public Builder setLocation(com.dji.sdk.sample.tigersalvage.proto.generated.Location value) {
+      if (locationBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        location_ = value;
+        onChanged();
+      } else {
+        locationBuilder_.setMessage(value);
+      }
 
-    private double long_ ;
-    /**
-     * <code>double long = 2;</code>
-     * @return The long.
-     */
-    @java.lang.Override
-    public double getLong() {
-      return long_;
-    }
-    /**
-     * <code>double long = 2;</code>
-     * @param value The long to set.
-     * @return This builder for chaining.
-     */
-    public Builder setLong(double value) {
-      
-      long_ = value;
-      onChanged();
       return this;
     }
     /**
-     * <code>double long = 2;</code>
-     * @return This builder for chaining.
+     * <code>.tutorial.Location location = 1;</code>
      */
-    public Builder clearLong() {
-      
-      long_ = 0D;
-      onChanged();
-      return this;
-    }
+    public Builder setLocation(
+        com.dji.sdk.sample.tigersalvage.proto.generated.Location.Builder builderForValue) {
+      if (locationBuilder_ == null) {
+        location_ = builderForValue.build();
+        onChanged();
+      } else {
+        locationBuilder_.setMessage(builderForValue.build());
+      }
 
-    private float alt_ ;
-    /**
-     * <code>float alt = 3;</code>
-     * @return The alt.
-     */
-    @java.lang.Override
-    public float getAlt() {
-      return alt_;
-    }
-    /**
-     * <code>float alt = 3;</code>
-     * @param value The alt to set.
-     * @return This builder for chaining.
-     */
-    public Builder setAlt(float value) {
-      
-      alt_ = value;
-      onChanged();
       return this;
     }
     /**
-     * <code>float alt = 3;</code>
-     * @return This builder for chaining.
+     * <code>.tutorial.Location location = 1;</code>
      */
-    public Builder clearAlt() {
-      
-      alt_ = 0F;
-      onChanged();
+    public Builder mergeLocation(com.dji.sdk.sample.tigersalvage.proto.generated.Location value) {
+      if (locationBuilder_ == null) {
+        if (location_ != null) {
+          location_ =
+            com.dji.sdk.sample.tigersalvage.proto.generated.Location.newBuilder(location_).mergeFrom(value).buildPartial();
+        } else {
+          location_ = value;
+        }
+        onChanged();
+      } else {
+        locationBuilder_.mergeFrom(value);
+      }
+
       return this;
+    }
+    /**
+     * <code>.tutorial.Location location = 1;</code>
+     */
+    public Builder clearLocation() {
+      if (locationBuilder_ == null) {
+        location_ = null;
+        onChanged();
+      } else {
+        location_ = null;
+        locationBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.tutorial.Location location = 1;</code>
+     */
+    public com.dji.sdk.sample.tigersalvage.proto.generated.Location.Builder getLocationBuilder() {
+      
+      onChanged();
+      return getLocationFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.tutorial.Location location = 1;</code>
+     */
+    public com.dji.sdk.sample.tigersalvage.proto.generated.LocationOrBuilder getLocationOrBuilder() {
+      if (locationBuilder_ != null) {
+        return locationBuilder_.getMessageOrBuilder();
+      } else {
+        return location_ == null ?
+            com.dji.sdk.sample.tigersalvage.proto.generated.Location.getDefaultInstance() : location_;
+      }
+    }
+    /**
+     * <code>.tutorial.Location location = 1;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.dji.sdk.sample.tigersalvage.proto.generated.Location, com.dji.sdk.sample.tigersalvage.proto.generated.Location.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.LocationOrBuilder> 
+        getLocationFieldBuilder() {
+      if (locationBuilder_ == null) {
+        locationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.dji.sdk.sample.tigersalvage.proto.generated.Location, com.dji.sdk.sample.tigersalvage.proto.generated.Location.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.LocationOrBuilder>(
+                getLocation(),
+                getParentForChildren(),
+                isClean());
+        location_ = null;
+      }
+      return locationBuilder_;
     }
 
     private float speed_ ;
     /**
-     * <code>float speed = 4;</code>
+     * <code>float speed = 2;</code>
      * @return The speed.
      */
     @java.lang.Override
@@ -608,7 +598,7 @@ private static final long serialVersionUID = 0L;
       return speed_;
     }
     /**
-     * <code>float speed = 4;</code>
+     * <code>float speed = 2;</code>
      * @param value The speed to set.
      * @return This builder for chaining.
      */
@@ -619,7 +609,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>float speed = 4;</code>
+     * <code>float speed = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearSpeed() {

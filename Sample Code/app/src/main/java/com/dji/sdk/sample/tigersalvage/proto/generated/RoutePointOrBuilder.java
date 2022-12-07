@@ -8,25 +8,22 @@ public interface RoutePointOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>double lat = 1;</code>
-   * @return The lat.
+   * <code>.tutorial.Location location = 1;</code>
+   * @return Whether the location field is set.
    */
-  double getLat();
+  boolean hasLocation();
+  /**
+   * <code>.tutorial.Location location = 1;</code>
+   * @return The location.
+   */
+  com.dji.sdk.sample.tigersalvage.proto.generated.Location getLocation();
+  /**
+   * <code>.tutorial.Location location = 1;</code>
+   */
+  com.dji.sdk.sample.tigersalvage.proto.generated.LocationOrBuilder getLocationOrBuilder();
 
   /**
-   * <code>double long = 2;</code>
-   * @return The long.
-   */
-  double getLong();
-
-  /**
-   * <code>float alt = 3;</code>
-   * @return The alt.
-   */
-  float getAlt();
-
-  /**
-   * <code>float speed = 4;</code>
+   * <code>float speed = 2;</code>
    * @return The speed.
    */
   float getSpeed();

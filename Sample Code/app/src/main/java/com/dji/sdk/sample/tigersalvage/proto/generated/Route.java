@@ -15,6 +15,11 @@ public final class Route {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_Location_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_tutorial_Location_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_tutorial_RoutePoint_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -33,25 +38,32 @@ public final class Route {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013Route.proto\022\010tutorial\"C\n\nRoutePoint\022\013\n" +
-      "\003lat\030\001 \001(\001\022\014\n\004long\030\002 \001(\001\022\013\n\003alt\030\003 \001(\002\022\r\n" +
-      "\005speed\030\004 \001(\002\"5\n\nRouteArray\022\'\n\twaypoints\030" +
-      "\001 \003(\0132\024.tutorial.RoutePointB3\n/com.dji.s" +
-      "dk.sample.tigersalvage.proto.generatedP\001" +
-      "b\006proto3"
+      "\n\013Route.proto\022\010tutorial\"2\n\010Location\022\013\n\003l" +
+      "at\030\001 \001(\001\022\014\n\004long\030\002 \001(\001\022\013\n\003alt\030\003 \001(\002\"A\n\nR" +
+      "outePoint\022$\n\010location\030\001 \001(\0132\022.tutorial.L" +
+      "ocation\022\r\n\005speed\030\002 \001(\002\"5\n\nRouteArray\022\'\n\t" +
+      "waypoints\030\001 \003(\0132\024.tutorial.RoutePointB3\n" +
+      "/com.dji.sdk.sample.tigersalvage.proto.g" +
+      "eneratedP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_tutorial_RoutePoint_descriptor =
+    internal_static_tutorial_Location_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_tutorial_Location_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_tutorial_Location_descriptor,
+        new java.lang.String[] { "Lat", "Long", "Alt", });
+    internal_static_tutorial_RoutePoint_descriptor =
+      getDescriptor().getMessageTypes().get(1);
     internal_static_tutorial_RoutePoint_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_tutorial_RoutePoint_descriptor,
-        new java.lang.String[] { "Lat", "Long", "Alt", "Speed", });
+        new java.lang.String[] { "Location", "Speed", });
     internal_static_tutorial_RouteArray_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_tutorial_RouteArray_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_tutorial_RouteArray_descriptor,

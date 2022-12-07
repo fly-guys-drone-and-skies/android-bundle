@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package tutorial;
+option java_package = "com.dji.sdk.sample.tigersalvage.proto.generated";
+option java_multiple_files = true;
+
+import "Route.proto";
+
+message Velocity {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}
+
+message Attitude {
+  double pitch = 1;
+  double yaw = 2;
+  double roll = 3;
+}
+
+message VehicleStatus {
+  Location location = 1;
+  Velocity velocityXYZ = 2;
+  Attitude attitude = 3;
+}
