@@ -4,25 +4,25 @@
 package com.dji.sdk.sample.tigersalvage.proto.generated;
 
 /**
- * Protobuf type {@code tutorial.Attitude}
+ * Protobuf type {@code tutorial.VehicleAttitude}
  */
-public final class Attitude extends
+public final class VehicleAttitude extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:tutorial.Attitude)
-    AttitudeOrBuilder {
+    // @@protoc_insertion_point(message_implements:tutorial.VehicleAttitude)
+    VehicleAttitudeOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use Attitude.newBuilder() to construct.
-  private Attitude(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use VehicleAttitude.newBuilder() to construct.
+  private VehicleAttitude(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private Attitude() {
+  private VehicleAttitude() {
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new Attitude();
+    return new VehicleAttitude();
   }
 
   @java.lang.Override
@@ -30,7 +30,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private Attitude(
+  private VehicleAttitude(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -84,15 +84,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_Attitude_descriptor;
+    return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_VehicleAttitude_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_Attitude_fieldAccessorTable
+    return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_VehicleAttitude_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.class, com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.Builder.class);
+            com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.class, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.Builder.class);
   }
 
   public static final int PITCH_FIELD_NUMBER = 1;
@@ -182,10 +182,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.dji.sdk.sample.tigersalvage.proto.generated.Attitude)) {
+    if (!(obj instanceof com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude)) {
       return super.equals(obj);
     }
-    com.dji.sdk.sample.tigersalvage.proto.generated.Attitude other = (com.dji.sdk.sample.tigersalvage.proto.generated.Attitude) obj;
+    com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude other = (com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude) obj;
 
     if (java.lang.Double.doubleToLongBits(getPitch())
         != java.lang.Double.doubleToLongBits(
@@ -221,69 +221,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseFrom(byte[] data)
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseFrom(java.io.InputStream input)
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseDelimitedFrom(java.io.InputStream input)
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseDelimitedFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -296,7 +296,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.dji.sdk.sample.tigersalvage.proto.generated.Attitude prototype) {
+  public static Builder newBuilder(com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -312,26 +312,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code tutorial.Attitude}
+   * Protobuf type {@code tutorial.VehicleAttitude}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:tutorial.Attitude)
-      com.dji.sdk.sample.tigersalvage.proto.generated.AttitudeOrBuilder {
+      // @@protoc_insertion_point(builder_implements:tutorial.VehicleAttitude)
+      com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitudeOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_Attitude_descriptor;
+      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_VehicleAttitude_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_Attitude_fieldAccessorTable
+      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_VehicleAttitude_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.class, com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.Builder.class);
+              com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.class, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.Builder.class);
     }
 
-    // Construct using com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.newBuilder()
+    // Construct using com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -361,17 +361,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_Attitude_descriptor;
+      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_VehicleAttitude_descriptor;
     }
 
     @java.lang.Override
-    public com.dji.sdk.sample.tigersalvage.proto.generated.Attitude getDefaultInstanceForType() {
-      return com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.getDefaultInstance();
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude getDefaultInstanceForType() {
+      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.dji.sdk.sample.tigersalvage.proto.generated.Attitude build() {
-      com.dji.sdk.sample.tigersalvage.proto.generated.Attitude result = buildPartial();
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude build() {
+      com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -379,8 +379,8 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.dji.sdk.sample.tigersalvage.proto.generated.Attitude buildPartial() {
-      com.dji.sdk.sample.tigersalvage.proto.generated.Attitude result = new com.dji.sdk.sample.tigersalvage.proto.generated.Attitude(this);
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude buildPartial() {
+      com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude result = new com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude(this);
       result.pitch_ = pitch_;
       result.yaw_ = yaw_;
       result.roll_ = roll_;
@@ -422,16 +422,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.dji.sdk.sample.tigersalvage.proto.generated.Attitude) {
-        return mergeFrom((com.dji.sdk.sample.tigersalvage.proto.generated.Attitude)other);
+      if (other instanceof com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude) {
+        return mergeFrom((com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.dji.sdk.sample.tigersalvage.proto.generated.Attitude other) {
-      if (other == com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude other) {
+      if (other == com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.getDefaultInstance()) return this;
       if (other.getPitch() != 0D) {
         setPitch(other.getPitch());
       }
@@ -456,11 +456,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.dji.sdk.sample.tigersalvage.proto.generated.Attitude parsedMessage = null;
+      com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.dji.sdk.sample.tigersalvage.proto.generated.Attitude) e.getUnfinishedMessage();
+        parsedMessage = (com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -575,41 +575,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:tutorial.Attitude)
+    // @@protoc_insertion_point(builder_scope:tutorial.VehicleAttitude)
   }
 
-  // @@protoc_insertion_point(class_scope:tutorial.Attitude)
-  private static final com.dji.sdk.sample.tigersalvage.proto.generated.Attitude DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:tutorial.VehicleAttitude)
+  private static final com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.dji.sdk.sample.tigersalvage.proto.generated.Attitude();
+    DEFAULT_INSTANCE = new com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude();
   }
 
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Attitude getDefaultInstance() {
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<Attitude>
-      PARSER = new com.google.protobuf.AbstractParser<Attitude>() {
+  private static final com.google.protobuf.Parser<VehicleAttitude>
+      PARSER = new com.google.protobuf.AbstractParser<VehicleAttitude>() {
     @java.lang.Override
-    public Attitude parsePartialFrom(
+    public VehicleAttitude parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Attitude(input, extensionRegistry);
+      return new VehicleAttitude(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<Attitude> parser() {
+  public static com.google.protobuf.Parser<VehicleAttitude> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<Attitude> getParserForType() {
+  public com.google.protobuf.Parser<VehicleAttitude> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.dji.sdk.sample.tigersalvage.proto.generated.Attitude getDefaultInstanceForType() {
+  public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

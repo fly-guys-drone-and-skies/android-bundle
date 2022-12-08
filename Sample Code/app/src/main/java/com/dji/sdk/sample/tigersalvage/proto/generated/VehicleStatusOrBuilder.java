@@ -23,32 +23,32 @@ public interface VehicleStatusOrBuilder extends
   com.dji.sdk.sample.tigersalvage.proto.generated.LocationOrBuilder getLocationOrBuilder();
 
   /**
-   * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+   * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
    * @return Whether the velocityXYZ field is set.
    */
   boolean hasVelocityXYZ();
   /**
-   * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+   * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
    * @return The velocityXYZ.
    */
-  com.dji.sdk.sample.tigersalvage.proto.generated.Velocity getVelocityXYZ();
+  com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity getVelocityXYZ();
   /**
-   * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+   * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
    */
-  com.dji.sdk.sample.tigersalvage.proto.generated.VelocityOrBuilder getVelocityXYZOrBuilder();
+  com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocityOrBuilder getVelocityXYZOrBuilder();
 
   /**
-   * <code>.tutorial.Attitude attitude = 3;</code>
+   * <code>.tutorial.VehicleAttitude attitude = 3;</code>
    * @return Whether the attitude field is set.
    */
   boolean hasAttitude();
   /**
-   * <code>.tutorial.Attitude attitude = 3;</code>
+   * <code>.tutorial.VehicleAttitude attitude = 3;</code>
    * @return The attitude.
    */
-  com.dji.sdk.sample.tigersalvage.proto.generated.Attitude getAttitude();
+  com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude getAttitude();
   /**
-   * <code>.tutorial.Attitude attitude = 3;</code>
+   * <code>.tutorial.VehicleAttitude attitude = 3;</code>
    */
-  com.dji.sdk.sample.tigersalvage.proto.generated.AttitudeOrBuilder getAttitudeOrBuilder();
+  com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitudeOrBuilder getAttitudeOrBuilder();
 }

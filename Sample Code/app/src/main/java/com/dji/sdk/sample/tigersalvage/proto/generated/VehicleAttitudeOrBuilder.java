@@ -3,8 +3,8 @@
 
 package com.dji.sdk.sample.tigersalvage.proto.generated;
 
-public interface AttitudeOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:tutorial.Attitude)
+public interface VehicleAttitudeOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:tutorial.VehicleAttitude)
     com.google.protobuf.MessageOrBuilder {
 
   /**

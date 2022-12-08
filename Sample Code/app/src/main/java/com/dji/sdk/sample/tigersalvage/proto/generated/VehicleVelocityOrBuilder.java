@@ -3,8 +3,8 @@
 
 package com.dji.sdk.sample.tigersalvage.proto.generated;
 
-public interface VelocityOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:tutorial.Velocity)
+public interface VehicleVelocityOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:tutorial.VehicleVelocity)
     com.google.protobuf.MessageOrBuilder {
 
   /**

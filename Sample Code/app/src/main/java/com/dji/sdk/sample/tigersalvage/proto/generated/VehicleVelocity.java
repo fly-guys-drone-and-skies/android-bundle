@@ -4,25 +4,25 @@
 package com.dji.sdk.sample.tigersalvage.proto.generated;
 
 /**
- * Protobuf type {@code tutorial.Velocity}
+ * Protobuf type {@code tutorial.VehicleVelocity}
  */
-public final class Velocity extends
+public final class VehicleVelocity extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:tutorial.Velocity)
-    VelocityOrBuilder {
+    // @@protoc_insertion_point(message_implements:tutorial.VehicleVelocity)
+    VehicleVelocityOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use Velocity.newBuilder() to construct.
-  private Velocity(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use VehicleVelocity.newBuilder() to construct.
+  private VehicleVelocity(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private Velocity() {
+  private VehicleVelocity() {
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new Velocity();
+    return new VehicleVelocity();
   }
 
   @java.lang.Override
@@ -30,7 +30,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private Velocity(
+  private VehicleVelocity(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -84,15 +84,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_Velocity_descriptor;
+    return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_VehicleVelocity_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_Velocity_fieldAccessorTable
+    return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_VehicleVelocity_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.class, com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.Builder.class);
+            com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.class, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.Builder.class);
   }
 
   public static final int X_FIELD_NUMBER = 1;
@@ -182,10 +182,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.dji.sdk.sample.tigersalvage.proto.generated.Velocity)) {
+    if (!(obj instanceof com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity)) {
       return super.equals(obj);
     }
-    com.dji.sdk.sample.tigersalvage.proto.generated.Velocity other = (com.dji.sdk.sample.tigersalvage.proto.generated.Velocity) obj;
+    com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity other = (com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity) obj;
 
     if (java.lang.Float.floatToIntBits(getX())
         != java.lang.Float.floatToIntBits(
@@ -221,69 +221,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseFrom(byte[] data)
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseFrom(java.io.InputStream input)
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseDelimitedFrom(java.io.InputStream input)
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseDelimitedFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parseFrom(
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -296,7 +296,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.dji.sdk.sample.tigersalvage.proto.generated.Velocity prototype) {
+  public static Builder newBuilder(com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -312,26 +312,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code tutorial.Velocity}
+   * Protobuf type {@code tutorial.VehicleVelocity}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:tutorial.Velocity)
-      com.dji.sdk.sample.tigersalvage.proto.generated.VelocityOrBuilder {
+      // @@protoc_insertion_point(builder_implements:tutorial.VehicleVelocity)
+      com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocityOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_Velocity_descriptor;
+      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_VehicleVelocity_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_Velocity_fieldAccessorTable
+      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_VehicleVelocity_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.class, com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.Builder.class);
+              com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.class, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.Builder.class);
     }
 
-    // Construct using com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.newBuilder()
+    // Construct using com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -361,17 +361,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_Velocity_descriptor;
+      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatusOuterClass.internal_static_tutorial_VehicleVelocity_descriptor;
     }
 
     @java.lang.Override
-    public com.dji.sdk.sample.tigersalvage.proto.generated.Velocity getDefaultInstanceForType() {
-      return com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.getDefaultInstance();
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity getDefaultInstanceForType() {
+      return com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.dji.sdk.sample.tigersalvage.proto.generated.Velocity build() {
-      com.dji.sdk.sample.tigersalvage.proto.generated.Velocity result = buildPartial();
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity build() {
+      com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -379,8 +379,8 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.dji.sdk.sample.tigersalvage.proto.generated.Velocity buildPartial() {
-      com.dji.sdk.sample.tigersalvage.proto.generated.Velocity result = new com.dji.sdk.sample.tigersalvage.proto.generated.Velocity(this);
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity buildPartial() {
+      com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity result = new com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity(this);
       result.x_ = x_;
       result.y_ = y_;
       result.z_ = z_;
@@ -422,16 +422,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.dji.sdk.sample.tigersalvage.proto.generated.Velocity) {
-        return mergeFrom((com.dji.sdk.sample.tigersalvage.proto.generated.Velocity)other);
+      if (other instanceof com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity) {
+        return mergeFrom((com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.dji.sdk.sample.tigersalvage.proto.generated.Velocity other) {
-      if (other == com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity other) {
+      if (other == com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.getDefaultInstance()) return this;
       if (other.getX() != 0F) {
         setX(other.getX());
       }
@@ -456,11 +456,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.dji.sdk.sample.tigersalvage.proto.generated.Velocity parsedMessage = null;
+      com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.dji.sdk.sample.tigersalvage.proto.generated.Velocity) e.getUnfinishedMessage();
+        parsedMessage = (com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -575,41 +575,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:tutorial.Velocity)
+    // @@protoc_insertion_point(builder_scope:tutorial.VehicleVelocity)
   }
 
-  // @@protoc_insertion_point(class_scope:tutorial.Velocity)
-  private static final com.dji.sdk.sample.tigersalvage.proto.generated.Velocity DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:tutorial.VehicleVelocity)
+  private static final com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.dji.sdk.sample.tigersalvage.proto.generated.Velocity();
+    DEFAULT_INSTANCE = new com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity();
   }
 
-  public static com.dji.sdk.sample.tigersalvage.proto.generated.Velocity getDefaultInstance() {
+  public static com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<Velocity>
-      PARSER = new com.google.protobuf.AbstractParser<Velocity>() {
+  private static final com.google.protobuf.Parser<VehicleVelocity>
+      PARSER = new com.google.protobuf.AbstractParser<VehicleVelocity>() {
     @java.lang.Override
-    public Velocity parsePartialFrom(
+    public VehicleVelocity parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Velocity(input, extensionRegistry);
+      return new VehicleVelocity(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<Velocity> parser() {
+  public static com.google.protobuf.Parser<VehicleVelocity> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<Velocity> getParserForType() {
+  public com.google.protobuf.Parser<VehicleVelocity> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.dji.sdk.sample.tigersalvage.proto.generated.Velocity getDefaultInstanceForType() {
+  public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

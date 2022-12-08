@@ -62,11 +62,11 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 18: {
-            com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.Builder subBuilder = null;
+            com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.Builder subBuilder = null;
             if (velocityXYZ_ != null) {
               subBuilder = velocityXYZ_.toBuilder();
             }
-            velocityXYZ_ = input.readMessage(com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.parser(), extensionRegistry);
+            velocityXYZ_ = input.readMessage(com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.parser(), extensionRegistry);
             if (subBuilder != null) {
               subBuilder.mergeFrom(velocityXYZ_);
               velocityXYZ_ = subBuilder.buildPartial();
@@ -75,11 +75,11 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 26: {
-            com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.Builder subBuilder = null;
+            com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.Builder subBuilder = null;
             if (attitude_ != null) {
               subBuilder = attitude_.toBuilder();
             }
-            attitude_ = input.readMessage(com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.parser(), extensionRegistry);
+            attitude_ = input.readMessage(com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.parser(), extensionRegistry);
             if (subBuilder != null) {
               subBuilder.mergeFrom(attitude_);
               attitude_ = subBuilder.buildPartial();
@@ -146,9 +146,9 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int VELOCITYXYZ_FIELD_NUMBER = 2;
-  private com.dji.sdk.sample.tigersalvage.proto.generated.Velocity velocityXYZ_;
+  private com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity velocityXYZ_;
   /**
-   * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+   * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
    * @return Whether the velocityXYZ field is set.
    */
   @java.lang.Override
@@ -156,25 +156,25 @@ private static final long serialVersionUID = 0L;
     return velocityXYZ_ != null;
   }
   /**
-   * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+   * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
    * @return The velocityXYZ.
    */
   @java.lang.Override
-  public com.dji.sdk.sample.tigersalvage.proto.generated.Velocity getVelocityXYZ() {
-    return velocityXYZ_ == null ? com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.getDefaultInstance() : velocityXYZ_;
+  public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity getVelocityXYZ() {
+    return velocityXYZ_ == null ? com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.getDefaultInstance() : velocityXYZ_;
   }
   /**
-   * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+   * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
    */
   @java.lang.Override
-  public com.dji.sdk.sample.tigersalvage.proto.generated.VelocityOrBuilder getVelocityXYZOrBuilder() {
+  public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocityOrBuilder getVelocityXYZOrBuilder() {
     return getVelocityXYZ();
   }
 
   public static final int ATTITUDE_FIELD_NUMBER = 3;
-  private com.dji.sdk.sample.tigersalvage.proto.generated.Attitude attitude_;
+  private com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude attitude_;
   /**
-   * <code>.tutorial.Attitude attitude = 3;</code>
+   * <code>.tutorial.VehicleAttitude attitude = 3;</code>
    * @return Whether the attitude field is set.
    */
   @java.lang.Override
@@ -182,18 +182,18 @@ private static final long serialVersionUID = 0L;
     return attitude_ != null;
   }
   /**
-   * <code>.tutorial.Attitude attitude = 3;</code>
+   * <code>.tutorial.VehicleAttitude attitude = 3;</code>
    * @return The attitude.
    */
   @java.lang.Override
-  public com.dji.sdk.sample.tigersalvage.proto.generated.Attitude getAttitude() {
-    return attitude_ == null ? com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.getDefaultInstance() : attitude_;
+  public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude getAttitude() {
+    return attitude_ == null ? com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.getDefaultInstance() : attitude_;
   }
   /**
-   * <code>.tutorial.Attitude attitude = 3;</code>
+   * <code>.tutorial.VehicleAttitude attitude = 3;</code>
    */
   @java.lang.Override
-  public com.dji.sdk.sample.tigersalvage.proto.generated.AttitudeOrBuilder getAttitudeOrBuilder() {
+  public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitudeOrBuilder getAttitudeOrBuilder() {
     return getAttitude();
   }
 
@@ -691,31 +691,31 @@ private static final long serialVersionUID = 0L;
       return locationBuilder_;
     }
 
-    private com.dji.sdk.sample.tigersalvage.proto.generated.Velocity velocityXYZ_;
+    private com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity velocityXYZ_;
     private com.google.protobuf.SingleFieldBuilderV3<
-        com.dji.sdk.sample.tigersalvage.proto.generated.Velocity, com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.VelocityOrBuilder> velocityXYZBuilder_;
+        com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocityOrBuilder> velocityXYZBuilder_;
     /**
-     * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+     * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
      * @return Whether the velocityXYZ field is set.
      */
     public boolean hasVelocityXYZ() {
       return velocityXYZBuilder_ != null || velocityXYZ_ != null;
     }
     /**
-     * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+     * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
      * @return The velocityXYZ.
      */
-    public com.dji.sdk.sample.tigersalvage.proto.generated.Velocity getVelocityXYZ() {
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity getVelocityXYZ() {
       if (velocityXYZBuilder_ == null) {
-        return velocityXYZ_ == null ? com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.getDefaultInstance() : velocityXYZ_;
+        return velocityXYZ_ == null ? com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.getDefaultInstance() : velocityXYZ_;
       } else {
         return velocityXYZBuilder_.getMessage();
       }
     }
     /**
-     * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+     * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
      */
-    public Builder setVelocityXYZ(com.dji.sdk.sample.tigersalvage.proto.generated.Velocity value) {
+    public Builder setVelocityXYZ(com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity value) {
       if (velocityXYZBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -729,10 +729,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+     * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
      */
     public Builder setVelocityXYZ(
-        com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.Builder builderForValue) {
+        com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.Builder builderForValue) {
       if (velocityXYZBuilder_ == null) {
         velocityXYZ_ = builderForValue.build();
         onChanged();
@@ -743,13 +743,13 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+     * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
      */
-    public Builder mergeVelocityXYZ(com.dji.sdk.sample.tigersalvage.proto.generated.Velocity value) {
+    public Builder mergeVelocityXYZ(com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity value) {
       if (velocityXYZBuilder_ == null) {
         if (velocityXYZ_ != null) {
           velocityXYZ_ =
-            com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.newBuilder(velocityXYZ_).mergeFrom(value).buildPartial();
+            com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.newBuilder(velocityXYZ_).mergeFrom(value).buildPartial();
         } else {
           velocityXYZ_ = value;
         }
@@ -761,7 +761,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+     * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
      */
     public Builder clearVelocityXYZ() {
       if (velocityXYZBuilder_ == null) {
@@ -775,33 +775,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+     * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
      */
-    public com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.Builder getVelocityXYZBuilder() {
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.Builder getVelocityXYZBuilder() {
       
       onChanged();
       return getVelocityXYZFieldBuilder().getBuilder();
     }
     /**
-     * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+     * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
      */
-    public com.dji.sdk.sample.tigersalvage.proto.generated.VelocityOrBuilder getVelocityXYZOrBuilder() {
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocityOrBuilder getVelocityXYZOrBuilder() {
       if (velocityXYZBuilder_ != null) {
         return velocityXYZBuilder_.getMessageOrBuilder();
       } else {
         return velocityXYZ_ == null ?
-            com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.getDefaultInstance() : velocityXYZ_;
+            com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.getDefaultInstance() : velocityXYZ_;
       }
     }
     /**
-     * <code>.tutorial.Velocity velocityXYZ = 2;</code>
+     * <code>.tutorial.VehicleVelocity velocityXYZ = 2;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        com.dji.sdk.sample.tigersalvage.proto.generated.Velocity, com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.VelocityOrBuilder> 
+        com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocityOrBuilder> 
         getVelocityXYZFieldBuilder() {
       if (velocityXYZBuilder_ == null) {
         velocityXYZBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            com.dji.sdk.sample.tigersalvage.proto.generated.Velocity, com.dji.sdk.sample.tigersalvage.proto.generated.Velocity.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.VelocityOrBuilder>(
+            com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocityOrBuilder>(
                 getVelocityXYZ(),
                 getParentForChildren(),
                 isClean());
@@ -810,31 +810,31 @@ private static final long serialVersionUID = 0L;
       return velocityXYZBuilder_;
     }
 
-    private com.dji.sdk.sample.tigersalvage.proto.generated.Attitude attitude_;
+    private com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude attitude_;
     private com.google.protobuf.SingleFieldBuilderV3<
-        com.dji.sdk.sample.tigersalvage.proto.generated.Attitude, com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.AttitudeOrBuilder> attitudeBuilder_;
+        com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitudeOrBuilder> attitudeBuilder_;
     /**
-     * <code>.tutorial.Attitude attitude = 3;</code>
+     * <code>.tutorial.VehicleAttitude attitude = 3;</code>
      * @return Whether the attitude field is set.
      */
     public boolean hasAttitude() {
       return attitudeBuilder_ != null || attitude_ != null;
     }
     /**
-     * <code>.tutorial.Attitude attitude = 3;</code>
+     * <code>.tutorial.VehicleAttitude attitude = 3;</code>
      * @return The attitude.
      */
-    public com.dji.sdk.sample.tigersalvage.proto.generated.Attitude getAttitude() {
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude getAttitude() {
       if (attitudeBuilder_ == null) {
-        return attitude_ == null ? com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.getDefaultInstance() : attitude_;
+        return attitude_ == null ? com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.getDefaultInstance() : attitude_;
       } else {
         return attitudeBuilder_.getMessage();
       }
     }
     /**
-     * <code>.tutorial.Attitude attitude = 3;</code>
+     * <code>.tutorial.VehicleAttitude attitude = 3;</code>
      */
-    public Builder setAttitude(com.dji.sdk.sample.tigersalvage.proto.generated.Attitude value) {
+    public Builder setAttitude(com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude value) {
       if (attitudeBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -848,10 +848,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.tutorial.Attitude attitude = 3;</code>
+     * <code>.tutorial.VehicleAttitude attitude = 3;</code>
      */
     public Builder setAttitude(
-        com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.Builder builderForValue) {
+        com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.Builder builderForValue) {
       if (attitudeBuilder_ == null) {
         attitude_ = builderForValue.build();
         onChanged();
@@ -862,13 +862,13 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.tutorial.Attitude attitude = 3;</code>
+     * <code>.tutorial.VehicleAttitude attitude = 3;</code>
      */
-    public Builder mergeAttitude(com.dji.sdk.sample.tigersalvage.proto.generated.Attitude value) {
+    public Builder mergeAttitude(com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude value) {
       if (attitudeBuilder_ == null) {
         if (attitude_ != null) {
           attitude_ =
-            com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.newBuilder(attitude_).mergeFrom(value).buildPartial();
+            com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.newBuilder(attitude_).mergeFrom(value).buildPartial();
         } else {
           attitude_ = value;
         }
@@ -880,7 +880,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.tutorial.Attitude attitude = 3;</code>
+     * <code>.tutorial.VehicleAttitude attitude = 3;</code>
      */
     public Builder clearAttitude() {
       if (attitudeBuilder_ == null) {
@@ -894,33 +894,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.tutorial.Attitude attitude = 3;</code>
+     * <code>.tutorial.VehicleAttitude attitude = 3;</code>
      */
-    public com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.Builder getAttitudeBuilder() {
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.Builder getAttitudeBuilder() {
       
       onChanged();
       return getAttitudeFieldBuilder().getBuilder();
     }
     /**
-     * <code>.tutorial.Attitude attitude = 3;</code>
+     * <code>.tutorial.VehicleAttitude attitude = 3;</code>
      */
-    public com.dji.sdk.sample.tigersalvage.proto.generated.AttitudeOrBuilder getAttitudeOrBuilder() {
+    public com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitudeOrBuilder getAttitudeOrBuilder() {
       if (attitudeBuilder_ != null) {
         return attitudeBuilder_.getMessageOrBuilder();
       } else {
         return attitude_ == null ?
-            com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.getDefaultInstance() : attitude_;
+            com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.getDefaultInstance() : attitude_;
       }
     }
     /**
-     * <code>.tutorial.Attitude attitude = 3;</code>
+     * <code>.tutorial.VehicleAttitude attitude = 3;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        com.dji.sdk.sample.tigersalvage.proto.generated.Attitude, com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.AttitudeOrBuilder> 
+        com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitudeOrBuilder> 
         getAttitudeFieldBuilder() {
       if (attitudeBuilder_ == null) {
         attitudeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            com.dji.sdk.sample.tigersalvage.proto.generated.Attitude, com.dji.sdk.sample.tigersalvage.proto.generated.Attitude.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.AttitudeOrBuilder>(
+            com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude.Builder, com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitudeOrBuilder>(
                 getAttitude(),
                 getParentForChildren(),
                 isClean());

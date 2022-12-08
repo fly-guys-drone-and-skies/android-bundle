@@ -15,15 +15,15 @@ public final class VehicleStatusOuterClass {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_tutorial_Velocity_descriptor;
+    internal_static_tutorial_VehicleVelocity_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_tutorial_Velocity_fieldAccessorTable;
+      internal_static_tutorial_VehicleVelocity_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_tutorial_Attitude_descriptor;
+    internal_static_tutorial_VehicleAttitude_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_tutorial_Attitude_fieldAccessorTable;
+      internal_static_tutorial_VehicleAttitude_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_tutorial_VehicleStatus_descriptor;
   static final 
@@ -39,31 +39,32 @@ public final class VehicleStatusOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\023VehicleStatus.proto\022\010tutorial\032\013Route.p" +
-      "roto\"+\n\010Velocity\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t" +
-      "\n\001z\030\003 \001(\002\"4\n\010Attitude\022\r\n\005pitch\030\001 \001(\001\022\013\n\003" +
-      "yaw\030\002 \001(\001\022\014\n\004roll\030\003 \001(\001\"\204\001\n\rVehicleStatu" +
-      "s\022$\n\010location\030\001 \001(\0132\022.tutorial.Location\022" +
-      "\'\n\013velocityXYZ\030\002 \001(\0132\022.tutorial.Velocity" +
-      "\022$\n\010attitude\030\003 \001(\0132\022.tutorial.AttitudeB3" +
-      "\n/com.dji.sdk.sample.tigersalvage.proto." +
-      "generatedP\001b\006proto3"
+      "roto\"2\n\017VehicleVelocity\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030" +
+      "\002 \001(\002\022\t\n\001z\030\003 \001(\002\";\n\017VehicleAttitude\022\r\n\005p" +
+      "itch\030\001 \001(\001\022\013\n\003yaw\030\002 \001(\001\022\014\n\004roll\030\003 \001(\001\"\222\001" +
+      "\n\rVehicleStatus\022$\n\010location\030\001 \001(\0132\022.tuto" +
+      "rial.Location\022.\n\013velocityXYZ\030\002 \001(\0132\031.tut" +
+      "orial.VehicleVelocity\022+\n\010attitude\030\003 \001(\0132" +
+      "\031.tutorial.VehicleAttitudeB3\n/com.dji.sd" +
+      "k.sample.tigersalvage.proto.generatedP\001b" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.dji.sdk.sample.tigersalvage.proto.generated.Route.getDescriptor(),
         });
-    internal_static_tutorial_Velocity_descriptor =
+    internal_static_tutorial_VehicleVelocity_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_tutorial_Velocity_fieldAccessorTable = new
+    internal_static_tutorial_VehicleVelocity_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_tutorial_Velocity_descriptor,
+        internal_static_tutorial_VehicleVelocity_descriptor,
         new java.lang.String[] { "X", "Y", "Z", });
-    internal_static_tutorial_Attitude_descriptor =
+    internal_static_tutorial_VehicleAttitude_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_tutorial_Attitude_fieldAccessorTable = new
+    internal_static_tutorial_VehicleAttitude_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_tutorial_Attitude_descriptor,
+        internal_static_tutorial_VehicleAttitude_descriptor,
         new java.lang.String[] { "Pitch", "Yaw", "Roll", });
     internal_static_tutorial_VehicleStatus_descriptor =
       getDescriptor().getMessageTypes().get(2);
