@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 
 import com.dji.sdk.sample.tigersalvage.WaypointMissionList;
 import com.dji.sdk.sample.tigersalvage.proto.generated.Location;
+import com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude;
+
 
 import com.dji.sdk.sample.internal.controller.DJISampleApplication;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
@@ -56,21 +58,15 @@ public class OperatorListener implements WaypointMissionOperatorListener {
     }
 
     public void onExecutionUpdate(@NonNull WaypointMissionExecutionEvent waypointMissionExecutionEvent) {
-        LocationCoordinate3D location = flightControllerState.getAircraftLocation();
-        Attitude attitude = flightControllerState.getAttitude();
-        float[] velocityXYZ = {
-            flightControllerState.getVelocityX(),
-            flightControllerState.getVelocityY(),
-            flightControllerState.getVelocityZ(),
-        };
-    }
-
-    private void sendStatusMessage(LocationCoordinate3D location, Attitude attitude, float[] velocityXYZ) {
-        Location.newBuilder().
-                setLat(location.getLatitude()).
-                setLong(location.getLongitude()).
-                setAlt(location.getAltitude()).
-                build();
+        Sender.sendStatusMessage(
+                                    flightControllerState.getAircraftLocation(),
+                                    flightControllerState.getAttitude(),
+                                    new float[] {
+                                        flightControllerState.getVelocityX(),
+                                        flightControllerState.getVelocityY(),
+                                        flightControllerState.getVelocityZ(),
+                                    }
+        );
     }
 
     public void onExecutionStart() {
