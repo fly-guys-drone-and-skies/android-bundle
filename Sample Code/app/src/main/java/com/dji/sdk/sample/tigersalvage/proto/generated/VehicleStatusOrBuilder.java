@@ -51,4 +51,16 @@ public interface VehicleStatusOrBuilder extends
    * <code>.tutorial.VehicleAttitude attitude = 3;</code>
    */
   com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitudeOrBuilder getAttitudeOrBuilder();
+
+  /**
+   * <code>string status = 4;</code>
+   * @return The status.
+   */
+  java.lang.String getStatus();
+  /**
+   * <code>string status = 4;</code>
+   * @return The bytes for status.
+   */
+  com.google.protobuf.ByteString
+      getStatusBytes();
 }

@@ -10,6 +10,7 @@ import com.dji.sdk.sample.tigersalvage.proto.generated.Route;
 import com.dji.sdk.sample.tigersalvage.Sender;
 import com.dji.sdk.sample.tigersalvage.WaypointMissionList;
 import com.dji.sdk.sample.tigersalvage.OperatorListener;
+import com.dji.sdk.sample.tigersalvage.Status;
 
 import com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint;
 import com.dji.sdk.sample.tigersalvage.proto.generated.RouteArray;
@@ -74,8 +75,8 @@ public class MissionHandler {
     private static MissionHandler missionHandler;
 
     public static WaypointMission.Builder waypointMissionBuilder;
+    public static WaypointMissionOperator operator;
 
-    private static WaypointMissionOperator operator;
     private WaypointV2MissionTypes.MissionFinishedAction mFinishedAction = WaypointV2MissionTypes.MissionFinishedAction.NO_ACTION;
     private WaypointMissionHeadingMode mHeadingMode = WaypointMissionHeadingMode.AUTO;
     private WaypointV2MissionTypes.MissionGotoWaypointMode firstMode = WaypointV2MissionTypes.MissionGotoWaypointMode.SAFELY;
@@ -198,19 +199,7 @@ public class MissionHandler {
 
     public void setupFlight() {
         FlightController mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
-        new FlightControllerState.Callback() {
-            public void onUpdate(FlightControllerState state) {
-                Sender.sendStatusMessage(
-                        state.getAircraftLocation(),
-                        state.getAttitude(),
-                        new float[]{
-                                state.getVelocityX(),
-                                state.getVelocityY(),
-                                state.getVelocityZ(),
-                        }
-                );
-            }
-        };
+        new FlightControllerStateCallback();
 
         mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
         mFlightController.startTakeoff(completionCallback);
@@ -222,7 +211,7 @@ public class MissionHandler {
 
 
     public void startFlight(){
-        operator.addListener(new OperatorListener(operator, completionCallback, waypointMissionList));
+        operator.addListener(new OperatorListener(completionCallback, waypointMissionList));
 
         operator.uploadMission(
             (DJIError uploadError) -> {

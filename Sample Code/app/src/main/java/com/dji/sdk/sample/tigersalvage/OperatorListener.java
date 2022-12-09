@@ -3,7 +3,7 @@ package com.dji.sdk.sample.tigersalvage;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.dji.sdk.sample.tigersalvage.WaypointMissionList;
+import com.dji.sdk.sample.tigersalvage.MissionHandler;
 import com.dji.sdk.sample.tigersalvage.proto.generated.Location;
 import com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude;
 
@@ -12,6 +12,7 @@ import com.dji.sdk.sample.internal.controller.DJISampleApplication;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
 import dji.common.error.DJIError;
 import dji.common.flightcontroller.Attitude;
+import dji.common.mission.waypoint.WaypointMissionState;
 import dji.sdk.flightcontroller.FlightController;
 import dji.common.flightcontroller.FlightControllerState;
 import dji.common.flightcontroller.LocationCoordinate3D;
@@ -26,13 +27,11 @@ import dji.sdk.mission.waypoint.WaypointMissionOperatorListener;
 import java.util.ArrayList;
 
 public class OperatorListener implements WaypointMissionOperatorListener {
-    private WaypointMissionOperator operator;
     private CompletionCallback completionCallback;
     private WaypointMissionList missionList;
     private FlightControllerState flightControllerState;
 
-    public OperatorListener(WaypointMissionOperator operator, CompletionCallback completionCallback, WaypointMissionList missionList) {
-        this.operator = operator;
+    public OperatorListener(CompletionCallback completionCallback, WaypointMissionList missionList) {
         this.completionCallback = completionCallback;
         this.missionList = missionList;
         this.flightControllerState = DJISampleApplication.getAircraftInstance().getFlightController().getState();
@@ -45,7 +44,7 @@ public class OperatorListener implements WaypointMissionOperatorListener {
         }
         else {
             ToastUtils.setResultToToast("current mission finished");
-            operator.startMission(completionCallback);
+            MissionHandler.operator.startMission(completionCallback);
         }
     }
 
@@ -58,15 +57,18 @@ public class OperatorListener implements WaypointMissionOperatorListener {
     }
 
     public void onExecutionUpdate(@NonNull WaypointMissionExecutionEvent waypointMissionExecutionEvent) {
-        Sender.sendStatusMessage(
-                                    flightControllerState.getAircraftLocation(),
-                                    flightControllerState.getAttitude(),
-                                    new float[] {
-                                        flightControllerState.getVelocityX(),
-                                        flightControllerState.getVelocityY(),
-                                        flightControllerState.getVelocityZ(),
-                                    }
+        Status status = new Status(
+            flightControllerState.getAircraftLocation(),
+            flightControllerState.getAttitude(),
+            new float[] {
+                    flightControllerState.getVelocityX(),
+                    flightControllerState.getVelocityY(),
+                    flightControllerState.getVelocityZ(),
+            },
+            MissionHandler.operator.getCurrentState().toString()
         );
+
+        Sender.send(status.toMessage().toByteArray(), "ui-exchange", "status", "ui");
     }
 
     public void onExecutionStart() {
@@ -75,7 +77,7 @@ public class OperatorListener implements WaypointMissionOperatorListener {
         }
         // Preload next mission
         loadNextMission();
-        operator.uploadMission(
+        MissionHandler.operator.uploadMission(
             (DJIError uploadError) -> {
                 if (uploadError != null) { // TODO Make this generic?
                     ToastUtils.setResultToToast("Upload mission error");
@@ -92,7 +94,7 @@ public class OperatorListener implements WaypointMissionOperatorListener {
     }
 
     private void loadNextMission() { // TODO Move this so it's not duplicated. Maybe a mission manager?
-        DJIError loadError = operator.loadMission(missionList.nextMission());
+        DJIError loadError = MissionHandler.operator.loadMission(missionList.nextMission());
 
         if (loadError != null) {
             ToastUtils.setResultToToast("LOAD ERROR");
@@ -100,7 +102,7 @@ public class OperatorListener implements WaypointMissionOperatorListener {
         }
         else {
             ToastUtils.setResultToToast("LOAD SUCCESS");
-            ToastUtils.setResultToToast(operator.getLoadedMission().getWaypointList().toString());
+            ToastUtils.setResultToToast(MissionHandler.operator.getLoadedMission().getWaypointList().toString());
         }
     }
 }

@@ -22,4 +22,5 @@ message VehicleStatus {
   Location location = 1;
   VehicleVelocity velocityXYZ = 2;
   VehicleAttitude attitude = 3;
+  string status = 4;
 }
