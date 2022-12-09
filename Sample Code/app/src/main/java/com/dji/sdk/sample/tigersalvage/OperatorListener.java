@@ -70,6 +70,9 @@ public class OperatorListener implements WaypointMissionOperatorListener {
     }
 
     public void onExecutionStart() {
+        if (missionList.isComplete()) {
+            return;
+        }
         // Preload next mission
         loadNextMission();
         operator.uploadMission(
