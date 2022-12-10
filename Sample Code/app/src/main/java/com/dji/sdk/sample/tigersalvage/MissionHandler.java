@@ -143,9 +143,9 @@ public class MissionHandler {
             waypointMissionBuilder = new WaypointMission.Builder();
             //might need to make new waypoint mission and build into that var
         } //else new flight is being uploaded - handle it
+        ToastUtils.setResultToToast("waypoint count " + route.getWaypointsList().size());
 
         ArrayList<List<Waypoint>> waypointListArray = buildWaypointListArray(route);
-        ToastUtils.setResultToToast("waypoint count " + route.getWaypointsList().size());
         ArrayList<WaypointMission> missionList = new ArrayList<>();
 
         for (List<Waypoint> waypointList : waypointListArray) {
@@ -199,7 +199,7 @@ public class MissionHandler {
 
     public void setupFlight() {
         FlightController mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
-        new FlightControllerStateCallback();
+        mFlightController.setStateCallback(new FlightControllerStateCallback());
 
         mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
         mFlightController.startTakeoff(completionCallback);

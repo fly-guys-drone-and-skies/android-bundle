@@ -32,6 +32,7 @@ import com.dji.sdk.sample.internal.model.ViewWrapper;
 import com.dji.sdk.sample.internal.utils.DialogUtils;
 import com.dji.sdk.sample.internal.utils.GeneralUtils;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
+import com.dji.sdk.sample.tigersalvage.Messenger;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -170,7 +171,7 @@ public class MainContent extends RelativeLayout {
                 if (GeneralUtils.isFastDoubleClick()) {
                     return;
                 }
-                DJISampleApplication.getEventBus().post(componentList);
+                new Messenger().start();
             }
         });
 

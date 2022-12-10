@@ -39,7 +39,7 @@ public class MissionConsumer extends Thread{
         channel.basicConsume("mission-app", true, (consumerTag, message) -> {
 
             String type = message.getProperties().getType();
-            ToastUtils.setResultToToast(type);
+            // ToastUtils.setResultToToast(type);
             //TODO
             //String id = message.getProps.get Something
             //If id == app id, continue. Else drop 
