@@ -27,6 +27,7 @@ import dji.common.mission.waypoint.WaypointMission;
 import dji.common.mission.waypoint.Waypoint;
 import dji.common.mission.waypoint.WaypointMissionFlightPathMode;
 import dji.common.mission.waypoint.WaypointMissionFinishedAction;
+import dji.common.mission.waypoint.WaypointMissionGotoWaypointMode;
 import dji.common.mission.waypoint.WaypointMissionHeadingMode;
 import dji.common.mission.waypointv2.Action.WaypointV2Action;
 import dji.common.mission.waypointv2.WaypointV2Mission;
@@ -115,6 +116,7 @@ public class MissionHandler {
         for (RoutePoint routePoint : route.getWaypointsList()){
             Waypoint waypoint = new Waypoint(routePoint.getLocation().getLat(), routePoint.getLocation().getLong(), routePoint.getLocation().getAlt());
             waypoint.speed = routePoint.getSpeed();
+            waypoint.cornerRadiusInMeters = .2f;
 
             waypointList.add(waypoint);
         }
@@ -151,11 +153,12 @@ public class MissionHandler {
         for (List<Waypoint> waypointList : waypointListArray) {
             WaypointMission mission = waypointMissionBuilder.
                     headingMode(mHeadingMode).
-                    autoFlightSpeed(10f).
-                    maxFlightSpeed(15f).
+                    autoFlightSpeed(2.5f).
+                    maxFlightSpeed(15f).headingMode(WaypointMissionHeadingMode.AUTO).
                     finishedAction(WaypointMissionFinishedAction.NO_ACTION).
                     setExitMissionOnRCSignalLostEnabled(true).
                     flightPathMode(WaypointMissionFlightPathMode.CURVED).
+                    gotoFirstWaypointMode(WaypointMissionGotoWaypointMode.POINT_TO_POINT).
                     waypointCount(waypointList.size()).
                     waypointList(waypointList).
                     build();
@@ -211,23 +214,28 @@ public class MissionHandler {
 
 
     public void startFlight(){
-        operator.addListener(new OperatorListener(completionCallback, waypointMissionList));
+        //operator.addListener(new OperatorListener(completionCallback, waypointMissionList));
+        //Sender.send(status.toMessage().toByteArray(), "ui-exchange", "status", "status");
 
-        operator.uploadMission(
-            (DJIError uploadError) -> {
-                if (uploadError != null) {
-                    ToastUtils.setResultToToast("Upload mission error");
+        try {
+            operator.uploadMission(
+                    (DJIError uploadError) -> {
+                        if (uploadError != null) {
+                            ToastUtils.setResultToToast("Upload mission error");
 
-                    ToastUtils.setResultToToast(uploadError.getDescription());
-                }
-                else {
-                    ToastUtils.setResultToToast("Upload mission success, going to start mission ");
+                            ToastUtils.setResultToToast(uploadError.getDescription());
+                        } else {
+                            ToastUtils.setResultToToast("Upload mission success, going to start mission ");
 
-                    ToastUtils.setResultToToast(operator.getCurrentState().toString());
-                    operator.startMission(completionCallback);
-                }
-            }
-        );
+                            ToastUtils.setResultToToast(operator.getCurrentState().toString());
+                            operator.startMission(completionCallback);
+                        }
+                    }
+            );
+        }
+        catch (Exception e) {
+            ToastUtils.setResultToToast(e.getMessage());
+        }
 
 
         ToastUtils.setResultToToast(operator.getCurrentState().toString());

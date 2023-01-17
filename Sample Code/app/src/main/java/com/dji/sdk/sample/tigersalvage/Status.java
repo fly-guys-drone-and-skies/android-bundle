@@ -24,14 +24,14 @@ public class Status {
     // Converts to VehicleStatus protobuf message
     public VehicleStatus toMessage() {
         Location locationMessage = Location.newBuilder().
-                setLat(Double.isNaN(location.getLatitude()) ? 0 : location.getLatitude()).
-                setLong(Double.isNaN(location.getLongitude()) ? 0 : location.getLongitude()).
-                setAlt(Double.isNaN(location.getAltitude()) ? 0 : location.getAltitude()).
+                setLat(location.getLatitude()).
+                setLong(location.getLongitude()).
+                setAlt(location.getAltitude()).
                 build();
         VehicleAttitude attitudeMessage = VehicleAttitude.newBuilder().
-            setPitch(Double.isNaN(attitude.pitch) ? 0 : attitude.pitch).
-            setYaw(Double.isNaN(attitude.yaw) ? 0 : attitude.yaw).
-            setRoll(Double.isNaN(attitude.roll) ? 0 : attitude.roll).
+            setPitch(attitude.pitch).
+            setYaw(attitude.yaw).
+            setRoll(attitude.roll).
             build();
         VehicleVelocity velocityMessage = VehicleVelocity.newBuilder().
             setX(velocityXYZ[0]).

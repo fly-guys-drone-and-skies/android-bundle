@@ -48,6 +48,8 @@ public class MissionConsumer extends Thread{
                 case "dune":
                     byte[] body = inflate(message.getBody());
                     RouteArray arr = RouteArray.newBuilder().mergeFrom(body).build();
+                    ToastUtils.setResultToToast("message");
+
                     handler.routeProcessor(arr);
                     break; 
                 case "start":

@@ -6,18 +6,24 @@ import dji.common.flightcontroller.FlightControllerState;
 
 public class FlightControllerStateCallback implements FlightControllerState.Callback {
     public void onUpdate(FlightControllerState state) {
-        Status status = new Status(
-            state.getAircraftLocation(),
-            state.getAttitude(),
-            new float[]{
-                    state.getVelocityX() == Float.isNaN() ? 0 : state.getVelocityX(),
-                    state.getVelocityY() == null ? 0 : state.getVelocityY(),
-                    state.getVelocityZ() == null ? 0 : state.getVelocityZ(),
-            },
-            MissionHandler.operator.getCurrentState().toString()
-        );
+        try {
+            Status status = new Status(
+                    state.getAircraftLocation(),
+                    state.getAttitude(),
+                    new float[]{
+                            state.getVelocityX(),
+                            state.getVelocityY(),
+                            state.getVelocityZ(),
+                    },
+                    MissionHandler.operator.getCurrentState().toString()
+            );
+            Sender.send(status.toMessage().toByteArray(), "ui-exchange", "status", "status");
 
-        Sender.send(status.toMessage().toByteArray(), "ui-exchange", "status", "status");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         //ToastUtils.setResultToToast("Status sent");
     }
 }
