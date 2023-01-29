@@ -6,11 +6,14 @@ import android.location.Location;
 
 import com.dji.sdk.sample.internal.controller.DJISampleApplication;
 import com.dji.sdk.sample.internal.utils.ToastUtils;
-import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.Route;
+import com.dji.sdk.sample.tigersalvage.proto.generated.Route;
 import com.dji.sdk.sample.tigersalvage.Sender;
+import com.dji.sdk.sample.tigersalvage.WaypointMissionList;
+import com.dji.sdk.sample.tigersalvage.OperatorListener;
+import com.dji.sdk.sample.tigersalvage.Status;
 
-import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RoutePoint;
-import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RouteArray;
+import com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint;
+import com.dji.sdk.sample.tigersalvage.proto.generated.RouteArray;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,6 +27,7 @@ import dji.common.mission.waypoint.WaypointMission;
 import dji.common.mission.waypoint.Waypoint;
 import dji.common.mission.waypoint.WaypointMissionFlightPathMode;
 import dji.common.mission.waypoint.WaypointMissionFinishedAction;
+import dji.common.mission.waypoint.WaypointMissionGotoWaypointMode;
 import dji.common.mission.waypoint.WaypointMissionHeadingMode;
 import dji.common.mission.waypointv2.Action.WaypointV2Action;
 import dji.common.mission.waypointv2.WaypointV2Mission;
@@ -72,9 +76,8 @@ public class MissionHandler {
     private static MissionHandler missionHandler;
 
     public static WaypointMission.Builder waypointMissionBuilder;
+    public static WaypointMissionOperator operator;
 
-    private FlightController mFlightController;
-    private static WaypointMissionOperator operator;
     private WaypointV2MissionTypes.MissionFinishedAction mFinishedAction = WaypointV2MissionTypes.MissionFinishedAction.NO_ACTION;
     private WaypointMissionHeadingMode mHeadingMode = WaypointMissionHeadingMode.AUTO;
     private WaypointV2MissionTypes.MissionGotoWaypointMode firstMode = WaypointV2MissionTypes.MissionGotoWaypointMode.SAFELY;
@@ -86,6 +89,7 @@ public class MissionHandler {
 
     private CompletionCallback completionCallback;
 
+    private WaypointMissionList waypointMissionList;
 
     public static MissionHandler getInstance() {
         if (missionHandler == null) {
@@ -106,12 +110,13 @@ public class MissionHandler {
         };
     }
 
-    public List<Waypoint> BuildWaypointArray(RouteArray route){
+    public List<Waypoint> buildWaypointArray(RouteArray route){
         List<Waypoint> waypointList = new ArrayList<>();
 
         for (RoutePoint routePoint : route.getWaypointsList()){
-            Waypoint waypoint = new Waypoint(routePoint.getLat(), routePoint.getLong(), routePoint.getAlt());
+            Waypoint waypoint = new Waypoint(routePoint.getLocation().getLat(), routePoint.getLocation().getLong(), routePoint.getLocation().getAlt());
             waypoint.speed = routePoint.getSpeed();
+            waypoint.cornerRadiusInMeters = .2f;
 
             waypointList.add(waypoint);
         }
@@ -119,15 +124,19 @@ public class MissionHandler {
         return waypointList;
     }
 
-    private ArrayList<List<Waypoint>> BuildWaypointListArray(RouteArray route) {
-        List<RoutePoint> waypointList = new ArrayList<>(route.getWaypointsList());
+    private ArrayList<List<Waypoint>> buildWaypointListArray(RouteArray route) {
+        List<Waypoint> waypointList = buildWaypointArray(route);
         ArrayList<List<Waypoint>> waypointListArray = new ArrayList<>();
 
         // 99 is maximum number of waypoints in mission.
-        for (int i = 0; i < waypointList.size(); i += 99) {
-            waypointListArray.add(waypointList.subList(i, i + 98));
+        for (int i = 0; i < waypointList.size(); i += 99) { // there has to be a better way...
+            if ((waypointList.size() - i) < 99) {
+                waypointListArray.add(new ArrayList(waypointList.subList(i, waypointList.size() - 1)));
+            }
+            else {
+                waypointListArray.add(new ArrayList(waypointList.subList(i, i + 99)));
+            }
         }
-
         return waypointListArray;
     }
 
@@ -136,49 +145,28 @@ public class MissionHandler {
             waypointMissionBuilder = new WaypointMission.Builder();
             //might need to make new waypoint mission and build into that var
         } //else new flight is being uploaded - handle it
+        ToastUtils.setResultToToast("waypoint count " + route.getWaypointsList().size());
 
-        List<Waypoint> tmp = BuildWaypointArray(route);
-        tmp = tmp.subList(0, 98);
-        ToastUtils.setResultToToast("waypoint count " + tmp.size());
-        WaypointMission mission = waypointMissionBuilder.
-                headingMode(mHeadingMode).
-                autoFlightSpeed(10f).
-                maxFlightSpeed(15f).
-                finishedAction(WaypointMissionFinishedAction.GO_HOME).
-                setExitMissionOnRCSignalLostEnabled(true).
-                flightPathMode(WaypointMissionFlightPathMode.CURVED).
-                waypointCount(tmp.size()).
-                waypointList(tmp).
-                build();
-        mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
-        FlightControllerState flightControllerState = mFlightController.getState();
-        LocationCoordinate3D home3D = flightControllerState.getAircraftLocation();
-        LocationCoordinate2D home = new LocationCoordinate2D(home3D.getLatitude(), home3D.getLongitude());
-        mFlightController.setHomeLocation(home, completionCallback);
-        DJIError mEr = mission.checkParameters();
+        ArrayList<List<Waypoint>> waypointListArray = buildWaypointListArray(route);
+        ArrayList<WaypointMission> missionList = new ArrayList<>();
 
-        if (mEr != null) {
-            ToastUtils.setResultToToast("mission Check Params error");
-            ToastUtils.setResultToToast(mEr.getDescription());
-            return;
+        for (List<Waypoint> waypointList : waypointListArray) {
+            WaypointMission mission = waypointMissionBuilder.
+                    headingMode(mHeadingMode).
+                    autoFlightSpeed(2.5f).
+                    maxFlightSpeed(15f).headingMode(WaypointMissionHeadingMode.AUTO).
+                    finishedAction(WaypointMissionFinishedAction.NO_ACTION).
+                    setExitMissionOnRCSignalLostEnabled(true).
+                    flightPathMode(WaypointMissionFlightPathMode.CURVED).
+                    gotoFirstWaypointMode(WaypointMissionGotoWaypointMode.POINT_TO_POINT).
+                    waypointCount(waypointList.size()).
+                    waypointList(waypointList).
+                    build();
+            missionList.add(mission);
         }
-        else{
-            ToastUtils.setResultToToast("mission Check Params success");
-        }
+        waypointMissionList = new WaypointMissionList(missionList);
 
-
-        //run check params but dont know where that is - might be redundant 
-        DJIError loadError = operator.loadMission(mission);
-
-        if (loadError != null) {
-            ToastUtils.setResultToToast("LOAD ERROR");
-            ToastUtils.setResultToToast(loadError.getDescription());
-        }
-        else {
-            ToastUtils.setResultToToast("LOAD SUCCESS");
-            ToastUtils.setResultToToast(operator.getLoadedMission().getWaypointList().toString());
-        }
-
+        loadNextMission();
 
         ToastUtils.setResultToToast("Operator state");
         ToastUtils.setResultToToast(operator.getCurrentState().toString());
@@ -196,9 +184,26 @@ public class MissionHandler {
 
     }
 
+    private void loadNextMission() {
+        WaypointMission mission = waypointMissionList.nextMission();
+        ToastUtils.setResultToToast(mission.toString());
+        DJIError loadError = operator.loadMission(mission);
 
-    private void setupFlight() {
-        mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
+        if (loadError != null) {
+            ToastUtils.setResultToToast("LOAD ERROR");
+            ToastUtils.setResultToToast(loadError.getDescription());
+        }
+        else {
+            ToastUtils.setResultToToast("LOAD SUCCESS");
+            ToastUtils.setResultToToast(operator.getLoadedMission().getWaypointList().toString());
+        }
+    }
+
+
+    public void setupFlight() {
+        FlightController mFlightController = DJISampleApplication.getAircraftInstance().getFlightController();
+        mFlightController.setStateCallback(new FlightControllerStateCallback());
+
         mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
         mFlightController.startTakeoff(completionCallback);
     }
@@ -209,22 +214,29 @@ public class MissionHandler {
 
 
     public void startFlight(){
-        operator.uploadMission(
-            (DJIError uploadError) -> {
-                if (uploadError != null) {
-                    ToastUtils.setResultToToast("Upload mission error");
+        //operator.addListener(new OperatorListener(completionCallback, waypointMissionList));
+        //Sender.send(status.toMessage().toByteArray(), "ui-exchange", "status", "status");
 
-                    ToastUtils.setResultToToast(uploadError.getDescription());
-                    System.out.println(uploadError.getDescription());
-                }
-                else {
-                    ToastUtils.setResultToToast("Upload mission success, going to start mission ");
+        try {
+            operator.uploadMission(
+                    (DJIError uploadError) -> {
+                        if (uploadError != null) {
+                            ToastUtils.setResultToToast("Upload mission error");
 
-                    ToastUtils.setResultToToast(operator.getCurrentState().toString());
-                    operator.startMission(completionCallback);
-                }
-            }
-        );
+                            ToastUtils.setResultToToast(uploadError.getDescription());
+                        } else {
+                            ToastUtils.setResultToToast("Upload mission success, going to start mission ");
+
+                            ToastUtils.setResultToToast(operator.getCurrentState().toString());
+                            operator.startMission(completionCallback);
+                        }
+                    }
+            );
+        }
+        catch (Exception e) {
+            ToastUtils.setResultToToast(e.getMessage());
+        }
+
 
         ToastUtils.setResultToToast(operator.getCurrentState().toString());
     }

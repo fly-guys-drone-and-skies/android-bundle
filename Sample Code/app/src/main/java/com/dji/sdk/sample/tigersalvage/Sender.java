@@ -1,5 +1,6 @@
 package com.dji.sdk.sample.tigersalvage;
 
+import com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatus;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
@@ -8,6 +9,8 @@ import com.rabbitmq.client.Channel;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.DeflaterOutputStream;
+
+import com.dji.sdk.sample.tigersalvage.Status;
 
 public class Sender {
     private static Channel channel;

@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 import java.util.zip.InflaterOutputStream;
 
-import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RoutePoint;
-import com.dji.sdk.sample.tigersalvage.proto.schemas.generated.RouteArray;
+import com.dji.sdk.sample.tigersalvage.proto.generated.RoutePoint;
+import com.dji.sdk.sample.tigersalvage.proto.generated.RouteArray;
 
 public class MissionConsumer extends Thread{
     
@@ -39,7 +39,7 @@ public class MissionConsumer extends Thread{
         channel.basicConsume("mission-app", true, (consumerTag, message) -> {
 
             String type = message.getProperties().getType();
-            ToastUtils.setResultToToast(type);
+            // ToastUtils.setResultToToast(type);
             //TODO
             //String id = message.getProps.get Something
             //If id == app id, continue. Else drop 
@@ -47,9 +47,9 @@ public class MissionConsumer extends Thread{
             switch (type) {
                 case "dune":
                     byte[] body = inflate(message.getBody());
-                    ToastUtils.setResultToToast("body");
                     RouteArray arr = RouteArray.newBuilder().mergeFrom(body).build();
-                    ToastUtils.setResultToToast("Built");
+                    ToastUtils.setResultToToast("message");
+
                     handler.routeProcessor(arr);
                     break; 
                 case "start":

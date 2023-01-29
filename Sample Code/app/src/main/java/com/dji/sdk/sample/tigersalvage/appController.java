@@ -23,7 +23,6 @@ public class appController {
     public appController(){
         initSDK();
         //new Status().start();
-        new Messenger().start();
 
     }
 

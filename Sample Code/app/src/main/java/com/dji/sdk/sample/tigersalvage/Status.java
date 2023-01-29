@@ -1,32 +1,51 @@
 package com.dji.sdk.sample.tigersalvage;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeoutException;
+import com.dji.sdk.sample.tigersalvage.proto.generated.Location;
+import com.dji.sdk.sample.tigersalvage.proto.generated.VehicleAttitude;
+import com.dji.sdk.sample.tigersalvage.proto.generated.VehicleStatus;
+import com.dji.sdk.sample.tigersalvage.proto.generated.VehicleVelocity;
 
-public class Status extends Thread {
-    public void run(){
-        try {
-            sendStatus();
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
+import dji.common.flightcontroller.Attitude;
+import dji.common.flightcontroller.LocationCoordinate3D;
+
+public class Status {
+    LocationCoordinate3D location;
+    Attitude attitude;
+    float[] velocityXYZ;
+    String status;
+
+    public Status (LocationCoordinate3D location, Attitude attitude, float[] velocityXYZ, String status) {
+        this.location = location;
+        this.attitude = attitude;
+        this.velocityXYZ = velocityXYZ;
+        this.status = status;
     }
 
-    public void sendStatus() throws InterruptedException {
-        Thread.sleep(10000);
-        String message = "";
-        while (true){
-            if (MissionHandler.getInstance() != null)  {
-                 message = MissionHandler.getStatus();
-            }
-            else {
-                message = "No mission uploaded";
-            }
+    // Converts to VehicleStatus protobuf message
+    public VehicleStatus toMessage() {
+        Location locationMessage = Location.newBuilder().
+                setLat(location.getLatitude()).
+                setLong(location.getLongitude()).
+                setAlt(location.getAltitude()).
+                build();
+        VehicleAttitude attitudeMessage = VehicleAttitude.newBuilder().
+            setPitch(attitude.pitch).
+            setYaw(attitude.yaw).
+            setRoll(attitude.roll).
+            build();
+        VehicleVelocity velocityMessage = VehicleVelocity.newBuilder().
+            setX(velocityXYZ[0]).
+            setY(velocityXYZ[1]).
+            setZ(velocityXYZ[2]).
+            build();
 
-            Sender.send(message.getBytes(StandardCharsets.UTF_8), "ui-exchange", "ui", "csda");
-            Thread.sleep(1000);
-        }
+        VehicleStatus vehicleStatus = VehicleStatus.newBuilder().
+            setLocation(locationMessage).
+            setVelocityXYZ(velocityMessage).
+            setAttitude(attitudeMessage).
+            setStatus(status).
+            build();
 
+        return vehicleStatus;
     }
 }
