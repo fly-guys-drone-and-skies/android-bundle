@@ -118,6 +118,9 @@ public class MainContent extends RelativeLayout {
     private static final int ACTIVATION_DALAY_TIME = 3000;
     private AppActivationState.AppActivationStateListener appActivationStateListener;
     private Context mContext;
+
+    private String rabbitIP;
+
     public MainContent(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
@@ -171,7 +174,7 @@ public class MainContent extends RelativeLayout {
                 if (GeneralUtils.isFastDoubleClick()) {
                     return;
                 }
-                new Messenger().start();
+                new Messenger(rabbitIP).start();
             }
         });
 

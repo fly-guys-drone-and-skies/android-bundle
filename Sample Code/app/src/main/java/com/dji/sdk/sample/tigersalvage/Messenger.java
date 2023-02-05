@@ -12,6 +12,12 @@ import java.util.concurrent.TimeoutException;
 
 //TODO rename to something more meaningful
 public class Messenger extends Thread {
+    String rabbitIP;
+
+    public Messenger(String rabbitIP) {
+        this.rabbitIP = rabbitIP;
+    }
+
     public void run() {
         try {
             initMessaging();
@@ -22,7 +28,7 @@ public class Messenger extends Thread {
 
     private void initMessaging() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.1.20");
+        factory.setHost(rabbitIP);
         Connection connection = factory.newConnection();
         ToastUtils.setResultToToast(connection.toString());
         Sender.setChannel(connection);
