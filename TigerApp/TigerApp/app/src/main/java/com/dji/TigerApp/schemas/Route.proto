@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package tutorial;
+option java_package = "com.dji.TigerApp.schemas.generated";
+option java_multiple_files = true;
+
+message RoutePoint {
+  double lat = 1;
+  double long = 2;
+  float alt = 3;
+  float speed = 4;
+}
+
+message RouteArray {
+  repeated RoutePoint waypoints = 1;
+}
