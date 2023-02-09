@@ -73,6 +73,12 @@ You can read more about [Mission Operators](./API_Reference/Components/WaypointM
      */
 
 public class MissionHandler {
+    public static enum holdingPattern {
+        CIRCLE,
+        RACETRACK,
+        FIGURE8,
+    };
+
     private static MissionHandler missionHandler;
 
     public static WaypointMission.Builder waypointMissionBuilder;
@@ -197,6 +203,9 @@ public class MissionHandler {
             ToastUtils.setResultToToast("LOAD SUCCESS");
             ToastUtils.setResultToToast(operator.getLoadedMission().getWaypointList().toString());
         }
+    }
+
+    public void loiter(double radius, MissionHandler.holdingPattern holdingPattern, boolean isClockwise) {
     }
 
 
