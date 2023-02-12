@@ -3,6 +3,9 @@
 *.log
 tmp/
 
+.gradle/
+local.properties
+
 *.class
 build
 
