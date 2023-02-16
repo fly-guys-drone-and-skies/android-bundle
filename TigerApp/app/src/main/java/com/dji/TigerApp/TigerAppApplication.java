@@ -88,6 +88,7 @@ public class TigerAppApplication extends Application{
 
     private void initRabbit() {
         try {
+            System.out.println("gaga");
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost(RABBIT_IP);
             Connection connection = factory.newConnection();
@@ -122,6 +123,10 @@ public class TigerAppApplication extends Application{
 
     @Override
     public void onCreate() {
+        System.out.println("AAAAA");
+        initRabbit();
+        System.out.println("BBBBBB");
+
         super.onCreate();
         mHandler = new Handler(Looper.getMainLooper());
 
@@ -206,7 +211,6 @@ public class TigerAppApplication extends Application{
             Toast.makeText(getApplicationContext(), "Please check if the permission is granted.", Toast.LENGTH_LONG).show();
         }
 
-        initRabbit();
 
     }
 
