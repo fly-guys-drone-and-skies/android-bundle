@@ -127,14 +127,9 @@ public class MissionHandler {
 
     public void routeProcessor(RouteArray route) {
         try {
-            if (waypointMissionBuilder == null) {
-                waypointMissionBuilder = new WaypointMission.Builder();
-                //might need to make new waypoint mission and build into that var
-            } //else new flight is being uploaded - handle it
-            else {
-                //We probably don't even need this if/else, assuming we always want the latest flight ? Unless we're worried about interrupting flights
-                //in that case, we should add a queue
-            }
+
+            waypointMissionBuilder = new WaypointMission.Builder();
+
             this.flightState = State.UPLOADING;
 
             List<Waypoint> tmp = BuildWaypointArray(route);
@@ -170,14 +165,11 @@ public class MissionHandler {
             // once operator.getCurrentState().equals(WaypointV2MissionState.READY_TO_EXECUTE)
             // start mission by operator.startMission `startMission`
             mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
-            operator.uploadMission(
-                    (DJIError uploadError) -> {
-                        if (uploadError != null) {
-                            System.out.println(uploadError.getDescription());
-                        }
+            operator.uploadMission(completionCallback);
 
-                    }
-            );
+            this.flightState = State.READY;
+            //TODO
+            //Call function in Mission Sender to send this route for approval since upload was successful
         }
         catch (Exception e){
             waypointMissionBuilder = null;

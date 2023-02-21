@@ -256,13 +256,13 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
         }
 
         if (TigerAppApplication.rabbitStatus()){
-            mTextConnectionStatus.setText("Rabbit: connected");
+            mRabbitTextConnectionStatus.setText("Rabbit: connected");
             dr = true;
         }
         else{
             Log.v(TAG, "refreshSDK: False");
             mBtnOpen.setEnabled(false);
-            mTextConnectionStatus.setText("Rabbit: not connected");
+            mRabbitTextConnectionStatus.setText("Rabbit: not connected");
             dr = false;
         }
 
