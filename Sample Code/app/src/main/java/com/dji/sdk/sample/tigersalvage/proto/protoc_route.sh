@@ -1,9 +1,10 @@
 # Run this from this directory.
 rm generated/Route*
 rm generated/Vehicle*
-# Assumes you have the protobuf-schemas repo right next to the this (the android-bundle) repo.
-# Should just use the ones in this directory already if you don't.
-cp ../../../../../../../../../../../../protobuf-schemas/*.proto ./
+# Uncomment the 2 lines below to use the protobuf-schemas repo. May have to change depending on your repo location.
+# cp ../../../../../../../../../../../../protobuf-schemas/*.proto ./
+# sed -i "s/PACKAGENAME/com.dji.sdk.sample.tigersalvage.proto.generated/g" VehicleStatus.proto
+# sed -i "s/PACKAGENAME/com.dji.sdk.sample.tigersalvage.proto.generated/g" Route.proto
 
 protoc -I=./ --java_out=../../../../../../ Route.proto
 protoc -I=./ --java_out=../../../../../../ VehicleStatus.proto
