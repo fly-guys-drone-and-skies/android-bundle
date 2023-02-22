@@ -4,6 +4,7 @@
 tmp/
 
 .gradle/
+*/.gradle/
 local.properties
 
 *.class
