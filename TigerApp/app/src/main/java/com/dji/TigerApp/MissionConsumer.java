@@ -15,7 +15,7 @@ import java.util.zip.InflaterOutputStream;
 import com.dji.TigerApp.schemas.generated.RoutePoint;
 import com.dji.TigerApp.schemas.generated.RouteArray;
 
-public class MissionConsumer extends Thread{
+public class MissionConsumer{
 
     Channel channel;
     String queue;
@@ -33,7 +33,7 @@ public class MissionConsumer extends Thread{
     }
 
 
-    public void run() {
+    public void consume() {
         try {
             channel.basicConsume("mission-app", true, (consumerTag, message) -> {
 

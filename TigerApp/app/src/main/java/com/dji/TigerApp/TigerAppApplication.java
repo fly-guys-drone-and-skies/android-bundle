@@ -90,13 +90,22 @@ public class TigerAppApplication extends Application{
         try {
             System.out.println("gaga");
             ConnectionFactory factory = new ConnectionFactory();
+            System.out.println("factory is made");
+
             factory.setHost(RABBIT_IP);
             Connection connection = factory.newConnection();
-            MissionSender.setChannel(connection);
-            new MissionConsumer(connection).start();
+            System.out.println("Connection is made");
+
+            //MissionSender.setChannel(connection);
+            MissionConsumer r = new MissionConsumer(connection);
+            System.out.println("r is set");
+
+            r.consume();
             rabbitStatus = true;
         }
         catch (Exception e){
+            System.out.println(e.toString());
+            System.exit(0);
             //wait and retry
         }
     }
@@ -124,7 +133,12 @@ public class TigerAppApplication extends Application{
     @Override
     public void onCreate() {
         System.out.println("AAAAA");
-        initRabbit();
+        (new Thread() {
+            public void run() {
+                initRabbit();
+            }
+        }).start();
+
         System.out.println("BBBBBB");
 
         super.onCreate();
