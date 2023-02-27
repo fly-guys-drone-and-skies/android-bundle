@@ -83,8 +83,8 @@ public class MissionHandler {
     private boolean canStartMission;
     private float mSpeed = 10.0f;
     private CompletionCallback completionCallback;
-    public State flightState = State.WAITING;
-    enum State {
+    public static State flightState = State.WAITING;
+    public enum State {
         WAITING,
         UPLOADING,
         READY,
@@ -225,6 +225,10 @@ public class MissionHandler {
         catch (Exception e){
             this.flightState = State.ERROR;
         }
+    }
+
+    public static State getFlightState() {
+        return flightState;
     }
 
 
