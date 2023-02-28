@@ -36,8 +36,8 @@ public class TigerAppApplication extends Application{
 
     private Application instance;
 
-    private static boolean rabbitStatus = false;
-    public static final String RABBIT_IP = "192.168.1.71";
+    public static boolean rabbitStatus = false;
+    public static final String RABBIT_IP = "10.2.135.248";
 
 
     public void setContext(Application application) {
@@ -86,28 +86,29 @@ public class TigerAppApplication extends Application{
         return (HandHeld) getProductInstance();
     }
 
-    private void initRabbit() {
-        try {
-            System.out.println("gaga");
-            ConnectionFactory factory = new ConnectionFactory();
-            System.out.println("factory is made");
+    private void initRabbit() throws InterruptedException, IOException {
+        MissionConsumer r = null;
+        Connection connection = null;
+        while (!rabbitStatus) {
+            try {
+                ConnectionFactory factory = new ConnectionFactory();
+                factory.setHost(RABBIT_IP);
+                connection = factory.newConnection();
+                r = new MissionConsumer(connection);
 
-            factory.setHost(RABBIT_IP);
-            Connection connection = factory.newConnection();
-            System.out.println("Connection is made");
+                rabbitStatus = true;
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                Thread.sleep(3000);
+                //wait and retry //TODO this is probably not ideal since we will keep remaking connections, if for example, the ip is wrong, but this also may be fine
 
-            //MissionSender.setChannel(connection);
-            MissionConsumer r = new MissionConsumer(connection);
-            System.out.println("r is set");
-
-            r.consume();
-            rabbitStatus = true;
+            } // need to think about ^
         }
-        catch (Exception e){
-            System.out.println(e.toString());
-            System.exit(0);
-            //wait and retry
-        }
+        MissionStatus mstatus = new MissionStatus(connection);
+
+        r.consume();
+        mstatus.start();
+
     }
 
     public static boolean rabbitStatus() {
@@ -132,14 +133,16 @@ public class TigerAppApplication extends Application{
 
     @Override
     public void onCreate() {
-        System.out.println("AAAAA");
         (new Thread() {
             public void run() {
-                initRabbit();
+                try {
+                    initRabbit();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
 
-        System.out.println("BBBBBB");
 
         super.onCreate();
         mHandler = new Handler(Looper.getMainLooper());
