@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package tutorial;
-option java_package = "com.dji.TigerApp.schemas.generated";
+option java_package = "com.dji.TigerApp.protobuf";
 option java_multiple_files = true;
 
 message Location {
@@ -11,10 +11,8 @@ message Location {
 }
 
 message RoutePoint {
-  double lat = 1;
-  double long = 2;
-  float alt = 3;
-  float speed = 4;
+  Location location = 1;
+  float speed = 2;
 }
 
 message RouteArray {

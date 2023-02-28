@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package tutorial;
-option java_package = "com.dji.TigerApp.schemas.generated";
+option java_package = "com.dji.TigerApp.protobuf";
 option java_multiple_files = true;
 
 import "Route.proto";
