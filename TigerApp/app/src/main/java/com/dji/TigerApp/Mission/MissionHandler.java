@@ -63,7 +63,7 @@ public class MissionHandler {
         this.flightState = State.READY;
     }
 
-    public State getFlightState(){
+    public static State getFlightState(){
         return flightState;
     }
 

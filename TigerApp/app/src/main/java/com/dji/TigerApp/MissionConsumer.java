@@ -14,6 +14,7 @@ import java.util.zip.InflaterOutputStream;
 
 import com.dji.TigerApp.protobuf.RoutePoint;
 import com.dji.TigerApp.protobuf.RouteArray;
+import com.dji.TigerApp.Mission.MissionHandler;
 
 public class MissionConsumer{
 
@@ -46,7 +47,7 @@ public class MissionConsumer{
                     case "dune":
                         byte[] body = inflate(message.getBody());
                         RouteArray arr = RouteArray.newBuilder().mergeFrom(body).build();
-                        handler.routeProcessor(arr);
+                        handler.startNewMission(arr);
                         break;
                     case "start":
                         handler.startFlight();
