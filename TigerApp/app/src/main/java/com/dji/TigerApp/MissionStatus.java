@@ -47,6 +47,7 @@ public class MissionStatus extends Thread{
                     // ex message = uploading
 
                 //Send(message)
+                
                 Thread.sleep(900);
             } catch (Exception e) {
                 e.printStackTrace();
