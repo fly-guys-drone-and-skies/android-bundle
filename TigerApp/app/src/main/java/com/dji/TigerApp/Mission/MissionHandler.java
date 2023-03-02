@@ -58,9 +58,9 @@ public class MissionHandler {
     private void uploadMission(WaypointMissionList missionList) {
         flightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
         missionList.loadNextMission(operator);
-        this.flightState = State.UPLOADING;
+        MissionHandler.flightState = State.UPLOADING;
         operator.uploadMission(completionCallback);
-        this.flightState = State.READY;
+        MissionHandler.flightState = State.READY;
     }
 
     public static State getFlightState(){
@@ -74,7 +74,7 @@ public class MissionHandler {
             operator.startMission(completionCallback);
         }
         catch (Exception e){
-            this.flightState = State.ERROR;
+            MissionHandler.flightState = State.ERROR;
         }
     }
 
@@ -84,7 +84,7 @@ public class MissionHandler {
             operator.stopMission(completionCallback);
         }
         catch (Exception e){
-            this.flightState = State.ERROR;
+            MissionHandler.flightState = State.ERROR;
         }
     }
 
@@ -94,7 +94,7 @@ public class MissionHandler {
             operator.pauseMission(completionCallback);
         }
         catch (Exception e){
-            this.flightState = State.ERROR;
+            MissionHandler.flightState = State.ERROR;
         }
 
     }
@@ -105,7 +105,7 @@ public class MissionHandler {
             operator.resumeMission(completionCallback);
         }
         catch (Exception e){
-            this.flightState = State.ERROR;
+            MissionHandler.flightState = State.ERROR;
         }
     }
 
