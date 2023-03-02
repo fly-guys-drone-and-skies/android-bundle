@@ -4,7 +4,7 @@
 tmp/
 
 .gradle/
-*/.gradle/
+TigerApp/.gradle/
 local.properties
 
 *.class
