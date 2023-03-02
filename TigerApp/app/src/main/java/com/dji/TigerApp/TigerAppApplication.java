@@ -137,7 +137,7 @@ public class TigerAppApplication extends Application{
             public void run() {
                 try {
                     initRabbit();
-                } catch (InterruptedException e) {
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
