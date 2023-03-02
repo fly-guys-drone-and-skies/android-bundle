@@ -4,8 +4,9 @@ import com.dji.TigerApp.protobuf.Location;
 import com.dji.TigerApp.protobuf.VehicleAttitude;
 import com.dji.TigerApp.protobuf.VehicleStatus;
 import com.dji.TigerApp.protobuf.VehicleVelocity;
-import com.dji.TigerApp.protobuf.Attitude;
-import com.dji.TigerApp.protobuf.LocationCoordinate3D;
+
+import dji.common.flightcontroller.Attitude;
+import dji.common.flightcontroller.LocationCoordinate3D;
 
 public class Status {
     LocationCoordinate3D location;

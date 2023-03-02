@@ -1,5 +1,6 @@
-package com.dji.TigerApp;
+package com.dji.TigerApp.Mission;
 
+import dji.common.error.DJIError;
 import dji.common.mission.waypoint.WaypointMission;
 import dji.sdk.mission.waypoint.WaypointMissionOperator;
 
@@ -39,18 +40,8 @@ public class WaypointMissionList {
     }
 
     public void loadNextMission(WaypointMissionOperator operator) {
-        WaypointMission mission = waypointMissionList.nextMission();
-        ToastUtils.setResultToToast(mission.toString());
+        WaypointMission mission = nextMission();
         DJIError loadError = operator.loadMission(mission);
-
-        if (loadError != null) {
-            ToastUtils.setResultToToast("LOAD ERROR");
-            ToastUtils.setResultToToast(loadError.getDescription());
-        }
-        else {
-            ToastUtils.setResultToToast("LOAD SUCCESS");
-            ToastUtils.setResultToToast(operator.getLoadedMission().getWaypointList().toString());
-        }
     }
 
     public boolean isComplete() {
