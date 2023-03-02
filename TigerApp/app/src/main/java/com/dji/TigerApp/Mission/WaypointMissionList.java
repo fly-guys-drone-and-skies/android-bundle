@@ -38,7 +38,7 @@ public class WaypointMissionList {
         return mission;
     }
 
-    public loadNextMission(WaypointMissionOperator operator) {
+    public void loadNextMission(WaypointMissionOperator operator) {
         WaypointMission mission = waypointMissionList.nextMission();
         ToastUtils.setResultToToast(mission.toString());
         DJIError loadError = operator.loadMission(mission);
