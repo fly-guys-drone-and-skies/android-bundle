@@ -130,7 +130,7 @@ public class MissionHandler {
 
             waypointMissionBuilder = new WaypointMission.Builder();
 
-            this.flightState = State.UPLOADING;
+            MissionHandler.flightState = State.UPLOADING;
 
             List<Waypoint> tmp = BuildWaypointArray(route);
 
@@ -167,13 +167,13 @@ public class MissionHandler {
             mFlightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
             operator.uploadMission(completionCallback);
 
-            this.flightState = State.READY;
+            MissionHandler.flightState = State.READY;
             //TODO
             //Call function in Mission Sender to send this route for approval since upload was successful
         }
         catch (Exception e){
             waypointMissionBuilder = null;
-            this.flightState = State.ERROR;
+            MissionHandler.flightState = State.ERROR;
         }
     }
 
@@ -192,7 +192,7 @@ public class MissionHandler {
             operator.startMission(completionCallback);
         }
         catch (Exception e){
-            this.flightState = State.ERROR;
+            MissionHandler.flightState = State.ERROR;
         }
     }
 
@@ -202,7 +202,7 @@ public class MissionHandler {
             operator.stopMission(completionCallback);
         }
         catch (Exception e){
-            this.flightState = State.ERROR;
+            MissionHandler.flightState = State.ERROR;
         }
     }
 
@@ -212,7 +212,7 @@ public class MissionHandler {
             operator.pauseMission(completionCallback);
         }
         catch (Exception e){
-            this.flightState = State.ERROR;
+            MissionHandler.flightState = State.ERROR;
         }
 
     }
@@ -223,7 +223,7 @@ public class MissionHandler {
             operator.resumeMission(completionCallback);
         }
         catch (Exception e){
-            this.flightState = State.ERROR;
+            MissionHandler.flightState = State.ERROR;
         }
     }
 
