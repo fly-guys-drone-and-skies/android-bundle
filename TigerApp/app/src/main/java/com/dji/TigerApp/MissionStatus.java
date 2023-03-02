@@ -1,6 +1,10 @@
 package com.dji.TigerApp;
 
 
+import com.dji.TigerApp.protobuf.Location;
+import com.dji.TigerApp.protobuf.VehicleAttitude;
+import com.dji.TigerApp.protobuf.VehicleStatus;
+import com.dji.TigerApp.protobuf.VehicleVelocity;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;

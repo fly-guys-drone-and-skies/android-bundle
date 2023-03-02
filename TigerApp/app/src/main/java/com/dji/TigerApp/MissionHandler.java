@@ -115,7 +115,7 @@ public class MissionHandler {
     public List<Waypoint> BuildWaypointArray(RouteArray route){
         List<Waypoint> waypointList = new ArrayList<>();
         for (RoutePoint routePoint : route.getWaypointsList()){
-            Waypoint waypoint = new Waypoint(routePoint.getLat(), routePoint.getLong(), routePoint.getAlt());
+            Waypoint waypoint = new Waypoint(routePoint.getLocation().getLat(), routePoint.getLocation().getLong(), routePoint.getLocation().getAlt());
             waypoint.speed = 10;
             waypoint.removeAllAction();
             waypoint.actionTimeoutInSeconds = 0;
