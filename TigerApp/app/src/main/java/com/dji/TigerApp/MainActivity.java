@@ -40,6 +40,8 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
 
     private Handler handler;
 
+    private static Activity activity = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -98,7 +100,7 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
             });
 
         }
-
+    MainActivity.activity = this;
     }
 
     protected void onProductChange() {
@@ -211,10 +213,10 @@ public class MainActivity extends Activity implements SurfaceTextureListener,OnC
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
     }
 
-    public void showToast(final String msg) {
-        runOnUiThread(new Runnable() {
+    public static void showToast(final String msg) {
+        MainActivity.activity.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.activity, msg, Toast.LENGTH_SHORT).show();
             }
         });
     }
