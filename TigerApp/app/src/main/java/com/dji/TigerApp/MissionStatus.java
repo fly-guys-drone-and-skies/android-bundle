@@ -29,7 +29,7 @@ public class MissionStatus extends Thread{
 
     public MissionStatus(Connection connection) throws IOException {
         MissionStatus.channel = connection.createChannel();
-        this.flightControllerState = TigerAppApplication.getAircraftInstance().getFlightController().getState();
+        //this.flightControllerState = TigerAppApplication.getAircraftInstance().getFlightController().getState();
         //get controller
     }
 
@@ -56,7 +56,7 @@ public class MissionStatus extends Thread{
     }
 
     // Converts to VehicleStatus protobuf message
-    public VehicleStatus toMessage(LocationCoordinate3D location, Attitude attitude, float[] velocityXYZ, String status) {
+    public static VehicleStatus toMessage(LocationCoordinate3D location, Attitude attitude, float[] velocityXYZ, String status) {
         Location locationMessage = Location.newBuilder().
                 setLat(location.getLatitude()).
                 setLong(location.getLongitude()).

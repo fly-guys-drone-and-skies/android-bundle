@@ -42,16 +42,21 @@ public class OperatorListener implements WaypointMissionOperatorListener {
     }
 
     public void onExecutionUpdate(@NonNull WaypointMissionExecutionEvent waypointMissionExecutionEvent) {
-        // Status status = new Status(
-        //     flightControllerState.getAircraftLocation(),
-        //     flightControllerState.getAttitude(),
-        //     new float[] {
-        //             flightControllerState.getVelocityX(),
-        //             flightControllerState.getVelocityY(),
-        //             flightControllerState.getVelocityZ(),
-        //     },
-        //     operator.getCurrentState().toString()
-        // );
+        MissionStatus.send(
+            MissionStatus.toMessage(
+                flightControllerState.getAircraftLocation(),
+                flightControllerState.getAttitude(),
+                new float[] {
+                        flightControllerState.getVelocityX(),
+                        flightControllerState.getVelocityY(),
+                        flightControllerState.getVelocityZ(),
+                },
+                operator.getCurrentState().toString()
+            ).toByteArray(),
+                "ui-exchange",
+                "status",
+                "ui"
+        );
 
         //Sender.send(status.toMessage().toByteArray(), "ui-exchange", "status", "ui");
     }

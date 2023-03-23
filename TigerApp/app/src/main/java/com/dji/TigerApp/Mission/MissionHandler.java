@@ -1,9 +1,11 @@
 package com.dji.TigerApp.Mission;
 
+import com.dji.TigerApp.MissionStatus;
 import com.dji.TigerApp.TigerAppApplication;
 import com.dji.TigerApp.protobuf.RouteArray;
 
 import dji.common.error.DJIError;
+import dji.common.flightcontroller.FlightControllerState;
 import dji.common.mission.waypoint.WaypointMission;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
@@ -51,6 +53,23 @@ public class MissionHandler {
 
     public void startNewMission(RouteArray route) {
         WaypointMissionList missionList = RouteParser.buildMissionList(route);
+        FlightControllerState flightControllerState = flightController.getState();
+        MissionStatus.send(
+            MissionStatus.toMessage(
+                flightControllerState.getAircraftLocation(),
+                flightControllerState.getAttitude(),
+                new float[] {
+                        flightControllerState.getVelocityX(),
+                        flightControllerState.getVelocityY(),
+                        flightControllerState.getVelocityZ(),
+                },
+                operator.getCurrentState().toString()
+            ).toByteArray(),
+                "ui-exchange",
+                "status",
+                "ui"
+        );
+
         uploadMission(missionList);
         startFlight();
     }
