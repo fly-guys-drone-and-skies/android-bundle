@@ -11,6 +11,7 @@ import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.mission.MissionControl;
 import dji.sdk.mission.waypoint.WaypointMissionOperator;
+import dji.sdk.products.Aircraft;
 
 public class MissionHandler {
     private static MissionHandler missionHandler;

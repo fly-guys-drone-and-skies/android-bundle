@@ -86,38 +86,7 @@ public class TigerAppApplication extends Application{
         return (HandHeld) getProductInstance();
     }
 
-    private void initRabbit() throws InterruptedException, IOException {
-        MissionConsumer r = null;
-        Connection connection = null;
-        while (!rabbitStatus) {
-            try {
-                ConnectionFactory factory = new ConnectionFactory();
-                factory.setHost(RABBIT_IP);
-                connection = factory.newConnection();
-                r = new MissionConsumer(connection);
 
-                rabbitStatus = true;
-            } catch (Exception e) {
-                System.out.println(e.toString());
-                Thread.sleep(3000);
-                //wait and retry //TODO this is probably not ideal since we will keep remaking connections, if for example, the ip is wrong, but this also may be fine
-
-            } // need to think about ^
-        }
-        MissionStatus mstatus = new MissionStatus(connection);
-
-        r.consume();
-        mstatus.start();
-
-    }
-
-    public static boolean rabbitStatus() {
-        return rabbitStatus;
-    }
-
-    public String getRabbitIp() {
-        return RABBIT_IP;
-    }
 
 
     public static synchronized Camera getCameraInstance() {
@@ -133,15 +102,7 @@ public class TigerAppApplication extends Application{
 
     @Override
     public void onCreate() {
-        (new Thread() {
-            public void run() {
-                try {
-                    initRabbit();
-                } catch (IOException | InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+
 
 
         super.onCreate();

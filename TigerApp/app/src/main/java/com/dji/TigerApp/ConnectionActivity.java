@@ -223,7 +223,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
         mBtnOpen.setEnabled(false);
         mVersionTv = (TextView) findViewById(R.id.textView2);
         mVersionTv.setText(getResources().getString(R.string.sdk_version, DJISDKManager.getInstance().getRegistrationSDKVersion()));
-        mRabbitIP.setText("IP: " + TigerAppApplication.RABBIT_IP);
+        mRabbitIP.setText("IP: " + RabbitController.RABBIT_IP);
     }
 
     protected BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -255,7 +255,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
             db = false;
         }
 
-        if (TigerAppApplication.rabbitStatus()){
+        if (RabbitController.rabbitStatus()){
             mRabbitTextConnectionStatus.setText("Rabbit: connected");
             dr = true;
         }

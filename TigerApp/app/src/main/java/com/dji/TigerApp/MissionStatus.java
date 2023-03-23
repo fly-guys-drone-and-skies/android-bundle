@@ -22,37 +22,13 @@ import dji.common.flightcontroller.Attitude;
 import dji.common.flightcontroller.FlightControllerState;
 import dji.common.flightcontroller.LocationCoordinate3D;
 
-public class MissionStatus extends Thread{
+public class MissionStatus {
 
     private static Channel channel;
     private FlightControllerState flightControllerState;
 
     public MissionStatus(Connection connection) throws IOException {
         MissionStatus.channel = connection.createChannel();
-        //this.flightControllerState = TigerAppApplication.getAircraftInstance().getFlightController().getState();
-        //get controller
-    }
-
-    public void run(){
-        while(true) {
-            try {
-                // if drone status == flying
-                if (MissionHandler.getFlightState() == MissionHandler.State.FLYING){
-                    //create and send flying messages //TODO
-                    // message = new toMessage
-                }
-
-                // if else{
-                    // send appropriate message based on drone.status
-                    // ex message = uploading
-
-                //Send(message)
-                
-                Thread.sleep(900);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     // Converts to VehicleStatus protobuf message

@@ -15,6 +15,7 @@ import java.util.zip.InflaterOutputStream;
 import com.dji.TigerApp.protobuf.RoutePoint;
 import com.dji.TigerApp.protobuf.RouteArray;
 import com.dji.TigerApp.Mission.MissionHandler;
+import com.dji.TigerApp.MainActivity;
 
 public class MissionConsumer{
 
