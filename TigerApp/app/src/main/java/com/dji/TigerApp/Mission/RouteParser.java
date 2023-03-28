@@ -1,11 +1,13 @@
 package com.dji.TigerApp.Mission;
 
+import com.dji.TigerApp.MissionStatus;
 import com.dji.TigerApp.protobuf.RouteArray;
 import com.dji.TigerApp.protobuf.RoutePoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dji.common.flightcontroller.FlightControllerState;
 import dji.common.mission.waypoint.Waypoint;
 import dji.common.mission.waypoint.WaypointMission;
 import dji.common.mission.waypoint.WaypointMissionFinishedAction;

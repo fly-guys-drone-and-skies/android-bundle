@@ -52,25 +52,12 @@ public class MissionHandler {
         };
     }
 
-    public void startNewMission(RouteArray route) {
-        WaypointMissionList missionList = RouteParser.buildMissionList(route);
-        FlightControllerState flightControllerState = flightController.getState();
-        MissionStatus.send(
-            MissionStatus.toMessage(
-                flightControllerState.getAircraftLocation(),
-                flightControllerState.getAttitude(),
-                new float[] {
-                        flightControllerState.getVelocityX(),
-                        flightControllerState.getVelocityY(),
-                        flightControllerState.getVelocityZ(),
-                },
-                operator.getCurrentState().toString()
-            ).toByteArray(),
-                "ui-exchange",
-                "status",
-                "ui"
-        );
+    // public void debug() {
+    //     MissionStatus.send(new byte[1], "ui-exchange", "status", "ui");
+    // }
 
+    public void startNewMission(RouteArray route) {
+        WaypointMissionList missionList = RouteParser.buildMissionList(route, flightController.getState());
         uploadMission(missionList);
         startFlight();
     }
