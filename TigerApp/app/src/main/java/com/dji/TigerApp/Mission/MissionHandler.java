@@ -1,6 +1,7 @@
 package com.dji.TigerApp.Mission;
 
 import com.dji.TigerApp.MissionStatus;
+import com.dji.TigerApp.OperatorListener;
 import com.dji.TigerApp.TigerAppApplication;
 import com.dji.TigerApp.protobuf.RouteArray;
 
@@ -38,6 +39,7 @@ public class MissionHandler {
         if (missionHandler == null) {
             missionHandler = new MissionHandler();
         }
+
         return missionHandler;
     }
 
@@ -57,7 +59,8 @@ public class MissionHandler {
     // }
 
     public void startNewMission(RouteArray route) {
-        WaypointMissionList missionList = RouteParser.buildMissionList(route, flightController.getState());
+        WaypointMissionList missionList = RouteParser.buildMissionList(route);
+        operator.addListener(new OperatorListener(missionList, flightController.getState()));
         uploadMission(missionList);
         startFlight();
     }

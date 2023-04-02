@@ -55,7 +55,7 @@ public class OperatorListener implements WaypointMissionOperatorListener {
             ).toByteArray(),
                 "ui-exchange",
                 "status",
-                "ui"
+                "status"
         );
 
         //Sender.send(status.toMessage().toByteArray(), "ui-exchange", "status", "ui");
