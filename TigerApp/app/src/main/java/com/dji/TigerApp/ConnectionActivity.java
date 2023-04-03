@@ -72,6 +72,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
         IntentFilter filter = new IntentFilter();
         filter.addAction(TigerAppApplication.FLAG_CONNECTION_CHANGE);
         registerReceiver(mReceiver, filter);
+        new RabbitController().start();
     }
 
     /**

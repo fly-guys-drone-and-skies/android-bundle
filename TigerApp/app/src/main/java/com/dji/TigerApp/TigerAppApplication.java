@@ -36,9 +36,6 @@ public class TigerAppApplication extends Application{
 
     private Application instance;
 
-    public static boolean rabbitStatus = false;
-    public static final String RABBIT_IP = "10.2.135.248";
-
 
     public void setContext(Application application) {
         instance = application;
@@ -73,9 +70,7 @@ public class TigerAppApplication extends Application{
     }
 
     public static synchronized Aircraft getAircraftInstance() {
-        if (!isAircraftConnected()) {
-            return null;
-        }
+        while(!isAircraftConnected());
         return (Aircraft) getProductInstance();
     }
 
