@@ -63,4 +63,10 @@ public interface VehicleStatusOrBuilder extends
    */
   com.google.protobuf.ByteString
       getStatusBytes();
+
+  /**
+   * <code>int64 time = 5;</code>
+   * @return The time.
+   */
+  long getTime();
 }

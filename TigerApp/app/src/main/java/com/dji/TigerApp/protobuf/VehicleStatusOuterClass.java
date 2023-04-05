@@ -41,13 +41,13 @@ public final class VehicleStatusOuterClass {
       "\n\023VehicleStatus.proto\022\010tutorial\032\013Route.p" +
       "roto\"2\n\017VehicleVelocity\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030" +
       "\002 \001(\002\022\t\n\001z\030\003 \001(\002\";\n\017VehicleAttitude\022\r\n\005p" +
-      "itch\030\001 \001(\001\022\013\n\003yaw\030\002 \001(\001\022\014\n\004roll\030\003 \001(\001\"\242\001" +
+      "itch\030\001 \001(\001\022\013\n\003yaw\030\002 \001(\001\022\014\n\004roll\030\003 \001(\001\"\260\001" +
       "\n\rVehicleStatus\022$\n\010location\030\001 \001(\0132\022.tuto" +
       "rial.Location\022.\n\013velocityXYZ\030\002 \001(\0132\031.tut" +
       "orial.VehicleVelocity\022+\n\010attitude\030\003 \001(\0132" +
       "\031.tutorial.VehicleAttitude\022\016\n\006status\030\004 \001" +
-      "(\tB\035\n\031com.dji.TigerApp.protobufP\001b\006proto" +
-      "3"
+      "(\t\022\014\n\004time\030\005 \001(\003B\035\n\031com.dji.TigerApp.pro" +
+      "tobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -71,7 +71,7 @@ public final class VehicleStatusOuterClass {
     internal_static_tutorial_VehicleStatus_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_tutorial_VehicleStatus_descriptor,
-        new java.lang.String[] { "Location", "VelocityXYZ", "Attitude", "Status", });
+        new java.lang.String[] { "Location", "VelocityXYZ", "Attitude", "Status", "Time", });
     com.dji.TigerApp.protobuf.Route.getDescriptor();
   }
 

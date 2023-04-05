@@ -1,6 +1,8 @@
 package com.dji.TigerApp;
 
 
+import com.dji.TigerApp.protobuf.Debug;
+import com.dji.TigerApp.protobuf.DebugMessage;
 import com.dji.TigerApp.protobuf.Location;
 import com.dji.TigerApp.protobuf.VehicleAttitude;
 import com.dji.TigerApp.protobuf.VehicleStatus;
@@ -74,6 +76,18 @@ public class MissionStatus {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void sendDebug(String message) {
+        send(
+                DebugMessage.
+                        newBuilder().
+                        setMsg(message).
+                        build().toByteArray(),
+                "ui-exchange",
+                "status",
+                "debug"
+        );
     }
 }
 

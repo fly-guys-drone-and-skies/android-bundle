@@ -23,4 +23,5 @@ message VehicleStatus {
   VehicleVelocity velocityXYZ = 2;
   VehicleAttitude attitude = 3;
   string status = 4;
+  int64 time = 5;
 }

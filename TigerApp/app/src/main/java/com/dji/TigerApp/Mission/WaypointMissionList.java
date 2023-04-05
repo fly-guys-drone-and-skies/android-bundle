@@ -39,9 +39,10 @@ public class WaypointMissionList {
         return mission;
     }
 
-    public void loadNextMission(WaypointMissionOperator operator) {
+    public DJIError loadNextMission(WaypointMissionOperator operator) {
         WaypointMission mission = nextMission();
         DJIError loadError = operator.loadMission(mission);
+        return loadError;
     }
 
     public boolean isComplete() {

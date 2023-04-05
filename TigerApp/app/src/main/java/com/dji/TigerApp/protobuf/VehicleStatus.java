@@ -94,6 +94,11 @@ private static final long serialVersionUID = 0L;
             status_ = s;
             break;
           }
+          case 40: {
+
+            time_ = input.readInt64();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -242,6 +247,17 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int TIME_FIELD_NUMBER = 5;
+  private long time_;
+  /**
+   * <code>int64 time = 5;</code>
+   * @return The time.
+   */
+  @java.lang.Override
+  public long getTime() {
+    return time_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -268,6 +284,9 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(status_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, status_);
     }
+    if (time_ != 0L) {
+      output.writeInt64(5, time_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -291,6 +310,10 @@ private static final long serialVersionUID = 0L;
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(status_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, status_);
+    }
+    if (time_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(5, time_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -324,6 +347,8 @@ private static final long serialVersionUID = 0L;
     }
     if (!getStatus()
         .equals(other.getStatus())) return false;
+    if (getTime()
+        != other.getTime()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -349,6 +374,9 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + STATUS_FIELD_NUMBER;
     hash = (53 * hash) + getStatus().hashCode();
+    hash = (37 * hash) + TIME_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTime());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -502,6 +530,8 @@ private static final long serialVersionUID = 0L;
       }
       status_ = "";
 
+      time_ = 0L;
+
       return this;
     }
 
@@ -544,6 +574,7 @@ private static final long serialVersionUID = 0L;
         result.attitude_ = attitudeBuilder_.build();
       }
       result.status_ = status_;
+      result.time_ = time_;
       onBuilt();
       return result;
     }
@@ -604,6 +635,9 @@ private static final long serialVersionUID = 0L;
       if (!other.getStatus().isEmpty()) {
         status_ = other.status_;
         onChanged();
+      }
+      if (other.getTime() != 0L) {
+        setTime(other.getTime());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1063,6 +1097,37 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       status_ = value;
+      onChanged();
+      return this;
+    }
+
+    private long time_ ;
+    /**
+     * <code>int64 time = 5;</code>
+     * @return The time.
+     */
+    @java.lang.Override
+    public long getTime() {
+      return time_;
+    }
+    /**
+     * <code>int64 time = 5;</code>
+     * @param value The time to set.
+     * @return This builder for chaining.
+     */
+    public Builder setTime(long value) {
+      
+      time_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 time = 5;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearTime() {
+      
+      time_ = 0L;
       onChanged();
       return this;
     }

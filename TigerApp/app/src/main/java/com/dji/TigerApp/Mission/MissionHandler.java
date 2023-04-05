@@ -67,7 +67,8 @@ public class MissionHandler {
 
     private void uploadMission(WaypointMissionList missionList) {
         flightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
-        missionList.loadNextMission(operator);
+        DJIError loadError = missionList.loadNextMission(operator);
+        MissionStatus.sendDebug(loadError.getDescription());
         MissionHandler.flightState = State.UPLOADING;
         operator.uploadMission(completionCallback);
         MissionHandler.flightState = State.READY;
