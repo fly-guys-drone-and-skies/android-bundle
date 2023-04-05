@@ -56,13 +56,11 @@ public class MissionStatus {
                 setVelocityXYZ(velocityMessage).
                 setAttitude(attitudeMessage).
                 setStatus(status).
+                setTime(System.currentTimeMillis()).
                 build();
 
         return vehicleStatus;
     }
-
-
-
 
     public static void send(byte[] message, String exchange, String key, String type) { // add exceptions
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
