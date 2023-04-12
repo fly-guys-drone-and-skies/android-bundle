@@ -35,6 +35,7 @@ public class RouteParser {
                 missionList.addMission(mission);
             }
         } catch(Exception e) {
+            MissionStatus.sendDebug("mission list fail");
             waypointMissionBuilder = null;
             MissionHandler.flightState = MissionHandler.State.ERROR;
         }

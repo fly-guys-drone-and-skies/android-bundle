@@ -50,6 +50,7 @@ public class MissionHandler {
         completionCallback = (DJIError err) -> {
             if (err != null) {
                 System.out.println(err);
+                MissionStatus.sendDebug(err.getDescription());
             }
         };
     }
@@ -60,15 +61,23 @@ public class MissionHandler {
 
     public void startNewMission(RouteArray route) {
         WaypointMissionList missionList = RouteParser.buildMissionList(route);
+        MissionStatus.sendDebug("built mission list");
         operator.addListener(new OperatorListener(missionList, flightController.getState()));
+        MissionStatus.sendDebug("added listener");
         uploadMission(missionList);
+        MissionStatus.sendDebug("uploaded mission");
         startFlight();
     }
 
     private void uploadMission(WaypointMissionList missionList) {
         flightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
         DJIError loadError = missionList.loadNextMission(operator);
-        MissionStatus.sendDebug(loadError.getDescription());
+        if(loadError == null) {
+            MissionStatus.sendDebug(loadError.getDescription());
+        }
+        else {
+            MissionStatus.sendDebug("all good");
+        }
         MissionHandler.flightState = State.UPLOADING;
         operator.uploadMission(completionCallback);
         MissionHandler.flightState = State.READY;
