@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package com.dji.TigerApp.protobuf;
+option java_package = "com.dji.TigerApp.protobuf";
+option java_multiple_files = true;
+
+message DebugMessage {
+  string msg = 1;
+}
