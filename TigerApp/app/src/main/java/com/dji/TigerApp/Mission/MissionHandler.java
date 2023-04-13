@@ -8,6 +8,7 @@ import com.dji.TigerApp.protobuf.RouteArray;
 import dji.common.error.DJIError;
 import dji.common.flightcontroller.FlightControllerState;
 import dji.common.mission.waypoint.WaypointMission;
+import dji.common.mission.waypoint.WaypointMissionState;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.mission.MissionControl;
@@ -94,6 +95,7 @@ public class MissionHandler {
             flightState = State.FLYING;
             Thread.sleep(10000);
             flightController.startTakeoff(completionCallback);
+            while(operator.getCurrentState() != WaypointMissionState.READY_TO_EXECUTE && !flightController.getState().isFlying()); // wait while it takes off and prepares the mission.
             operator.startMission(completionCallback);
         }
         catch (Exception e){
