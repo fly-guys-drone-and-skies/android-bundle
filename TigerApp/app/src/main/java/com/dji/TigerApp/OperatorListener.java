@@ -42,38 +42,38 @@ public class OperatorListener implements WaypointMissionOperatorListener {
     }
 
     public void onExecutionUpdate(@NonNull WaypointMissionExecutionEvent waypointMissionExecutionEvent) {
-        MissionStatus.send(
-            MissionStatus.toMessage(
-                flightControllerState.getAircraftLocation(),
-                flightControllerState.getAttitude(),
-                new float[] {
-                        flightControllerState.getVelocityX(),
-                        flightControllerState.getVelocityY(),
-                        flightControllerState.getVelocityZ(),
-                },
-                operator.getCurrentState().toString()
-            ).toByteArray(),
-                "ui-exchange",
-                "status",
-                "status"
-        );
+//        MissionStatus.send(
+//            MissionStatus.toMessage(
+//                flightControllerState.getAircraftLocation(),
+//                flightControllerState.getAttitude(),
+//                new float[] {
+//                        flightControllerState.getVelocityX(),
+//                        flightControllerState.getVelocityY(),
+//                        flightControllerState.getVelocityZ(),
+//                },
+//                operator.getCurrentState().toString()
+//            ).toByteArray(),
+//                "ui-exchange",
+//                "status",
+//                "status"
+//        );
 
         //Sender.send(status.toMessage().toByteArray(), "ui-exchange", "status", "ui");
     }
 
     public void onExecutionStart() {
-        if(missionList.isComplete()) {
-            return;
-        }
-        operator.uploadMission(
-            (DJIError uploadError) -> {
-                if (uploadError != null) { // TODO Make this generic?
-                    System.out.println(uploadError.getDescription());
-                }
-                else {
-                    missionList.loadNextMission(operator);
-                }
-            }
-        );
+//        if(missionList.isComplete()) {
+//            return;
+//        }
+//        operator.uploadMission(
+//            (DJIError uploadError) -> {
+//                if (uploadError != null) { // TODO Make this generic?
+//                    System.out.println(uploadError.getDescription());
+//                }
+//                else {
+//                    missionList.loadNextMission(operator);
+//                }
+//            }
+//        );
     }
 }

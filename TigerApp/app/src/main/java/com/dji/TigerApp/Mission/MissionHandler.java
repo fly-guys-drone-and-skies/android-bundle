@@ -82,7 +82,16 @@ public class MissionHandler {
             MissionStatus.sendDebug("all good");
         }
         MissionHandler.flightState = State.UPLOADING;
-        operator.uploadMission(completionCallback);
+        MissionStatus.sendDebug(operator.getCurrentState().toString());
+
+        while(operator.getCurrentState() != WaypointMissionState.READY_TO_UPLOAD);
+        MissionStatus.sendDebug(operator.getCurrentState().toString());
+        while(operator.getCurrentState() == WaypointMissionState.READY_TO_UPLOAD) {
+            operator.uploadMission(completionCallback);
+
+        }
+        MissionStatus.sendDebug(operator.getCurrentState().toString());
+
         MissionHandler.flightState = State.READY;
     }
 
@@ -93,9 +102,14 @@ public class MissionHandler {
     public void startFlight(){
         try {
             flightState = State.FLYING;
-            Thread.sleep(10000);
-            flightController.startTakeoff(completionCallback);
-            while(operator.getCurrentState() != WaypointMissionState.READY_TO_EXECUTE && !flightController.getState().isFlying()); // wait while it takes off and prepares the mission.
+//            Thread.sleep(10000);
+//            flightController.startTakeoff(completionCallback);
+            MissionStatus.sendDebug(operator.getCurrentState().toString());
+            while(operator.getCurrentState() != WaypointMissionState.READY_TO_EXECUTE) {
+                Thread.sleep(10000);// wait while it takes off and prepares the mission.
+            }
+            MissionStatus.sendDebug(operator.getCurrentState().toString());
+
             operator.startMission(completionCallback);
         }
         catch (Exception e){
