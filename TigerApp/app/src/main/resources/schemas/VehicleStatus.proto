@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package tutorial;
+option java_package = "com.dji.TigerApp.protobuf";
+option java_multiple_files = true;
+
+import "Route.proto";
+
+message VehicleVelocity {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}
+
+message VehicleAttitude {
+  double pitch = 1;
+  double yaw = 2;
+  double roll = 3;
+}
+
+message VehicleStatus {
+  Location location = 1;
+  VehicleVelocity velocityXYZ = 2;
+  VehicleAttitude attitude = 3;
+  string status = 4;
+  int64 time = 5;
+}

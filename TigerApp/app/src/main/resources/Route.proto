@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package tutorial;
+<<<<<<<< HEAD:TigerApp/app/src/main/resources/Route.proto
+option java_package = "com.dji.sdk.sample.tigersalvage.proto.generated";
+========
+option java_package = "com.dji.TigerApp.protobuf";
+>>>>>>>> 22bc063539dbb4e00f060b99c7f41519a2415916:TigerApp/app/src/main/resources/schemas/Route.proto
+option java_multiple_files = true;
+
+message Location {
+  double lat = 1;
+  double long = 2;
+  float alt = 3;
+}
+
+message RoutePoint {
+  Location location = 1;
+  float speed = 2;
+}
+
+message RouteArray {
+  repeated RoutePoint waypoints = 1;
+}

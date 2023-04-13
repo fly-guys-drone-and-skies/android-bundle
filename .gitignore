@@ -3,6 +3,10 @@
 *.log
 tmp/
 
+.gradle/
+TigerApp/.gradle/
+local.properties
+
 *.class
 build
 
