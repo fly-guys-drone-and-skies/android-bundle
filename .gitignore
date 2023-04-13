@@ -8,6 +8,8 @@ TigerApp/.gradle/
 local.properties
 
 *.class
+*bin
+*.lock
 build
 
 Sample\ Code/app/src/main/java/com/dji/sdk/sample/tigersalvage/proto/schemas/generated/
