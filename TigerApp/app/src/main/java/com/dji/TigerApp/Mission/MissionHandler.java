@@ -70,9 +70,11 @@ public class MissionHandler {
     }
 
     private void uploadMission(WaypointMissionList missionList) {
+        MissionStatus.sendDebug("uploading");
         flightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
+        MissionStatus.sendDebug("home location set");
         DJIError loadError = missionList.loadNextMission(operator);
-        if(loadError == null) {
+        if(loadError != null) {
             MissionStatus.sendDebug(loadError.getDescription());
         }
         else {
@@ -90,11 +92,13 @@ public class MissionHandler {
     public void startFlight(){
         try {
             flightState = State.FLYING;
+            Thread.sleep(10000);
             flightController.startTakeoff(completionCallback);
             operator.startMission(completionCallback);
         }
         catch (Exception e){
             MissionHandler.flightState = State.ERROR;
+            MissionStatus.sendDebug(e.getMessage());
         }
     }
 

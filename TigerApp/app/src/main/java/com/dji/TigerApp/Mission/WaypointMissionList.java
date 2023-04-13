@@ -1,5 +1,7 @@
 package com.dji.TigerApp.Mission;
 
+import com.dji.TigerApp.MissionStatus;
+
 import dji.common.error.DJIError;
 import dji.common.mission.waypoint.WaypointMission;
 import dji.sdk.mission.waypoint.WaypointMissionOperator;
@@ -30,16 +32,19 @@ public class WaypointMissionList {
 
     public WaypointMission nextMission() {
         WaypointMission mission = missionList.get(currentMissionIndex);
+        MissionStatus.sendDebug(mission.toString());
+        MissionStatus.sendDebug(String.valueOf(isComplete));
         currentMissionIndex++;
 
-        if (currentMissionIndex > missionList.size()) {
+        if (currentMissionIndex + 1 > missionList.size()) {
             isComplete = true;
         }
-
+        MissionStatus.sendDebug("return mission");
         return mission;
     }
 
     public DJIError loadNextMission(WaypointMissionOperator operator) {
+        MissionStatus.sendDebug("loading next");
         WaypointMission mission = nextMission();
         DJIError loadError = operator.loadMission(mission);
         return loadError;
