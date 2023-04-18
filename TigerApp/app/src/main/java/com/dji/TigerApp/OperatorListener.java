@@ -21,7 +21,7 @@ public class OperatorListener implements WaypointMissionOperatorListener {
     private FlightControllerState flightControllerState;
     private WaypointMissionOperator operator;
 
-    public OperatorListener(WaypointMissionList missionList, FlightControllerState flightControllerState) {
+    public OperatorListener(WaypointMissionList missionList, FlightControllerState flightControllerState, WaypointMissionOperator operator) {
         this.missionList = missionList;
         this.flightControllerState = flightControllerState;
         this.operator = operator;
@@ -42,22 +42,25 @@ public class OperatorListener implements WaypointMissionOperatorListener {
     }
 
     public void onExecutionUpdate(@NonNull WaypointMissionExecutionEvent waypointMissionExecutionEvent) {
-//        MissionStatus.send(
-//            MissionStatus.toMessage(
-//                flightControllerState.getAircraftLocation(),
-//                flightControllerState.getAttitude(),
-//                new float[] {
-//                        flightControllerState.getVelocityX(),
-//                        flightControllerState.getVelocityY(),
-//                        flightControllerState.getVelocityZ(),
-//                },
-//                operator.getCurrentState().toString()
-//            ).toByteArray(),
-//                "ui-exchange",
-//                "status",
-//                "status"
-//        );
-
+        try {
+            MissionStatus.send(
+                    MissionStatus.toMessage(
+                            flightControllerState.getAircraftLocation(),
+                            flightControllerState.getAttitude(),
+                            new float[]{
+                                    flightControllerState.getVelocityX(),
+                                    flightControllerState.getVelocityY(),
+                                    flightControllerState.getVelocityZ(),
+                            },
+                            operator.getCurrentState().toString()
+                    ).toByteArray(),
+                    "ui-exchange",
+                    "status",
+                    "status"
+            );
+        } catch (Exception e) {
+            MissionStatus.sendDebug(e.getMessage());
+        }
         //Sender.send(status.toMessage().toByteArray(), "ui-exchange", "status", "ui");
     }
 

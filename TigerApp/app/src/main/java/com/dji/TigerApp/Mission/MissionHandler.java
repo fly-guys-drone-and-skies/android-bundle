@@ -63,7 +63,7 @@ public class MissionHandler {
     public void startNewMission(RouteArray route) {
         WaypointMissionList missionList = RouteParser.buildMissionList(route);
         MissionStatus.sendDebug("built mission list");
-        operator.addListener(new OperatorListener(missionList, flightController.getState()));
+        operator.addListener(new OperatorListener(missionList, flightController.getState(), operator));
         MissionStatus.sendDebug("added listener");
         uploadMission(missionList);
         MissionStatus.sendDebug("uploaded mission");

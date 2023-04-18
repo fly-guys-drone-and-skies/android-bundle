@@ -22,7 +22,7 @@ public class RouteParser {
         try {
             for(List<Waypoint> waypointList : buildWaypointListArray(route)) {
                 WaypointMission mission = waypointMissionBuilder.
-                    autoFlightSpeed(2.5f).
+                    autoFlightSpeed(15f).
                     maxFlightSpeed(15f).
                     headingMode(WaypointMissionHeadingMode.AUTO).
                     finishedAction(WaypointMissionFinishedAction.NO_ACTION).
