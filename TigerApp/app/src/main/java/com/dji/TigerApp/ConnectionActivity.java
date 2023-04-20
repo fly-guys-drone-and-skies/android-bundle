@@ -16,8 +16,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.NonNull;
@@ -73,6 +75,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
         filter.addAction(TigerAppApplication.FLAG_CONNECTION_CHANGE);
         registerReceiver(mReceiver, filter);
         new RabbitController().start();
+        MissionStatus.send(UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8), "ui-exchange", "status", "handshake");
     }
 
     /**
