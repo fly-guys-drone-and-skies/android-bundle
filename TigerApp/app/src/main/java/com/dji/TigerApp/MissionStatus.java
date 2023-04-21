@@ -18,6 +18,7 @@ import org.bouncycastle.jcajce.provider.digest.Tiger;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.zip.DeflaterOutputStream;
 
 import dji.common.flightcontroller.Attitude;
@@ -69,7 +70,12 @@ public class MissionStatus {
             outputStream.write(message, 0, message.length);
             outputStream.finish();
             BasicProperties props = new BasicProperties();
-            props = props.builder().type(type).build();
+            HashMap<String, Object> headers = new HashMap();
+            headers.put("vehicleId", RabbitController.VEHICLE_UUID);
+            props = props.builder().
+                    type(type).
+                    headers(headers).
+                    build();
             channel.basicPublish(exchange, key, props, byteStream.toByteArray()); //TODO only sending to 1 exchange, so hardcode ?
         } catch (IOException e) {
             e.printStackTrace();
