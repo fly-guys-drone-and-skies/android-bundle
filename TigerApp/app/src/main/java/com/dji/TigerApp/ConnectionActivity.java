@@ -75,7 +75,6 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
         filter.addAction(TigerAppApplication.FLAG_CONNECTION_CHANGE);
         registerReceiver(mReceiver, filter);
         new RabbitController().start();
-        MissionStatus.send(UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8), "ui-exchange", "status", "handshake");
     }
 
     /**

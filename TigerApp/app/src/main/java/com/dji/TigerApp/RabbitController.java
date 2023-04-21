@@ -29,7 +29,9 @@ public class RabbitController extends Thread {
                 ConnectionFactory factory = new ConnectionFactory();
                 factory.setHost(RABBIT_IP);
                 connection = factory.newConnection();
-                MissionStatus mstatus = new MissionStatus(connection);
+                new MissionStatus(connection);
+                MissionStatus.send(VEHICLE_UUID.getBytes(StandardCharsets.UTF_8), "ui-exchange", "status", "handshake");
+
                 r = new MissionConsumer(connection);
                 r.consume();
 
