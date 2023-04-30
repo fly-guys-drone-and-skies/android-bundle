@@ -38,7 +38,9 @@ public class MissionConsumer{
     public void consume() {
         try {
             channel.basicConsume("mission-app", true, (consumerTag, message) -> {
-
+                if(message.getProperties().getHeaders().get("vehicleId") != RabbitController.VEHICLE_UUID) {
+                    return;
+                }
                 String type = message.getProperties().getType();
                 //TODO for multiple drones
                 //String id = message.getProps.get Something
