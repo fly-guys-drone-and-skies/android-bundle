@@ -35,7 +35,6 @@ import dji.sdk.sdkmanager.DJISDKInitEvent;
 import dji.sdk.sdkmanager.DJISDKManager;
 
 public class ConnectionActivity extends Activity implements View.OnClickListener {
-
     private static final String TAG = ConnectionActivity.class.getName();
 
     private TextView mTextConnectionStatus;
@@ -60,6 +59,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE,
     };
+
     private List<String> missingPermission = new ArrayList<>();
     private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
     private static final int REQUEST_PERMISSION_CODE = 12345;
@@ -226,6 +226,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
         mBtnOpen.setEnabled(false);
         mVersionTv = (TextView) findViewById(R.id.textView2);
         mVersionTv.setText(getResources().getString(R.string.sdk_version, DJISDKManager.getInstance().getRegistrationSDKVersion()));
+
         mRabbitIP.setText("IP: " + RabbitController.RABBIT_IP);
     }
 

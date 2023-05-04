@@ -38,9 +38,9 @@ public class MissionConsumer{
     public void consume() {
         try {
             channel.basicConsume("mission-app", true, (consumerTag, message) -> {
-                if(message.getProperties().getHeaders().get("vehicleId") != RabbitController.VEHICLE_UUID) {
-                    return;
-                }
+//                if(!message.getProperties().getHeaders().isEmpty()) {
+//                    MissionStatus.sendDebug(message.getProperties().getHeaders().get("vehicleId").toString());
+//                }
                 String type = message.getProperties().getType();
                 //TODO for multiple drones
                 //String id = message.getProps.get Something
@@ -48,6 +48,7 @@ public class MissionConsumer{
 
                 switch (type) {
                     case "dune":
+                        MissionStatus.sendDebug("app msg received");
                         byte[] body = inflate(message.getBody());
                         RouteArray arr = RouteArray.newBuilder().mergeFrom(body).build();
                         handler.startNewMission(arr);

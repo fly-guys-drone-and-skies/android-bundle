@@ -40,12 +40,17 @@ public class WaypointMissionList {
             isComplete = true;
         }
         MissionStatus.sendDebug("return mission");
+        MissionStatus.sendDebug(String.valueOf(mission.getWaypointCount()));
+
         return mission;
     }
 
     public DJIError loadNextMission(WaypointMissionOperator operator) {
         MissionStatus.sendDebug("loading next");
+
         WaypointMission mission = nextMission();
+        MissionStatus.sendDebug(String.valueOf(mission.getWaypointCount()));
+
         DJIError loadError = operator.loadMission(mission);
         return loadError;
     }

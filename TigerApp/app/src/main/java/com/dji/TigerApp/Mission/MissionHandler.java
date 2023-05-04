@@ -51,7 +51,7 @@ public class MissionHandler {
         completionCallback = (DJIError err) -> {
             if (err != null) {
                 System.out.println(err);
-                MissionStatus.sendDebug(err.getDescription());
+//                MissionStatus.sendDebug(err.getDescription());
             }
         };
     }
@@ -82,15 +82,14 @@ public class MissionHandler {
             MissionStatus.sendDebug("all good");
         }
         MissionHandler.flightState = State.UPLOADING;
-        MissionStatus.sendDebug(operator.getCurrentState().toString());
+//        MissionStatus.sendDebug(operator.getCurrentState().toString());
 
         while(operator.getCurrentState() != WaypointMissionState.READY_TO_UPLOAD);
-        MissionStatus.sendDebug(operator.getCurrentState().toString());
-        while(operator.getCurrentState() == WaypointMissionState.READY_TO_UPLOAD) {
-            operator.uploadMission(completionCallback);
+//        MissionStatus.sendDebug(operator.getCurrentState().toString());
+        operator.uploadMission(completionCallback);
 
-        }
-        MissionStatus.sendDebug(operator.getCurrentState().toString());
+        while(operator.getCurrentState() == WaypointMissionState.READY_TO_UPLOAD);
+//        MissionStatus.sendDebug(operator.getCurrentState().toString());
 
         MissionHandler.flightState = State.READY;
     }
@@ -104,17 +103,17 @@ public class MissionHandler {
             flightState = State.FLYING;
 //            Thread.sleep(10000);
 //            flightController.startTakeoff(completionCallback);
-            MissionStatus.sendDebug(operator.getCurrentState().toString());
+//            MissionStatus.sendDebug(operator.getCurrentState().toString());
             while(operator.getCurrentState() != WaypointMissionState.READY_TO_EXECUTE) {
                 Thread.sleep(10000);// wait while it takes off and prepares the mission.
             }
-            MissionStatus.sendDebug(operator.getCurrentState().toString());
+//            MissionStatus.sendDebug(operator.getCurrentState().toString());
 
             operator.startMission(completionCallback);
         }
         catch (Exception e){
             MissionHandler.flightState = State.ERROR;
-            MissionStatus.sendDebug(e.getMessage());
+//            MissionStatus.sendDebug(e.getMessage());
         }
     }
 

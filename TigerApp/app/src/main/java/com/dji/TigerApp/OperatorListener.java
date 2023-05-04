@@ -59,7 +59,7 @@ public class OperatorListener implements WaypointMissionOperatorListener {
                     "status"
             );
         } catch (Exception e) {
-            MissionStatus.sendDebug(e.getMessage());
+            MissionStatus.sendDebug("exec update" + e.getMessage());
         }
         //Sender.send(status.toMessage().toByteArray(), "ui-exchange", "status", "ui");
     }
