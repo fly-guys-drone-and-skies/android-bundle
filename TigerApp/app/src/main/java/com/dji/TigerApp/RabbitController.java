@@ -10,7 +10,6 @@ import java.util.UUID;
 public class RabbitController extends Thread {
     public static boolean rabbitStatus = false;
     public static final String RABBIT_IP = "192.168.0.168";
-    public static final String VEHICLE_UUID = java.util.UUID.randomUUID().toString();
 
     public void run() {
         try {
@@ -30,7 +29,6 @@ public class RabbitController extends Thread {
                 factory.setHost(RABBIT_IP);
                 connection = factory.newConnection();
                 new MissionStatus(connection);
-                MissionStatus.send(VEHICLE_UUID.getBytes(StandardCharsets.UTF_8), "ui-exchange", "status", "handshake");
 
                 r = new MissionConsumer(connection);
                 r.consume();

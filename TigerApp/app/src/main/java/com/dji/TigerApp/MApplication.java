@@ -6,6 +6,7 @@ import android.content.Context;
 import com.secneo.sdk.Helper;
 
 public class MApplication extends Application {
+    public static final String DRONE_ID = "Drone 1";
 
     private TigerAppApplication TigerAppApplication;
     @Override

@@ -71,7 +71,7 @@ public class MissionStatus {
             outputStream.finish();
             BasicProperties props = new BasicProperties();
             HashMap<String, Object> headers = new HashMap();
-            headers.put("vehicleId", RabbitController.VEHICLE_UUID);
+            headers.put("vehicleId", MApplication.DRONE_ID);
             props = props.builder().
                     type(type).
                     headers(headers).
