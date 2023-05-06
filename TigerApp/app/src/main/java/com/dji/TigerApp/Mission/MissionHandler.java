@@ -22,6 +22,7 @@ public class MissionHandler {
     private WaypointMissionOperator operator;
     private CommonCallbacks.CompletionCallback completionCallback; // Generic callback function for certain SDK calls.
     private FlightController flightController;
+    private OperatorListener listener;
 
     public static State flightState = State.WAITING;
 
@@ -61,9 +62,15 @@ public class MissionHandler {
     // }
 
     public void startNewMission(RouteArray route) {
+        operator.stopMission(completionCallback); // Just in case it's already doing a mission.
+
         WaypointMissionList missionList = RouteParser.buildMissionList(route);
         MissionStatus.sendDebug("built mission list");
-        operator.addListener(new OperatorListener(missionList, flightController.getState(), operator));
+        if(listener == null) {
+            listener = new OperatorListener(missionList, flightController.getState(), operator);
+            operator.addListener(listener);
+        }
+
         MissionStatus.sendDebug("added listener");
         uploadMission(missionList);
         MissionStatus.sendDebug("uploaded mission");
@@ -72,10 +79,14 @@ public class MissionHandler {
 
     private void uploadMission(WaypointMissionList missionList) {
         MissionStatus.sendDebug("uploading");
-        flightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
+        if(!flightController.getState().isHomeLocationSet()) {
+            flightController.setHomeLocationUsingAircraftCurrentLocation(completionCallback);
+        }
         MissionStatus.sendDebug("home location set");
+        while(operator.getCurrentState() == WaypointMissionState.EXECUTING);
         DJIError loadError = missionList.loadNextMission(operator);
         if(loadError != null) {
+            MissionStatus.sendDebug(operator.getCurrentState().toString());
             MissionStatus.sendDebug(loadError.getDescription());
         }
         else {
@@ -86,7 +97,14 @@ public class MissionHandler {
 
         while(operator.getCurrentState() != WaypointMissionState.READY_TO_UPLOAD);
 //        MissionStatus.sendDebug(operator.getCurrentState().toString());
-        operator.uploadMission(completionCallback);
+        operator.uploadMission((DJIError uploadError) -> {
+            if (uploadError != null) { // TODO Make this generic?
+                System.out.println(uploadError.getDescription());
+            }
+            else {
+                missionList.loadNextMission(operator);
+            }
+        });
 
         while(operator.getCurrentState() == WaypointMissionState.READY_TO_UPLOAD);
 //        MissionStatus.sendDebug(operator.getCurrentState().toString());

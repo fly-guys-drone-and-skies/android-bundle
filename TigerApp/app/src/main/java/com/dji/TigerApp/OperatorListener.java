@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
+import com.dji.TigerApp.Mission.MissionHandler;
 import com.dji.TigerApp.Mission.WaypointMissionList;
 
 import dji.common.error.DJIError;
@@ -11,6 +12,7 @@ import dji.common.error.DJIError;
 import dji.common.flightcontroller.FlightControllerState;
 import dji.common.mission.waypoint.WaypointMissionDownloadEvent;
 import dji.common.mission.waypoint.WaypointMissionExecutionEvent;
+import dji.common.mission.waypoint.WaypointMissionState;
 import dji.common.mission.waypoint.WaypointMissionUploadEvent;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.mission.waypoint.WaypointMissionOperator;
@@ -29,7 +31,12 @@ public class OperatorListener implements WaypointMissionOperatorListener {
 
     public void onExecutionFinish(DJIError error) {
         if (error == null) {
-            //operator.startMission(completionCallback);
+            operator.startMission((DJIError err) -> {
+                if (err != null) {
+                    System.out.println(err);
+//                MissionStatus.sendDebug(err.getDescription());
+                }
+            });
         }
     }
 
@@ -65,18 +72,30 @@ public class OperatorListener implements WaypointMissionOperatorListener {
     }
 
     public void onExecutionStart() {
-//        if(missionList.isComplete()) {
-//            return;
-//        }
-//        operator.uploadMission(
-//            (DJIError uploadError) -> {
-//                if (uploadError != null) { // TODO Make this generic?
-//                    System.out.println(uploadError.getDescription());
-//                }
-//                else {
-//                    missionList.loadNextMission(operator);
-//                }
-//            }
-//        );
+        if(missionList.isComplete()) {
+            return;
+        }
+        DJIError loadError = missionList.loadNextMission(operator);
+        if(loadError != null) {
+            MissionStatus.sendDebug(loadError.getDescription());
+        }
+        else {
+            MissionStatus.sendDebug("all good");
+        }
+        MissionHandler.flightState = MissionHandler.State.UPLOADING;
+//        MissionStatus.sendDebug(operator.getCurrentState().toString());
+
+        while(operator.getCurrentState() != WaypointMissionState.READY_TO_UPLOAD);
+        // Should already have next mission loaded at this point.
+        operator.uploadMission(
+            (DJIError uploadError) -> {
+                if (uploadError != null) { // TODO Make this generic?
+                    System.out.println(uploadError.getDescription());
+                }
+                else {
+                    missionList.loadNextMission(operator);
+                }
+            }
+        );
     }
 }
