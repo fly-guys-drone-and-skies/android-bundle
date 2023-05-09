@@ -75,27 +75,27 @@ public class OperatorListener implements WaypointMissionOperatorListener {
         if(missionList.isComplete()) {
             return;
         }
-        DJIError loadError = missionList.loadNextMission(operator);
-        if(loadError != null) {
-            MissionStatus.sendDebug(loadError.getDescription());
-        }
-        else {
-            MissionStatus.sendDebug("all good");
-        }
+//        DJIError loadError = missionList.loadNextMission(operator);
+//        if(loadError != null) {
+//            MissionStatus.sendDebug(loadError.getDescription());
+//        }
+//        else {
+//            MissionStatus.sendDebug("all good");
+//        }
         MissionHandler.flightState = MissionHandler.State.UPLOADING;
 //        MissionStatus.sendDebug(operator.getCurrentState().toString());
 
-        while(operator.getCurrentState() != WaypointMissionState.READY_TO_UPLOAD);
+//        while(operator.getCurrentState() != WaypointMissionState.READY_TO_UPLOAD);
         // Should already have next mission loaded at this point.
-        operator.uploadMission(
-            (DJIError uploadError) -> {
-                if (uploadError != null) { // TODO Make this generic?
-                    System.out.println(uploadError.getDescription());
-                }
-                else {
-                    missionList.loadNextMission(operator);
-                }
-            }
-        );
+//        operator.uploadMission(
+//            (DJIError uploadError) -> {
+//                if (uploadError != null) { // TODO Make this generic?
+//                    System.out.println(uploadError.getDescription());
+//                }
+//                else {
+//                    missionList.loadNextMission(operator);
+//                }
+//            }
+//        );
     }
 }

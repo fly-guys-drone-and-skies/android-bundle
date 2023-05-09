@@ -47,8 +47,8 @@ public class RouteParser {
         List<Waypoint> waypointList = new ArrayList<>();
 
         for (RoutePoint routePoint : routePointList){
-            Waypoint waypoint = new Waypoint(routePoint.getLocation().getLat(), routePoint.getLocation().getLong(), routePoint.getLocation().getAlt());
-            waypoint.speed = routePoint.getSpeed();
+            Waypoint waypoint = new Waypoint(routePoint.getLocation().getLat(), routePoint.getLocation().getLong(), routePoint.getLocation().getAlt() + 5);
+            waypoint.speed = routePoint.getSpeed() + 1;
             waypoint.cornerRadiusInMeters = .2f;
 
             waypointList.add(waypoint);

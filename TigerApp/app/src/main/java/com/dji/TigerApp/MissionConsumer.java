@@ -37,7 +37,7 @@ public class MissionConsumer{
 
     public void consume() {
         try {
-            channel.basicConsume("mission-app", true, (consumerTag, message) -> {
+            channel.basicConsume("mission-app2", true, (consumerTag, message) -> {
 //                if(!message.getProperties().getHeaders().isEmpty()) {
 //                    MissionStatus.sendDebug(message.getProperties().getHeaders().get("vehicleId").toString());
 //                }

@@ -52,7 +52,7 @@ public class MissionHandler {
         completionCallback = (DJIError err) -> {
             if (err != null) {
                 System.out.println(err);
-//                MissionStatus.sendDebug(err.getDescription());
+                MissionStatus.sendDebug(err.getDescription());
             }
         };
     }
@@ -75,6 +75,37 @@ public class MissionHandler {
         uploadMission(missionList);
         MissionStatus.sendDebug("uploaded mission");
         startFlight();
+        FlightControllerState flightControllerState = flightController.getState();
+        (new Thread() {
+            public void run() {
+                while (true) {
+                    try {
+                        MissionStatus.send(
+                                MissionStatus.toMessage(
+                                        flightControllerState.getAircraftLocation(),
+                                        flightControllerState.getAttitude(),
+                                        new float[]{
+                                                flightControllerState.getVelocityX(),
+                                                flightControllerState.getVelocityY(),
+                                                flightControllerState.getVelocityZ(),
+                                        },
+                                        operator.getCurrentState().toString()
+                                ).toByteArray(),
+                                "ui-exchange",
+                                "status",
+                                "status"
+                        );
+                    } catch(Exception e){
+                        MissionStatus.sendDebug("exec update" + e.getMessage());
+                    }
+                    try {
+                        Thread.sleep(95);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     private void uploadMission(WaypointMissionList missionList) {
